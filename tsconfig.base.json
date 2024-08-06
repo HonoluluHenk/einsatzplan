@@ -1,20 +1,37 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "rootDir": ".",
-    "sourceMap": true,
+    "baseUrl": ".",
     "declaration": false,
-    "moduleResolution": "node",
     "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
+    "lib": [
+      "es2020",
+      "dom"
+    ],
     "module": "esnext",
-    "lib": ["es2020", "dom"],
-    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "noImplicitOverride": false,
+    "paths": {
+      "@einsatzplan/einsatzplan-lib/*": [
+        "libs/einsatzplan-lib/src/lib/*"
+      ],
+      "@einsatzplan/shared-fns": [
+        "libs/shared-fns/src/index.ts"
+      ]
+    },
+    "rootDir": ".",
     "skipDefaultLibCheck": true,
-    "baseUrl": ".",
-    "paths": {}
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2020"
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

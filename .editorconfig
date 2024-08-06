@@ -11,3 +11,8 @@ trim_trailing_whitespace = true
 [*.md]
 max_line_length = off
 trim_trailing_whitespace = false
+
+[*.ics]
+max_line_length = off
+end_of_line = crlf
+trim_trailing_whitespace = false
