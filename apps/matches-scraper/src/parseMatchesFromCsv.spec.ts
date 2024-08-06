@@ -7,6 +7,6 @@ describe('parseMatchesFromCsv', () => {
 
     console.log('matches', matches);
 
-    await writeMatchesJson(matches, './data/club/33282/teams/OM3/matches.json');
+    await writeMatchesJson(matches, 'apps/einsatzplan/public/assets/championship/MTTV%2024%2F25/Ostermundigen%20III/matches.json');
   });
 });

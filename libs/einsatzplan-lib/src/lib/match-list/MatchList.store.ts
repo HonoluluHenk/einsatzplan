@@ -1,8 +1,11 @@
 import {BaseStore} from "../store/base.store";
 import {Match} from "../model/match";
-import {computed, Injectable} from "@angular/core";
-import {ensureProps} from "../util/ensure";
-import {randomID} from "../types/ID.type";
+import {computed, DestroyRef, effect, inject, Injectable} from "@angular/core";
+import {MatchListService} from "@einsatzplan/einsatzplan-lib/match-list/MatchList.service";
+import {tap} from "rxjs";
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {firstBy} from 'thenby';
+import {EinsatzplanLibStore} from "@einsatzplan/einsatzplan-lib/einsatzplan-lib.store";
 
 export class Loader {
 
@@ -14,22 +17,27 @@ interface MatchListState {
 
 @Injectable()
 export class MatchListStore extends BaseStore<MatchListState> {
+  readonly #teamStore = inject(EinsatzplanLibStore);
+  readonly #matchListService = inject(MatchListService);
+  readonly #destroyRef = inject(DestroyRef);
+
   constructor() {
     super({
-      matches: [
-        ensureProps<Match>({
-          id: randomID('Match'),
-          homeTeamId: randomID('Team'),
-          opponentTeamId: randomID('Team'),
-          venueId: randomID('Venue'),
-          date: "2024-08-01",
-          startTime: "19:45:00",
-          flags: undefined,
-          plannedSetup: undefined
-        })
-      ]
+      matches: []
     });
+
+    effect(() => {
+      const team = this.#teamStore.team();
+      this.#matchListService.loadMatchList$(team.championship, team.teamName).pipe(
+        tap(matches => this.patchState(draft => ({matches}))),
+        takeUntilDestroyed(this.#destroyRef),
+      ).subscribe(
+        // FIXME: implement error handling
+      );
+    }, {allowSignalWrites: true})
   }
 
-  matches = computed(() => this.state().matches);
+  matches = computed(() => [...this.state().matches]
+    .sort(firstBy('date').thenBy('startTime'))
+  );
 }

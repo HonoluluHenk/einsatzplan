@@ -4,6 +4,11 @@ export const appRoutes: Route[] = [
   {
     path: '',
     pathMatch: 'full',
-    loadChildren: () => import('@einsatzplan/einsatzplan-lib').then(m => m.einsatzplanLibRoutes)
+    redirectTo: 'einsatzplan'
+  },
+  {
+    path: 'einsatzplan',
+    loadChildren: () => import('@einsatzplan/einsatzplan-lib/einsatzplan-lib.routes')
+      .then(m => m.einsatzplanLibRoutes)
   }
 ];

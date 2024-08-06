@@ -1,11 +1,11 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MatchListComponent} from "./match-list/MatchList.component";
+import {RouterOutlet} from "@angular/router";
 
 @Component({
   selector: 'epla-einsatzplan-lib',
   standalone: true,
-  imports: [CommonModule, MatchListComponent],
+  imports: [CommonModule, RouterOutlet],
   templateUrl: './einsatzplan-lib.component.html',
   styles: `
     :host {

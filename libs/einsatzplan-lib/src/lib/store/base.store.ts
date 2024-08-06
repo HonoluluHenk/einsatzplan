@@ -23,9 +23,7 @@ export abstract class BaseStore<State> {
   }
 
   protected patchState(patch: (state: State) => State | void): void {
-    this.#state.update(state => {
-      return produce(state, (draft: State) => patch(draft))
-    });
+    this.#state.update(state => produce(state, (draft: State) => patch(draft)));
   }
 
 }

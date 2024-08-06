@@ -4,9 +4,10 @@
   <tr>
     <td>ID</td>
     <td>Date</td>
+    <td>home</td>
+    <td>opponent</td>
     <td>start</td>
     <td>venue</td>
-    <td>opponent</td>
     <td>setup</td>
   </tr>
   </thead>
@@ -15,10 +16,15 @@
       <tr>
         <td>{{ match.id }}</td>
         <td>{{ match.date }}</td>
+        <td>{{ match.homeTeamId | json }}</td>
+        <td>{{ match.opponentTeamId | json }}</td>
         <td>{{ match.startTime }}</td>
         <td>{{ match.venueId }}</td>
-        <td>{{ match.opponentTeamId | json }}</td>
         <td>{{ match.plannedSetup | json }}</td>
+      </tr>
+    } @empty {
+      <tr>
+        <td colspan="7">No matches found</td>
       </tr>
     }
   </tbody>
