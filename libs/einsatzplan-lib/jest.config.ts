@@ -1,9 +1,9 @@
 /* eslint-disable */
 export default {
   displayName: 'einsatzplan-lib',
-  preset: '../jest.preset.js',
+  preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../coverage/einsatzplan-lib',
+  coverageDirectory: '../../coverage/einsatzplan-lib',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

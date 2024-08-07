@@ -1,10 +1,11 @@
 import {BaseStore} from "@einsatzplan/einsatzplan-lib/store/base.store";
 import {computed, Injectable} from "@angular/core";
 import {requireValue} from "@einsatzplan/einsatzplan-lib/util/nullish";
+import {Championship, parseChampionshipFromName} from "@einsatzplan/einsatzplan-lib/model";
 
 interface EinsatzplanLibState {
   team: undefined | {
-    championship: string;
+    championship: Championship;
     teamName: string;
   }
 }
@@ -20,7 +21,10 @@ export class EinsatzplanLibStore extends BaseStore<EinsatzplanLibState> {
   initFromRoute(championship: string, teamName: string) {
     console.log('Team: ', championship, teamName);
     this.patchState(_draft => ({
-      team: {championship, teamName}
+      team: {
+        championship: parseChampionshipFromName(championship),
+        teamName
+      }
     }));
   }
 

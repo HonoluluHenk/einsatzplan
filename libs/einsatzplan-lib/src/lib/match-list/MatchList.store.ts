@@ -28,7 +28,7 @@ export class MatchListStore extends BaseStore<MatchListState> {
 
     effect(() => {
       const team = this.#teamStore.team();
-      this.#matchListService.loadMatchList$(team.championship, team.teamName).pipe(
+      this.#matchListService.loadMatchList$(team.championship.backendId, team.teamName).pipe(
         tap(matches => this.patchState(draft => ({matches}))),
         takeUntilDestroyed(this.#destroyRef),
       ).subscribe(

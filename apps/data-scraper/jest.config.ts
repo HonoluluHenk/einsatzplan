@@ -1,11 +1,11 @@
 /* eslint-disable */
 export default {
-  displayName: 'matches-scraper',
+  displayName: 'data-scraper',
   preset: '../../jest.preset.js',
   testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]s$': '@swc/jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/apps/matches-scraper',
+  coverageDirectory: '../../coverage/apps/data-scraper',
 };

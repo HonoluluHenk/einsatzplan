@@ -8,7 +8,7 @@ import {asISOLocalDateString, asISOLocalTimeString} from "@einsatzplan/einsatzpl
 import {requireValue} from "@einsatzplan/einsatzplan-lib/util/nullish";
 import {Match} from "@einsatzplan/einsatzplan-lib/model";
 
-export async function parseMatchesFromIcal(filePath: string): Promise<Match[]> {
+export async function parseMatchesFromIcs(filePath: string): Promise<Match[]> {
   const content = await fs.readFile(filePath, 'utf-8');
 
   const jcal = parse(content);
