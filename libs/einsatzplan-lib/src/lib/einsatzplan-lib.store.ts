@@ -1,13 +1,15 @@
 import {BaseStore} from "@einsatzplan/einsatzplan-lib/store/base.store";
-import {computed, Injectable} from "@angular/core";
+import {computed, Injectable, Signal} from "@angular/core";
 import {requireValue} from "@einsatzplan/einsatzplan-lib/util/nullish";
 import {Championship, parseChampionshipFromName} from "@einsatzplan/einsatzplan-lib/model";
 
+export type CurrentTeam = {
+  teamName: string;
+  championship: Championship;
+};
+
 interface EinsatzplanLibState {
-  team: undefined | {
-    championship: Championship;
-    teamName: string;
-  }
+  team: undefined | CurrentTeam
 }
 
 @Injectable()
@@ -28,5 +30,5 @@ export class EinsatzplanLibStore extends BaseStore<EinsatzplanLibState> {
     }));
   }
 
-  team = computed(() => requireValue(this.state().team, "Store not initialized!"));
+  team: Signal<CurrentTeam> = computed(() => requireValue(this.state().team, "Store not initialized!"));
 }
