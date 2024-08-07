@@ -1,5 +1,5 @@
-[
-  {
+{
+  "Match:ba4031fd-d9cc-4a72-a653-8a6f25ae6a68": {
     "id": "Match:ba4031fd-d9cc-4a72-a653-8a6f25ae6a68",
     "homeTeamId": "Team:Ostermundigen III",
     "opponentTeamId": "Team:Münchenbuchsee II",
@@ -7,7 +7,7 @@
     "date": "2024-10-16",
     "startTime": "19:45:00"
   },
-  {
+  "Match:c3a99074-7e71-41a8-8d43-053964a3bd26": {
     "id": "Match:c3a99074-7e71-41a8-8d43-053964a3bd26",
     "homeTeamId": "Team:Ostermundigen III",
     "opponentTeamId": "Team:Bern IV",
@@ -15,7 +15,7 @@
     "date": "2024-09-04",
     "startTime": "19:45:00"
   },
-  {
+  "Match:80207204-9dd0-472f-8425-4ce207e2b850": {
     "id": "Match:80207204-9dd0-472f-8425-4ce207e2b850",
     "homeTeamId": "Team:Ostermundigen III",
     "opponentTeamId": "Team:Ittigen",
@@ -23,7 +23,7 @@
     "date": "2024-12-20",
     "startTime": "19:45:00"
   },
-  {
+  "Match:08da845a-7f8d-41af-8073-701f4b94ad86": {
     "id": "Match:08da845a-7f8d-41af-8073-701f4b94ad86",
     "homeTeamId": "Team:Ostermundigen III",
     "opponentTeamId": "Team:Wohlensee",
@@ -31,7 +31,7 @@
     "date": "2024-11-06",
     "startTime": "19:45:00"
   },
-  {
+  "Match:6ac4883e-fd20-41fb-95db-41db502182e0": {
     "id": "Match:6ac4883e-fd20-41fb-95db-41db502182e0",
     "homeTeamId": "Team:Ostermundigen III",
     "opponentTeamId": "Team:Tiefenau",
@@ -39,7 +39,7 @@
     "date": "2025-02-26",
     "startTime": "19:45:00"
   },
-  {
+  "Match:44fc13ab-fcb8-44d8-b64f-e9be32bd615d": {
     "id": "Match:44fc13ab-fcb8-44d8-b64f-e9be32bd615d",
     "homeTeamId": "Team:Ostermundigen III",
     "opponentTeamId": "Team:Burgdorf VI",
@@ -47,7 +47,7 @@
     "date": "2025-03-14",
     "startTime": "19:45:00"
   },
-  {
+  "Match:c515e62a-ac40-4f4c-a6b9-9da0072ee69f": {
     "id": "Match:c515e62a-ac40-4f4c-a6b9-9da0072ee69f",
     "homeTeamId": "Team:Ostermundigen III",
     "opponentTeamId": "Team:Kirchberg II",
@@ -55,7 +55,7 @@
     "date": "2025-01-22",
     "startTime": "19:45:00"
   },
-  {
+  "Match:4cf858c3-62c8-4307-9e03-a0bf74128254": {
     "id": "Match:4cf858c3-62c8-4307-9e03-a0bf74128254",
     "homeTeamId": "Team:Kirchberg II",
     "opponentTeamId": "Team:Ostermundigen III",
@@ -63,7 +63,7 @@
     "date": "2024-09-20",
     "startTime": "20:00:00"
   },
-  {
+  "Match:280b9ece-8188-49d2-a447-a5987dcb766d": {
     "id": "Match:280b9ece-8188-49d2-a447-a5987dcb766d",
     "homeTeamId": "Team:Burgdorf VI",
     "opponentTeamId": "Team:Ostermundigen III",
@@ -71,7 +71,7 @@
     "date": "2024-11-29",
     "startTime": "19:30:00"
   },
-  {
+  "Match:673a22c0-b545-4464-89bf-4d1722605563": {
     "id": "Match:673a22c0-b545-4464-89bf-4d1722605563",
     "homeTeamId": "Team:Tiefenau",
     "opponentTeamId": "Team:Ostermundigen III",
@@ -79,7 +79,7 @@
     "date": "2024-10-24",
     "startTime": "19:45:00"
   },
-  {
+  "Match:8c1c0533-0252-4383-8879-c6baecd032bb": {
     "id": "Match:8c1c0533-0252-4383-8879-c6baecd032bb",
     "homeTeamId": "Team:Wohlensee",
     "opponentTeamId": "Team:Ostermundigen III",
@@ -87,7 +87,7 @@
     "date": "2025-03-06",
     "startTime": "19:45:00"
   },
-  {
+  "Match:cdf242cf-ea9a-40b6-988c-6ad26b2f7071": {
     "id": "Match:cdf242cf-ea9a-40b6-988c-6ad26b2f7071",
     "homeTeamId": "Team:Ittigen",
     "opponentTeamId": "Team:Ostermundigen III",
@@ -95,7 +95,7 @@
     "date": "2025-03-24",
     "startTime": "19:45:00"
   },
-  {
+  "Match:608eebee-d612-4a0d-b8c1-9c7b92187de1": {
     "id": "Match:608eebee-d612-4a0d-b8c1-9c7b92187de1",
     "homeTeamId": "Team:Bern IV",
     "opponentTeamId": "Team:Ostermundigen III",
@@ -103,7 +103,7 @@
     "date": "2025-01-09",
     "startTime": "20:00:00"
   },
-  {
+  "Match:74a01bb2-d511-4363-83be-85313c5744ae": {
     "id": "Match:74a01bb2-d511-4363-83be-85313c5744ae",
     "homeTeamId": "Team:Münchenbuchsee II",
     "opponentTeamId": "Team:Ostermundigen III",
@@ -111,4 +111,4 @@
     "date": "2025-02-12",
     "startTime": "20:00:00"
   }
-]
+}

@@ -29,7 +29,7 @@ export class MatchListStore extends BaseStore<MatchListState> {
     effect(() => {
       const team = this.#teamStore.team();
       this.#matchListService.loadMatchList$(team.championship.backendId, team.teamName).pipe(
-        tap(matches => this.patchState(draft => ({matches}))),
+        tap(matches => this.patchState(draft => ({matches: Object.values(matches)}))),
         takeUntilDestroyed(this.#destroyRef),
       ).subscribe(
         // FIXME: implement error handling

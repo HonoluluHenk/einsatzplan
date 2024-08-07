@@ -1,0 +1,601 @@
+{
+  "Player:524030 ": {
+    "id": "Player:524030 ",
+    "name": {
+      "displayedName": "Tom Duffke",
+      "displayedNameFormal": "Duffke, Tom",
+      "givenName": "Tom",
+      "familyName": "Duffke"
+    },
+    "sex": "M",
+    "maleClassification": "A18"
+  },
+  "Player:524034 ": {
+    "id": "Player:524034 ",
+    "name": {
+      "displayedName": "Hendrik Hicken",
+      "displayedNameFormal": "Hicken, Hendrik",
+      "givenName": "Hendrik",
+      "familyName": "Hicken"
+    },
+    "sex": "M",
+    "maleClassification": "A18"
+  },
+  "Player:520027 ": {
+    "id": "Player:520027 ",
+    "name": {
+      "displayedName": "Björn Lessenich",
+      "displayedNameFormal": "Lessenich, Björn",
+      "givenName": "Björn",
+      "familyName": "Lessenich"
+    },
+    "sex": "M",
+    "maleClassification": "A18"
+  },
+  "Player:524033 ": {
+    "id": "Player:524033 ",
+    "name": {
+      "displayedName": "Janto Rohlfs",
+      "displayedNameFormal": "Rohlfs, Janto",
+      "givenName": "Janto",
+      "familyName": "Rohlfs"
+    },
+    "sex": "M",
+    "maleClassification": "A16"
+  },
+  "Player:514016 ": {
+    "id": "Player:514016 ",
+    "name": {
+      "displayedName": "Ramon Wittwer",
+      "displayedNameFormal": "Wittwer, Ramon",
+      "givenName": "Ramon",
+      "familyName": "Wittwer"
+    },
+    "sex": "M",
+    "maleClassification": "A16"
+  },
+  "Player:504381 ": {
+    "id": "Player:504381 ",
+    "name": {
+      "displayedName": "Severin Gilliéron",
+      "displayedNameFormal": "Gilliéron, Severin",
+      "givenName": "Severin",
+      "familyName": "Gilliéron"
+    },
+    "sex": "M",
+    "maleClassification": "B15"
+  },
+  "Player:508003 ": {
+    "id": "Player:508003 ",
+    "name": {
+      "displayedName": "Benjamin Möller",
+      "displayedNameFormal": "Möller, Benjamin",
+      "givenName": "Benjamin",
+      "familyName": "Möller"
+    },
+    "sex": "M",
+    "maleClassification": "B14"
+  },
+  "Player:516029 ": {
+    "id": "Player:516029 ",
+    "name": {
+      "displayedName": "Louis Reinhard",
+      "displayedNameFormal": "Reinhard, Louis",
+      "givenName": "Louis",
+      "familyName": "Reinhard"
+    },
+    "sex": "M",
+    "maleClassification": "B13"
+  },
+  "Player:502090 ": {
+    "id": "Player:502090 ",
+    "name": {
+      "displayedName": "Roman Wyss",
+      "displayedNameFormal": "Wyss, Roman",
+      "givenName": "Roman",
+      "familyName": "Wyss"
+    },
+    "sex": "M",
+    "maleClassification": "B13"
+  },
+  "Player:510057 ": {
+    "id": "Player:510057 ",
+    "name": {
+      "displayedName": "Jürgen Kurras",
+      "displayedNameFormal": "Kurras, Jürgen",
+      "givenName": "Jürgen",
+      "familyName": "Kurras"
+    },
+    "sex": "M",
+    "maleClassification": "B11"
+  },
+  "Player:500330 ": {
+    "id": "Player:500330 ",
+    "name": {
+      "displayedName": "Peter Schläfli",
+      "displayedNameFormal": "Schläfli, Peter",
+      "givenName": "Peter",
+      "familyName": "Schläfli"
+    },
+    "sex": "M",
+    "maleClassification": "C10"
+  },
+  "Player:913088 ": {
+    "id": "Player:913088 ",
+    "name": {
+      "displayedName": "Tim Schär",
+      "displayedNameFormal": "Schär, Tim",
+      "givenName": "Tim",
+      "familyName": "Schär"
+    },
+    "sex": "M",
+    "maleClassification": "C10"
+  },
+  "Player:503209 ": {
+    "id": "Player:503209 ",
+    "name": {
+      "displayedName": "Philipp Künzler",
+      "displayedNameFormal": "Künzler, Philipp",
+      "givenName": "Philipp",
+      "familyName": "Künzler"
+    },
+    "sex": "M",
+    "maleClassification": "C7"
+  },
+  "Player:100155 ": {
+    "id": "Player:100155 ",
+    "name": {
+      "displayedName": "René Santschi",
+      "displayedNameFormal": "Santschi, René",
+      "givenName": "René",
+      "familyName": "Santschi"
+    },
+    "sex": "M",
+    "maleClassification": "C7"
+  },
+  "Player:513002 ": {
+    "id": "Player:513002 ",
+    "name": {
+      "displayedName": "Christoph Linder",
+      "displayedNameFormal": "Linder, Christoph",
+      "givenName": "Christoph",
+      "familyName": "Linder"
+    },
+    "sex": "M",
+    "maleClassification": "C6"
+  },
+  "Player:521041 ": {
+    "id": "Player:521041 ",
+    "name": {
+      "displayedName": "Aaron Matter",
+      "displayedNameFormal": "Matter, Aaron",
+      "givenName": "Aaron",
+      "familyName": "Matter"
+    },
+    "sex": "M",
+    "maleClassification": "C6"
+  },
+  "Player:517063 ": {
+    "id": "Player:517063 ",
+    "name": {
+      "displayedName": "Oliver Schmid",
+      "displayedNameFormal": "Schmid, Oliver",
+      "givenName": "Oliver",
+      "familyName": "Schmid"
+    },
+    "sex": "M",
+    "maleClassification": "C6"
+  },
+  "Player:500233 ": {
+    "id": "Player:500233 ",
+    "name": {
+      "displayedName": "Simon Aeschimann",
+      "displayedNameFormal": "Aeschimann, Simon",
+      "givenName": "Simon",
+      "familyName": "Aeschimann"
+    },
+    "sex": "M",
+    "maleClassification": "D5"
+  },
+  "Player:522054 ": {
+    "id": "Player:522054 ",
+    "name": {
+      "displayedName": "Remo Beyeler",
+      "displayedNameFormal": "Beyeler, Remo",
+      "givenName": "Remo",
+      "familyName": "Beyeler"
+    },
+    "sex": "M",
+    "maleClassification": "D5"
+  },
+  "Player:508063 ": {
+    "id": "Player:508063 ",
+    "name": {
+      "displayedName": "Daniel Huber",
+      "displayedNameFormal": "Huber, Daniel",
+      "givenName": "Daniel",
+      "familyName": "Huber"
+    },
+    "sex": "M",
+    "maleClassification": "D5"
+  },
+  "Player:524001 ": {
+    "id": "Player:524001 ",
+    "name": {
+      "displayedName": "Oliver Protze",
+      "displayedNameFormal": "Protze, Oliver",
+      "givenName": "Oliver",
+      "familyName": "Protze"
+    },
+    "sex": "M",
+    "maleClassification": "D4"
+  },
+  "Player:502739 ": {
+    "id": "Player:502739 ",
+    "name": {
+      "displayedName": "Stefan Schüpbach",
+      "displayedNameFormal": "Schüpbach, Stefan",
+      "givenName": "Stefan",
+      "familyName": "Schüpbach"
+    },
+    "sex": "M",
+    "maleClassification": "D4"
+  },
+  "Player:510067 ": {
+    "id": "Player:510067 ",
+    "name": {
+      "displayedName": "Garbis Kayaoglu",
+      "displayedNameFormal": "Kayaoglu, Garbis",
+      "givenName": "Garbis",
+      "familyName": "Kayaoglu"
+    },
+    "sex": "M",
+    "maleClassification": "D3"
+  },
+  "Player:523004 ": {
+    "id": "Player:523004 ",
+    "name": {
+      "displayedName": "Timéo Kreyenbühl",
+      "displayedNameFormal": "Kreyenbühl, Timéo",
+      "givenName": "Timéo",
+      "familyName": "Kreyenbühl"
+    },
+    "sex": "M",
+    "maleClassification": "D3"
+  },
+  "Player:500235 ": {
+    "id": "Player:500235 ",
+    "name": {
+      "displayedName": "Urs Baumann",
+      "displayedNameFormal": "Baumann, Urs",
+      "givenName": "Urs",
+      "familyName": "Baumann"
+    },
+    "sex": "M",
+    "maleClassification": "D2"
+  },
+  "Player:519069 ": {
+    "id": "Player:519069 ",
+    "name": {
+      "displayedName": "Mathias Blaser",
+      "displayedNameFormal": "Blaser, Mathias",
+      "givenName": "Mathias",
+      "familyName": "Blaser"
+    },
+    "sex": "M",
+    "maleClassification": "D2"
+  },
+  "Player:522011 ": {
+    "id": "Player:522011 ",
+    "name": {
+      "displayedName": "Peter Brühwiler",
+      "displayedNameFormal": "Brühwiler, Peter",
+      "givenName": "Peter",
+      "familyName": "Brühwiler"
+    },
+    "sex": "M",
+    "maleClassification": "D2"
+  },
+  "Player:519028 ": {
+    "id": "Player:519028 ",
+    "name": {
+      "displayedName": "Daniel Hansen",
+      "displayedNameFormal": "Hansen, Daniel",
+      "givenName": "Daniel",
+      "familyName": "Hansen"
+    },
+    "sex": "M",
+    "maleClassification": "D2"
+  },
+  "Player:522008 ": {
+    "id": "Player:522008 ",
+    "name": {
+      "displayedName": "Pascal Lüchinger",
+      "displayedNameFormal": "Lüchinger, Pascal",
+      "givenName": "Pascal",
+      "familyName": "Lüchinger"
+    },
+    "sex": "M",
+    "maleClassification": "D2"
+  },
+  "Player:522019 ": {
+    "id": "Player:522019 ",
+    "name": {
+      "displayedName": "Sasha Milcu",
+      "displayedNameFormal": "Milcu, Sasha",
+      "givenName": "Sasha",
+      "familyName": "Milcu"
+    },
+    "sex": "M",
+    "maleClassification": "D2"
+  },
+  "Player:523044 ": {
+    "id": "Player:523044 ",
+    "name": {
+      "displayedName": "Teak Tang",
+      "displayedNameFormal": "Tang, Teak",
+      "givenName": "Teak",
+      "familyName": "Tang"
+    },
+    "sex": "M",
+    "maleClassification": "D2"
+  },
+  "Player:518077 ": {
+    "id": "Player:518077 ",
+    "name": {
+      "displayedName": "Niklas Verma",
+      "displayedNameFormal": "Verma, Niklas",
+      "givenName": "Niklas",
+      "familyName": "Verma"
+    },
+    "sex": "M",
+    "maleClassification": "D2"
+  },
+  "Player:500538 ": {
+    "id": "Player:500538 ",
+    "name": {
+      "displayedName": "Roland Wyss",
+      "displayedNameFormal": "Wyss, Roland",
+      "givenName": "Roland",
+      "familyName": "Wyss"
+    },
+    "sex": "M",
+    "maleClassification": "D2"
+  },
+  "Player:500517 ": {
+    "id": "Player:500517 ",
+    "name": {
+      "displayedName": "Franz Aspäck",
+      "displayedNameFormal": "Aspäck, Franz",
+      "givenName": "Franz",
+      "familyName": "Aspäck"
+    },
+    "sex": "M",
+    "maleClassification": "D1"
+  },
+  "Player:524060 ": {
+    "id": "Player:524060 ",
+    "name": {
+      "displayedName": "Enzo Beauvais",
+      "displayedNameFormal": "Beauvais, Enzo",
+      "givenName": "Enzo",
+      "familyName": "Beauvais"
+    },
+    "sex": "M",
+    "maleClassification": "D1"
+  },
+  "Player:522009 ": {
+    "id": "Player:522009 ",
+    "name": {
+      "displayedName": "Dibyendu Debnath",
+      "displayedNameFormal": "Debnath, Dibyendu",
+      "givenName": "Dibyendu",
+      "familyName": "Debnath"
+    },
+    "sex": "M",
+    "maleClassification": "D1"
+  },
+  "Player:514742 ": {
+    "id": "Player:514742 ",
+    "name": {
+      "displayedName": "Kurt Eggli",
+      "displayedNameFormal": "Eggli, Kurt",
+      "givenName": "Kurt",
+      "familyName": "Eggli"
+    },
+    "sex": "M",
+    "maleClassification": "D1"
+  },
+  "Player:501340 ": {
+    "id": "Player:501340 ",
+    "name": {
+      "displayedName": "Jean Esseiva",
+      "displayedNameFormal": "Esseiva, Jean",
+      "givenName": "Jean",
+      "familyName": "Esseiva"
+    },
+    "sex": "M",
+    "maleClassification": "D1"
+  },
+  "Player:523043 ": {
+    "id": "Player:523043 ",
+    "name": {
+      "displayedName": "Robin Göbel",
+      "displayedNameFormal": "Göbel, Robin",
+      "givenName": "Robin",
+      "familyName": "Göbel"
+    },
+    "sex": "M",
+    "maleClassification": "D1"
+  },
+  "Player:524057 ": {
+    "id": "Player:524057 ",
+    "name": {
+      "displayedName": "Jannis Hayer",
+      "displayedNameFormal": "Hayer, Jannis",
+      "givenName": "Jannis",
+      "familyName": "Hayer"
+    },
+    "sex": "M",
+    "maleClassification": "D1"
+  },
+  "Player:523041 ": {
+    "id": "Player:523041 ",
+    "name": {
+      "displayedName": "Holger Heisig",
+      "displayedNameFormal": "Heisig, Holger",
+      "givenName": "Holger",
+      "familyName": "Heisig"
+    },
+    "sex": "M",
+    "maleClassification": "D1"
+  },
+  "Player:523069 ": {
+    "id": "Player:523069 ",
+    "name": {
+      "displayedName": "Riyadh Heniche",
+      "displayedNameFormal": "Heniche, Riyadh",
+      "givenName": "Riyadh",
+      "familyName": "Heniche"
+    },
+    "sex": "M",
+    "maleClassification": "D1"
+  },
+  "Player:524058 ": {
+    "id": "Player:524058 ",
+    "name": {
+      "displayedName": "Leandro Jenni",
+      "displayedNameFormal": "Jenni, Leandro",
+      "givenName": "Leandro",
+      "familyName": "Jenni"
+    },
+    "sex": "M",
+    "maleClassification": "D1"
+  },
+  "Player:522056 ": {
+    "id": "Player:522056 ",
+    "name": {
+      "displayedName": "Leo Kläsle",
+      "displayedNameFormal": "Kläsle, Leo",
+      "givenName": "Leo",
+      "familyName": "Kläsle"
+    },
+    "sex": "M",
+    "maleClassification": "D1"
+  },
+  "Player:523042 ": {
+    "id": "Player:523042 ",
+    "name": {
+      "displayedName": "Markus Kläsle",
+      "displayedNameFormal": "Kläsle, Markus",
+      "givenName": "Markus",
+      "familyName": "Kläsle"
+    },
+    "sex": "M",
+    "maleClassification": "D1"
+  },
+  "Player:523068 ": {
+    "id": "Player:523068 ",
+    "name": {
+      "displayedName": "Eliel Künzler",
+      "displayedNameFormal": "Künzler, Eliel",
+      "givenName": "Eliel",
+      "familyName": "Künzler"
+    },
+    "sex": "M",
+    "maleClassification": "D1"
+  },
+  "Player:523067 ": {
+    "id": "Player:523067 ",
+    "name": {
+      "displayedName": "Alex Lehmann",
+      "displayedNameFormal": "Lehmann, Alex",
+      "givenName": "Alex",
+      "familyName": "Lehmann"
+    },
+    "sex": "M",
+    "maleClassification": "D1"
+  },
+  "Player:523097 ": {
+    "id": "Player:523097 ",
+    "name": {
+      "displayedName": "Claudio Petrucci",
+      "displayedNameFormal": "Petrucci, Claudio",
+      "givenName": "Claudio",
+      "familyName": "Petrucci"
+    },
+    "sex": "M",
+    "maleClassification": "D1"
+  },
+  "Player:522010 ": {
+    "id": "Player:522010 ",
+    "name": {
+      "displayedName": "Peter Stoffel",
+      "displayedNameFormal": "Stoffel, Peter",
+      "givenName": "Peter",
+      "familyName": "Stoffel"
+    },
+    "sex": "M",
+    "maleClassification": "D1"
+  },
+  "Player:520062 ": {
+    "id": "Player:520062 ",
+    "name": {
+      "displayedName": "Selina Holzer",
+      "displayedNameFormal": "Holzer, Selina",
+      "givenName": "Selina",
+      "familyName": "Holzer"
+    },
+    "sex": "F",
+    "maleClassification": "D3",
+    "femaleClassification": "C8"
+  },
+  "Player:516055 ": {
+    "id": "Player:516055 ",
+    "name": {
+      "displayedName": "Julia Pham",
+      "displayedNameFormal": "Pham, Julia",
+      "givenName": "Julia",
+      "familyName": "Pham"
+    },
+    "sex": "F",
+    "maleClassification": "D4",
+    "femaleClassification": "C8"
+  },
+  "Player:521045 ": {
+    "id": "Player:521045 ",
+    "name": {
+      "displayedName": "Aarna Debnath",
+      "displayedNameFormal": "Debnath, Aarna",
+      "givenName": "Aarna",
+      "familyName": "Debnath"
+    },
+    "sex": "F",
+    "maleClassification": "D2",
+    "femaleClassification": "D5"
+  },
+  "Player:524059 ": {
+    "id": "Player:524059 ",
+    "name": {
+      "displayedName": "Sylvia Beauvais",
+      "displayedNameFormal": "Beauvais, Sylvia",
+      "givenName": "Sylvia",
+      "familyName": "Beauvais"
+    },
+    "sex": "F",
+    "maleClassification": "D1",
+    "femaleClassification": "D1"
+  },
+  "Player:523070 ": {
+    "id": "Player:523070 ",
+    "name": {
+      "displayedName": "Celeste Matter",
+      "displayedNameFormal": "Matter, Celeste",
+      "givenName": "Celeste",
+      "familyName": "Matter"
+    },
+    "sex": "F",
+    "maleClassification": "D1",
+    "femaleClassification": "D1"
+  }
+}

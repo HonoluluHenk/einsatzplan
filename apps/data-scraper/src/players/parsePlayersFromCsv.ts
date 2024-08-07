@@ -2,11 +2,11 @@ import * as fs from 'fs/promises';
 import Papa from 'papaparse';
 
 import {Player} from "@einsatzplan/einsatzplan-lib/model";
-import {createID, ID} from "@einsatzplan/einsatzplan-lib/types/ID.type";
+import {createID} from "@einsatzplan/einsatzplan-lib/types/ID.type";
 import {parseName} from "@einsatzplan/einsatzplan-lib/types/Name";
 import {hasValue} from "@einsatzplan/einsatzplan-lib/util/nullish";
 
-export async function parsePlayersFromCsv(file: string): Promise<Record<ID<'Player'>, Player>> {
+export async function parsePlayersFromCsv(file: string): Promise<Player[]> {
   const csvContent = await fs.readFile(file, 'utf-8');
 
   const csv = Papa.parse<string[]>(csvContent, {
@@ -19,17 +19,9 @@ export async function parsePlayersFromCsv(file: string): Promise<Record<ID<'Play
     throw new Error('CSV parsing failed: ' + JSON.stringify(csv.errors));
   }
 
-  const playerList = csv.data
+  const result = csv.data
     .map(row => parsePlayer(row))
     .filter(hasValue);
-
-  let empty: Record<ID<'Player'>, Player> = {};
-
-  const result = playerList
-    .reduce(function (map, obj) {
-      map[obj.id] = obj;
-      return map;
-    }, empty);
 
   return result;
 }
