@@ -21,13 +21,18 @@
         "main": "apps/data-scraper/src/main.ts",
         "tsConfig": "apps/data-scraper/tsconfig.app.json",
         "assets": [
-          "apps/data-scraper/src/assets"
+          {
+            "input": "developer-local-settings",
+            "glob": "config/**/*.json",
+            "output": "developer-local-settings/"
+          }
         ],
         "generatePackageJson": true,
         "esbuildOptions": {
           "sourcemap": true,
           "outExtension": {
-            ".js": ".js"
+            ".js": ".js",
+            ".json": ".json"
           }
         }
       },

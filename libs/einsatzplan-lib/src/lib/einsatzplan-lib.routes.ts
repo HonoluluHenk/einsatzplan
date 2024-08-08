@@ -12,10 +12,10 @@ export const einsatzplanLibRoutes: Route[] = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'MTTV 24%2F25/Ostermundigen III'
+        redirectTo: 'MTTV 24%2F25/HE 3. Liga Gr. 3/Ostermundigen III'
       },
       {
-        path: ':championship/:teamName',
+        path: ':championship/:league/:teamName',
         pathMatch: 'full',
         component: MatchListComponent,
         providers: [
@@ -23,7 +23,7 @@ export const einsatzplanLibRoutes: Route[] = [
         ],
         resolve: {
           init: (route: ActivatedRouteSnapshot) => inject(EinsatzplanLibStore)
-            .initFromRoute(route.params['championship'], route.params['teamName'])
+            .initFromRoute(route.params['championship'], route.params['league'], route.params['teamName'])
         },
 
       },

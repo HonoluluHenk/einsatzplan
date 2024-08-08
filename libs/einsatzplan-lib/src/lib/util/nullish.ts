@@ -1,11 +1,12 @@
-export type Nullish<T> = (T & (null | undefined));
-export type NonNullish<T> = Exclude<T, null | undefined>;
+export type Nullish = null | undefined;
+export type InferredNullish<T> = (T & Nullish);
+export type NonNullish<T> = Exclude<T, Nullish>;
 
-export function isNullish<T>(value: T): value is Nullish<T> {
+export function isNullish<T>(value: T): value is InferredNullish<T> {
   return value === null || value === undefined;
 }
 
-export function hasValue<T>(value: T | null | undefined): value is NonNullish<T> {
+export function hasValue<T>(value: T | Nullish): value is NonNullish<T> {
   return !isNullish(value);
 }
 

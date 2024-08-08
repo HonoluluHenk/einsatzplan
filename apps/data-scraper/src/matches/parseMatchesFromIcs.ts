@@ -17,7 +17,20 @@ export async function parseMatchesFromIcs(filePath: string): Promise<Match[]> {
 
   const matches = vevents.map(parseEvent);
 
-  return matches;
+  const result = matches.map(m => {
+    if (m.homeTeamId === createID('Team', 'Bern IV')
+      && m.opponentTeamId === createID('Team', 'Ostermundigen III')) {
+      // FIXME: temporary hack until we have venue parsing implemented
+      return {
+        ...m,
+        venueId: createID('Venue', '2')
+      };
+    } else {
+      return m;
+    }
+  })
+
+  return result;
 }
 
 function parseEvent(vevent: Event): Match {

@@ -23,6 +23,7 @@
         "libs/shared-fns/src/index.ts"
       ]
     },
+    "resolveJsonModule": true,
     "rootDir": ".",
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,

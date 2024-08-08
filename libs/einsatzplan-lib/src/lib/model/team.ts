@@ -15,7 +15,7 @@ export interface Team {
   id: ID<'Team'>;
   name: string;
   shortName: string;
-  venues: Venue[];
+  venues: Record<ID<'Venue'>, Venue>;
   contact: TeamContact,
-  defaultPlayers: Player[];
+  defaultPlayers: ID<'Player'>[];
 }

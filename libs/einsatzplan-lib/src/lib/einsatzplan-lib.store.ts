@@ -4,8 +4,9 @@ import {requireValue} from "@einsatzplan/einsatzplan-lib/util/nullish";
 import {Championship, parseChampionshipFromName} from "@einsatzplan/einsatzplan-lib/model";
 
 export type CurrentTeam = {
-  teamName: string;
   championship: Championship;
+  league: string;
+  teamName: string;
 };
 
 interface EinsatzplanLibState {
@@ -20,11 +21,12 @@ export class EinsatzplanLibStore extends BaseStore<EinsatzplanLibState> {
     });
   }
 
-  initFromRoute(championship: string, teamName: string) {
-    console.log('Team: ', championship, teamName);
+  initFromRoute(championship: string, league: string, teamName: string) {
+    console.log('Team: ', championship, league, teamName);
     this.patchState(_draft => ({
       team: {
         championship: parseChampionshipFromName(championship),
+        league: league,
         teamName
       }
     }));

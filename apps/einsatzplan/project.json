@@ -16,7 +16,8 @@
         "index": "apps/einsatzplan/src/index.html",
         "browser": "apps/einsatzplan/src/main.ts",
         "polyfills": [
-          "zone.js"
+          "zone.js",
+          "@angular/localize/init"
         ],
         "tsConfig": "apps/einsatzplan/tsconfig.app.json",
         "inlineStyleLanguage": "scss",

@@ -1,0 +1,9 @@
+{
+  "projectId": "CHANGEME",
+  "appId": "CHANGEME",
+  "databaseURL": "https://CHANGEME.firebasedatabase.app",
+  "storageBucket": "CHANGEME.appspot.com",
+  "apiKey": "CHANGEME",
+  "authDomain": "CHANGEME.firebaseapp.com",
+  "messagingSenderId": "CHANGEME"
+}

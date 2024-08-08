@@ -2,25 +2,25 @@
 <table>
   <thead>
   <tr>
-    <td>ID</td>
-    <td>Date</td>
-    <td>home</td>
-    <td>opponent</td>
-    <td>start</td>
-    <td>venue</td>
-    <td>setup</td>
+    <td i18n="@@MatchListComponent.Spieltag">Spieltag</td>
+    <td i18n="@@MatchListComponent.Heimmannschaft">Heim</td>
+    <td i18n="@@MatchListComponent.Gastmannschaft">Gast</td>
+    <td i18n="@@MatchListComponent.Beginn">Beginn</td>
+    <td i18n="@@MatchListComponent.Spiellokal">Spiellokal</td>
+    <td i18n="@@MatchListComponent.Einsatzplan">Einsatzplan</td>
   </tr>
   </thead>
   <tbody>
     @for (match of store.matches(); track match.id) {
       <tr>
-        <td>{{ match.id }}</td>
-        <td>{{ match.date }}</td>
-        <td>{{ match.homeTeamId | json }}</td>
-        <td>{{ match.opponentTeamId | json }}</td>
-        <td>{{ match.startTime }}</td>
+        <td>{{ match.date | date }}</td>
+        <td>{{ match.homeTeamId }}</td>
+        <td>{{ match.opponentTeamId }}</td>
+        <td>{{ match.startTime | time }}</td>
         <td>{{ match.venueId }}</td>
-        <td>{{ match.plannedSetup | json }}</td>
+        <td>
+          <epla-match-setup-inline [setup]="match.plannedSetup"></epla-match-setup-inline>
+        </td>
       </tr>
     } @empty {
       <tr>
