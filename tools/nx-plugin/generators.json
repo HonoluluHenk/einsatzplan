@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "store": {
+      "factory": "./src/generators/store/generator",
+      "schema": "./src/generators/store/schema.json",
+      "description": "store generator"
+    }
+  }
+}
