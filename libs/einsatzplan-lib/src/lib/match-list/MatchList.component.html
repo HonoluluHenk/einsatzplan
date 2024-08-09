@@ -1,31 +1,36 @@
-<p>MatchList works!</p>
-<table>
-  <thead>
-  <tr>
-    <td i18n="@@MatchListComponent.Spieltag">Spieltag</td>
-    <td i18n="@@MatchListComponent.Heimmannschaft">Heim</td>
-    <td i18n="@@MatchListComponent.Gastmannschaft">Gast</td>
-    <td i18n="@@MatchListComponent.Beginn">Beginn</td>
-    <td i18n="@@MatchListComponent.Spiellokal">Spiellokal</td>
-    <td i18n="@@MatchListComponent.Einsatzplan">Einsatzplan</td>
-  </tr>
-  </thead>
-  <tbody>
-    @for (match of store.matches(); track match.id) {
-      <tr>
-        <td>{{ match.date | date }}</td>
-        <td>{{ match.homeTeamId }}</td>
-        <td>{{ match.opponentTeamId }}</td>
-        <td>{{ match.startTime | time }}</td>
-        <td>{{ match.venueId }}</td>
-        <td>
-          <epla-match-setup-inline [setup]="match.plannedSetup"></epla-match-setup-inline>
-        </td>
-      </tr>
-    } @empty {
-      <tr>
-        <td colspan="7">No matches found</td>
-      </tr>
-    }
-  </tbody>
-</table>
+<section sharedUI>
+  <epla-current-player></epla-current-player>
+</section>
+
+<section sharedUi>
+  <table sharedUi>
+    <thead>
+    <tr>
+      <th i18n="@@MatchListComponent.Spieltag">Spieltag</th>
+      <th i18n="@@MatchListComponent.Heimmannschaft">Heim</th>
+      <th i18n="@@MatchListComponent.Gastmannschaft">Gast</th>
+      <th i18n="@@MatchListComponent.Beginn">Beginn</th>
+      <th i18n="@@MatchListComponent.Spiellokal">Spiellokal</th>
+      <th i18n="@@MatchListComponent.Einsatzplan">Einsatzplan</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (match of store.matches(); track match.id) {
+        <tr>
+          <td>{{ match.date | date }}</td>
+          <td>{{ match.homeTeamId }}</td>
+          <td>{{ match.opponentTeamId }}</td>
+          <td>{{ match.startTime | time }}</td>
+          <td>{{ match.venueId }}</td>
+          <td>
+            <epla-match-setup-inline [setup]="match.plannedSetup"></epla-match-setup-inline>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="5" i18n="@@global.loading">Lade Daten...</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>

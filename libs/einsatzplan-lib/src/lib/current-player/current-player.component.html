@@ -1,0 +1,8 @@
+<select #s (ngModelChange)="playerChanged($event)" [ngModel]="currentPlayerStore.currentPlayerID()">
+  <option [ngValue]="null" i18n="@@Global.BitteAuswaehlen">Bitte auswählen</option>
+  @for (player of clubPlayersStore.playerList(); track player.id) {
+    <option [ngValue]="player.id">
+      {{ player.name.displayedName }}
+    </option>
+  }
+</select>

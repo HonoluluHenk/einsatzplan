@@ -9,25 +9,25 @@ export type CurrentTeam = {
   teamName: string;
 };
 
-interface EinsatzplanLibState {
+interface CurrentTeamLibState {
   team: undefined | CurrentTeam
 }
 
 @Injectable()
-export class EinsatzplanLibStore extends BaseStore<EinsatzplanLibState> {
+export class CurrentTeamStore extends BaseStore<CurrentTeamLibState> {
   constructor() {
     super({
       team: undefined
     });
   }
 
-  initFromRoute(championship: string, league: string, teamName: string) {
-    console.log('Team: ', championship, league, teamName);
+  init(params: { championship: string, league: string, teamName: string }) {
+    console.debug('Team: ', params);
     this.patchState(_draft => ({
       team: {
-        championship: parseChampionshipFromName(championship),
-        league: league,
-        teamName
+        championship: parseChampionshipFromName(params.championship),
+        league: params.league,
+        teamName: params.teamName
       }
     }));
   }

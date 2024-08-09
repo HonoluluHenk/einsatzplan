@@ -3,7 +3,7 @@ export type IDUnique = never;
 
 export function isID<EntityName extends string>(
   entityName: EntityName,
-  id: string | null | undefined
+  id: unknown
 ): id is ID<EntityName> {
   return typeof id === 'string' && id.match(new RegExp(`^${entityName}:.+`)) !== null;
 }

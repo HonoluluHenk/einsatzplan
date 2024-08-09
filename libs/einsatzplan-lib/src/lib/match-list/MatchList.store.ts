@@ -3,7 +3,7 @@ import {Match} from "../model/match";
 import {computed, effect, inject, Injectable} from "@angular/core";
 import {Subject, switchMap} from "rxjs";
 import {firstBy} from 'thenby';
-import {CurrentTeam, EinsatzplanLibStore} from "@einsatzplan/einsatzplan-lib/einsatzplan-lib.store";
+import {CurrentTeam, CurrentTeamStore} from "@einsatzplan/einsatzplan-lib/current-team.store";
 import {Database, objectVal, ref} from "@angular/fire/database";
 import {ID} from "@einsatzplan/einsatzplan-lib/types/ID.type";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
@@ -11,20 +11,22 @@ import {cleanPathForFirebaseKey} from "@einsatzplan/einsatzplan-lib/util/firebas
 
 interface MatchListState {
   matches: Match[];
+  currentPlayerId: ID<'Player'> | undefined;
 }
 
 @Injectable()
 export class MatchListStore extends BaseStore<MatchListState> {
-  readonly #teamStore = inject(EinsatzplanLibStore);
+  readonly #teamStore = inject(CurrentTeamStore);
   readonly #team$ = new Subject<CurrentTeam>();
   readonly #db = inject(Database);
 
   constructor() {
     super({
-      matches: []
+      matches: [],
+      currentPlayerId: undefined,
     });
 
-    const values$ = this.#team$.pipe(
+    this.#team$.pipe(
       switchMap(currentTeam => {
 
         const championship = cleanPathForFirebaseKey(currentTeam.championship.backendId);
@@ -37,8 +39,9 @@ export class MatchListStore extends BaseStore<MatchListState> {
       takeUntilDestroyed(),
     ).subscribe({
       next: next => {
-        console.log('values', values$);
-        this.patchState(draft => ({matches: Object.values(next)}));
+        this.patchState(draft => {
+          draft.matches = Object.values(next);
+        });
       },
       error: console.error
     });

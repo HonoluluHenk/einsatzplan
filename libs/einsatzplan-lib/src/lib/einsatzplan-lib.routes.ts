@@ -1,8 +1,11 @@
 import {ActivatedRouteSnapshot, Route} from '@angular/router';
 import {EinsatzplanLibComponent} from './einsatzplan-lib.component';
-import {EinsatzplanLibStore} from "@einsatzplan/einsatzplan-lib/einsatzplan-lib.store";
+import {CurrentTeamStore} from "@einsatzplan/einsatzplan-lib/current-team.store";
 import {inject} from "@angular/core";
 import {MatchListComponent} from "@einsatzplan/einsatzplan-lib/match-list/MatchList.component";
+import {ClubPlayersStore} from "@einsatzplan/einsatzplan-lib/club-players.store";
+import {createID} from './types/ID.type';
+import {CurrentPlayerStore} from "@einsatzplan/einsatzplan-lib/current-player.store";
 
 export const einsatzplanLibRoutes: Route[] = [
   {
@@ -19,11 +22,19 @@ export const einsatzplanLibRoutes: Route[] = [
         pathMatch: 'full',
         component: MatchListComponent,
         providers: [
-          EinsatzplanLibStore,
+          CurrentTeamStore,
+          CurrentPlayerStore,
+          ClubPlayersStore,
         ],
         resolve: {
-          init: (route: ActivatedRouteSnapshot) => inject(EinsatzplanLibStore)
-            .initFromRoute(route.params['championship'], route.params['league'], route.params['teamName'])
+          initTeam: (route: ActivatedRouteSnapshot) => inject(CurrentTeamStore)
+            .init({
+              championship: route.params['championship'],
+              league: route.params['league'],
+              teamName: route.params['teamName']
+            }),
+          initClubPlayers: (route: ActivatedRouteSnapshot) => inject(ClubPlayersStore)
+            .clubChanged(createID('Club', 'ignored'))
         },
 
       },
