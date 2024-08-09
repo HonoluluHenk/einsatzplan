@@ -114,13 +114,19 @@
   "generators": {
     "@nx/angular:application": {
       "e2eTestRunner": "playwright",
+      "setParserOptionsProject": true,
       "linter": "eslint",
       "style": "scss",
       "unitTestRunner": "jest"
     },
     "@nx/angular:library": {
       "linter": "eslint",
-      "unitTestRunner": "jest"
+      "unitTestRunner": "jest",
+      "setParserOptionsProject": true,
+      "changeDetection": "OnPush",
+      "style": "scss",
+      "displayBlock": true,
+      "inlineStyle": true
     },
     "@nx/angular:component": {
       "style": "scss",

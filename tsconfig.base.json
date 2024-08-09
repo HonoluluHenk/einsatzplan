@@ -14,13 +14,16 @@
     ],
     "module": "esnext",
     "moduleResolution": "node",
-    "noImplicitOverride": false,
+    "noImplicitOverride": true,
     "paths": {
       "@einsatzplan/einsatzplan-lib/*": [
         "libs/einsatzplan-lib/src/lib/*"
       ],
       "@einsatzplan/shared-fns": [
         "libs/shared-fns/src/index.ts"
+      ],
+      "@einsatzplan/shared-ui/*": [
+        "libs/shared-ui/src/lib/*"
       ]
     },
     "resolveJsonModule": true,
