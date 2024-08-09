@@ -1,9 +1,9 @@
 {
-  "projectId": "CHANGEME",
-  "appId": "CHANGEME",
-  "databaseURL": "https://CHANGEME.firebasedatabase.app",
-  "storageBucket": "CHANGEME.appspot.com",
   "apiKey": "CHANGEME",
+  "appId": "CHANGEME",
   "authDomain": "CHANGEME.firebaseapp.com",
-  "messagingSenderId": "CHANGEME"
+  "databaseURL": "https://CHANGEME.firebasedatabase.app",
+  "messagingSenderId": "CHANGEME",
+  "projectId": "CHANGEME",
+  "storageBucket": "CHANGEME.appspot.com"
 }
