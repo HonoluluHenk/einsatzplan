@@ -1,20 +1,17 @@
-import {ID} from "@einsatzplan/einsatzplan-lib/types/ID.type";
-import {ISOLocalTimeString} from "@einsatzplan/einsatzplan-lib/types/ISOLocalTimeString";
-import {Player} from "./player";
-import {ISOLocalDateString} from "@einsatzplan/einsatzplan-lib/types/ISOLocalDateString";
+import { ISOLocalTimeString } from '@einsatzplan/einsatzplan-lib/types/ISOLocalTimeString';
+import { ISOLocalDateString } from '@einsatzplan/einsatzplan-lib/types/ISOLocalDateString';
+import { ID } from '@einsatzplan/einsatzplan-lib/types/ID.type';
+import { TeamID } from '@einsatzplan/einsatzplan-lib/model/team';
+import { VenueID } from '@einsatzplan/einsatzplan-lib/model/venue';
+
+export type MatchID = ID<'Match'>;
 
 export interface Match {
-  id: ID<'Match'>;
-  homeTeamId: ID<'Team'>;
-  opponentTeamId: ID<'Team'>;
-  venueId: ID<'Venue'>;
+  id: MatchID;
+  homeTeamId: TeamID;
+  opponentTeamId: TeamID;
+  venueId: VenueID;
   date: ISOLocalDateString;
   startTime: ISOLocalTimeString;
   flags?: string | undefined;
-  plannedSetup?: MatchSetup | undefined;
-}
-
-export interface MatchSetup {
-  homePlayers: Player[];
-  opponentPlayers: Player[];
 }

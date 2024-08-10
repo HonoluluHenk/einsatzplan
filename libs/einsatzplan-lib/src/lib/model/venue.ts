@@ -1,8 +1,10 @@
-import {ID} from "@einsatzplan/einsatzplan-lib/types/ID.type";
-import {Address} from "./address";
+import { Address } from './address';
+import { ID } from '@einsatzplan/einsatzplan-lib/types/ID.type';
+
+export type VenueID = ID<'Venue'>;
 
 export interface Venue {
-  id: ID<'Venue'>;
+  id: VenueID;
   number: number;
   name: string;
   address: Address;
