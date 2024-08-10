@@ -1,12 +1,12 @@
+import type { Tree } from '@nx/devkit';
 import {
   formatFiles,
   generateFiles,
   names,
   OverwriteStrategy,
-  Tree,
 } from '@nx/devkit';
 import * as path from 'path';
-import { NormalizedSchema, StoreGeneratorGeneratorSchema } from './schema';
+import type { NormalizedSchema, StoreGeneratorGeneratorSchema } from './schema';
 import { determineArtifactNameAndDirectoryOptions } from '@nx/devkit/src/generators/artifact-name-and-directory-utils';
 import { dasherize } from '@nx/devkit/src/utils/string-utils';
 import { loadESLint } from 'eslint';
@@ -30,6 +30,10 @@ export async function storeGeneratorGenerator(
   await formatFiles(tree);
 
   return async () => {
+    if (options.skipLintFix) {
+      return;
+    }
+
     const files = tree.listChanges().map((c) => c.path);
     console.log('Running eslint --fix on generated files:', files);
 
@@ -67,6 +71,7 @@ async function normalizeOptions(
     fileName,
     storeClassName,
     stateClassName,
+    skipLintFix: rawOptions.skipLintFix ?? false,
   };
 
   return result;

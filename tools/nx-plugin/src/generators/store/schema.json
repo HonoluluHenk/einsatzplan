@@ -30,6 +30,12 @@
         "as-provided",
         "derived"
       ]
+    },
+    "skipLintFix": {
+      "description": "Do not run eslint --fix on the generated files.",
+      "type": "boolean",
+      "default": false,
+      "alias": "L"
     }
   },
   "required": [

@@ -10,6 +10,10 @@ export interface StoreGeneratorGeneratorSchema {
    */
   directory?: string;
   nameAndDirectoryFormat?: NameAndDirectoryFormat;
+  /**
+   * Skip running lint fix after generating the store.
+   */
+  skipLintFix?: boolean;
 }
 
 export interface NormalizedSchema {
@@ -19,4 +23,5 @@ export interface NormalizedSchema {
   fileName: string;
   storeClassName: string;
   stateClassName: string;
+  skipLintFix: boolean;
 }
