@@ -1,7 +1,7 @@
 import {TimePipe} from './time.pipe';
 import {ComponentFixture, TestBed} from "@angular/core/testing";
 import {Component} from "@angular/core";
-import {ISOLocalTimeString} from "@einsatzplan/einsatzplan-lib/types/ISOLocalTimeString";
+import { ISOLocalTimeString } from '../types/ISOLocalTimeString';
 
 describe('TimePipe', () => {
 

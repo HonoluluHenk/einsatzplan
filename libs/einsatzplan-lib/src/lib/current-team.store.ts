@@ -1,7 +1,7 @@
-import {BaseStore} from "@einsatzplan/einsatzplan-lib/store/base.store";
-import {computed, Injectable, Signal} from "@angular/core";
-import {requireValue} from "@einsatzplan/einsatzplan-lib/util/nullish";
-import {Championship, parseChampionshipFromName} from "@einsatzplan/einsatzplan-lib/model";
+import { BaseStore } from './store/base.store';
+import { computed, Injectable, Signal } from '@angular/core';
+import { requireValue } from './util/nullish';
+import { Championship, parseChampionshipFromName } from './model/Championship';
 
 export type CurrentTeam = {
   championship: Championship;
@@ -10,27 +10,29 @@ export type CurrentTeam = {
 };
 
 interface CurrentTeamLibState {
-  team: undefined | CurrentTeam
+  team: undefined | CurrentTeam;
 }
 
 @Injectable()
 export class CurrentTeamStore extends BaseStore<CurrentTeamLibState> {
   constructor() {
     super({
-      team: undefined
+      team: undefined,
     });
   }
 
-  init(params: { championship: string, league: string, teamName: string }) {
+  init(params: { championship: string; league: string; teamName: string }) {
     console.debug('Team: ', params);
-    this.patchState(_draft => ({
+    this.patchState((_draft) => ({
       team: {
         championship: parseChampionshipFromName(params.championship),
         league: params.league,
-        teamName: params.teamName
-      }
+        teamName: params.teamName,
+      },
     }));
   }
 
-  team: Signal<CurrentTeam> = computed(() => requireValue(this.state().team, "Store not initialized!"));
+  team: Signal<CurrentTeam> = computed(() =>
+    requireValue(this.state().team, 'Store not initialized!')
+  );
 }

@@ -1,8 +1,7 @@
-import {Directive} from '@angular/core';
+import { Directive } from '@angular/core';
 
 @Directive({
-  selector: 'table[sharedUi]',
+  selector: 'table[libSharedUi]',
   standalone: true,
 })
-export class TableDirective {
-}
+export class TableDirective {}

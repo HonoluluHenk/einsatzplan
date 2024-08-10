@@ -2,7 +2,12 @@
   "name": "@einsatzplan/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start": "nx run einsatzplan:serve",
+    "test": "nx run-many --target=test --parallel=4",
+    "lint": "nx run-many --target=lint --parallel=4",
+    "lint:fix": "nx run-many --target=lint --parallel=4 --fix"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~18.1.0",

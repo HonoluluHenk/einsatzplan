@@ -1,10 +1,10 @@
 import * as fs from 'fs/promises';
 import Papa from 'papaparse';
 
-import {Player} from "@einsatzplan/einsatzplan-lib/model";
-import {createID} from "@einsatzplan/einsatzplan-lib/types/ID.type";
-import {parseName} from "@einsatzplan/einsatzplan-lib/types/Name";
-import {hasValue} from "@einsatzplan/einsatzplan-lib/util/nullish";
+import type { Player } from '@einsatzplan/einsatzplan-lib/model';
+import { parseID } from '@einsatzplan/einsatzplan-lib/types/ID.type';
+import { parseName } from '@einsatzplan/einsatzplan-lib/types/Name';
+import { hasValue } from '@einsatzplan/einsatzplan-lib/util/nullish';
 
 export async function parsePlayersFromCsv(file: string): Promise<Player[]> {
   const csvContent = await fs.readFile(file, 'utf-8');
@@ -19,9 +19,7 @@ export async function parsePlayersFromCsv(file: string): Promise<Player[]> {
     throw new Error('CSV parsing failed: ' + JSON.stringify(csv.errors));
   }
 
-  const result = csv.data
-    .map(row => parsePlayer(row))
-    .filter(hasValue);
+  const result = csv.data.map((row) => parsePlayer(row)).filter(hasValue);
 
   return result;
 }
@@ -35,8 +33,7 @@ function parsePlayer(cols: string[]): Player | undefined {
     throw new Error('Invalid player row: ' + cols);
   }
 
-
-  const id = createID('Player', cols[2]);
+  const id = parseID('Player', cols[2]);
   const name = parseName(cols[1]);
   const phone = undefined;
   const email = undefined;
@@ -58,6 +55,6 @@ function parsePlayer(cols: string[]): Player | undefined {
     phone,
     email,
     googleCalendarId,
-    appleCalendarId
-  }
+    appleCalendarId,
+  };
 }

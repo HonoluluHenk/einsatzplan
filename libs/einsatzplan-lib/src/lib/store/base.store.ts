@@ -1,4 +1,5 @@
-import {signal, Signal, WritableSignal} from "@angular/core";
+import type { Signal, WritableSignal} from "@angular/core";
+import {signal} from "@angular/core";
 import {produce} from "immer";
 
 export type AnyJson = boolean | number | string | null | JsonArray | JsonMap;
@@ -7,8 +8,7 @@ export interface JsonMap {
   [key: string]: AnyJson;
 }
 
-export interface JsonArray extends Array<AnyJson> {
-}
+export type JsonArray = Array<AnyJson>
 
 
 export abstract class BaseStore<State> {

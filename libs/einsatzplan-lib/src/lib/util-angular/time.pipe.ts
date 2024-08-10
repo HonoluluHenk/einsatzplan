@@ -1,6 +1,6 @@
 import {inject, LOCALE_ID, Pipe, PipeTransform} from '@angular/core';
-import {ISOLocalTimeString} from "@einsatzplan/einsatzplan-lib/types/ISOLocalTimeString";
-import {isNullish, Nullish} from "@einsatzplan/einsatzplan-lib/util/nullish";
+import { ISOLocalTimeString } from '../types/ISOLocalTimeString';
+import { isNullish, Nullish } from '../util/nullish';
 
 @Pipe({
   name: 'time',

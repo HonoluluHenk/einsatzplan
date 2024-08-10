@@ -1,13 +1,12 @@
-import {Directive, ElementRef} from '@angular/core';
+import { Directive } from '@angular/core';
 
 @Directive({
-  selector: '[sharedUi]',
+  selector: '[libSharedUi]',
   standalone: true,
 })
 export class FallbackDirective {
-  constructor(
-    _ref: ElementRef<HTMLElement>
-  ) {
-    // console.debug('FallbackDirective used on:', ref.nativeElement);
-  }
+  // ref = inject(ElementRef<HTMLElement>);
+  // constructor() {
+  //   console.debug('FallbackDirective used on:', this.ref.nativeElement);
+  // }
 }

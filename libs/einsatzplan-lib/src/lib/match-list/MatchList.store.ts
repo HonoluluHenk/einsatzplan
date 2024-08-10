@@ -1,16 +1,13 @@
 import { BaseStore } from '../store/base.store';
-import { Match, MatchID } from '../model/match';
+import { Match, MatchID } from '../model/Match';
 import { computed, effect, inject, Injectable } from '@angular/core';
 import { Subject, switchMap } from 'rxjs';
 import { firstBy } from 'thenby';
-import {
-  CurrentTeam,
-  CurrentTeamStore,
-} from '@einsatzplan/einsatzplan-lib/current-team.store';
+import { CurrentTeam, CurrentTeamStore } from '../current-team.store';
 import { Database, objectVal, ref } from '@angular/fire/database';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { cleanPathForFirebaseKey } from '@einsatzplan/einsatzplan-lib/util/firebase-util';
-import { PlayerID } from '@einsatzplan/einsatzplan-lib/model';
+import { cleanPathForFirebaseKey } from '../util/firebase-util';
+import { PlayerID } from '../model/Player';
 
 interface MatchListState {
   matches: Match[];
