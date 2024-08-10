@@ -3,13 +3,13 @@ import * as fs from 'fs/promises';
 // @ts-expect-error ical-js has no types
 import { Component, Event, parse } from 'ical.js';
 import { ensureProps } from '@einsatzplan/einsatzplan-lib/util/ensure';
-import { createID } from '@einsatzplan/einsatzplan-lib/types/ID.type';
+import { parseID } from '@einsatzplan/einsatzplan-lib/types/ID.type';
 import {
   asISOLocalDateString,
   asISOLocalTimeString,
 } from '@einsatzplan/einsatzplan-lib/util/date-util';
 import { requireValue } from '@einsatzplan/einsatzplan-lib/util/nullish';
-import { Match } from '@einsatzplan/einsatzplan-lib/model';
+import type { Match } from '@einsatzplan/einsatzplan-lib/model';
 
 export async function parseMatchesFromIcs(filePath: string): Promise<Match[]> {
   const content = await fs.readFile(filePath, 'utf-8');
@@ -22,13 +22,13 @@ export async function parseMatchesFromIcs(filePath: string): Promise<Match[]> {
 
   const result = matches.map((m) => {
     if (
-      m.homeTeamId === createID('Team', 'Bern IV') &&
-      m.opponentTeamId === createID('Team', 'Ostermundigen III')
+      m.homeTeamId === parseID('Team', 'Bern IV') &&
+      m.opponentTeamId === parseID('Team', 'Ostermundigen III')
     ) {
       // FIXME: temporary hack until we have venue parsing implemented
       return {
         ...m,
-        venueId: createID('Venue', '2'),
+        venueId: parseID('Venue', '2'),
       };
     } else {
       return m;
@@ -41,15 +41,12 @@ export async function parseMatchesFromIcs(filePath: string): Promise<Match[]> {
 function parseEvent(vevent: Event): Match {
   const event = new Event(vevent);
 
-  const summary = event.summary;
   const description = event.description;
-  const location = event.location;
-  const organizer = event.organizer;
   const startDate = event.startDate.toJSDate();
   const uid = event.uid;
 
   // console.log('calendar', calendar);
-  const tz = 'Europe/Zurich';
+  // const tz = 'Europe/Zurich';
   const utcDate = startDate; //zonedTimeToUtc(startDate, tz);
   const date = asISOLocalDateString(utcDate);
   const startTime = asISOLocalTimeString(utcDate);
@@ -58,10 +55,10 @@ function parseEvent(vevent: Event): Match {
   const opponentTeam = parseOpponentTeam(description);
 
   const match = ensureProps<Match>({
-    id: createID('Match', uid),
-    homeTeamId: createID('Team', homeTeam),
-    opponentTeamId: createID('Team', opponentTeam),
-    venueId: createID('Venue', '1'),
+    id: parseID('Match', uid),
+    homeTeamId: parseID('Team', homeTeam),
+    opponentTeamId: parseID('Team', opponentTeam),
+    venueId: parseID('Venue', '1'),
     date,
     startTime,
     flags: undefined,

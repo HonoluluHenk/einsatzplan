@@ -1,5 +1,6 @@
-import { createID, ID } from '@einsatzplan/einsatzplan-lib/types/ID.type';
-import { cleanName } from '@einsatzplan/einsatzplan-lib/util/cleanName';
+import type { ID } from '../types/ID.type';
+import { parseID } from '../types/ID.type';
+import { cleanName } from '../util/cleanName';
 
 export type ChampionshipID = ID<'Championship'>;
 
@@ -12,7 +13,7 @@ export interface Championship {
 export function parseChampionshipFromName(name: string): Championship {
   const clean = cleanName(name);
   return {
-    id: createID('Championship', clean),
+    id: parseID('Championship', clean),
     name,
     backendId: clean,
   };

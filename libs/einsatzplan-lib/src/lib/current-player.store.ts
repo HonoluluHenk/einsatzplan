@@ -1,22 +1,21 @@
-import {BaseStore} from "@einsatzplan/einsatzplan-lib/store/base.store";
-import {computed, Injectable} from "@angular/core";
-import {Player} from "@einsatzplan/einsatzplan-lib/model";
-import {ID, isID} from "@einsatzplan/einsatzplan-lib/types/ID.type";
+import { BaseStore } from './store/base.store';
+import { computed, Injectable } from '@angular/core';
+import { Player, PlayerID } from './model/Player';
+import { isID } from './types/ID.type';
 
 interface CurrentPlayerState {
-  playerID: ID<'Player'> | undefined
+  playerID: PlayerID | undefined;
 }
 
 @Injectable()
 export class CurrentPlayerStore extends BaseStore<CurrentPlayerState> {
-
   constructor() {
     super({
-      playerID: CurrentPlayerStore.restoreFromLocalStorage()
+      playerID: CurrentPlayerStore.restoreFromLocalStorage(),
     });
   }
 
-  private static restoreFromLocalStorage(): ID<'Player'> | undefined {
+  private static restoreFromLocalStorage(): PlayerID | undefined {
     const currentPlayerID = localStorage.getItem('currentPlayerID');
     if (!isID('Player', currentPlayerID)) {
       return undefined;
@@ -25,10 +24,10 @@ export class CurrentPlayerStore extends BaseStore<CurrentPlayerState> {
     return currentPlayerID;
   }
 
-  playerChanged(player: Player | undefined): void
-  playerChanged(playerID: ID<'Player'> | undefined): void
-  playerChanged(playerOrID: ID<'Player'> | Player | undefined): void {
-    let id: ID<'Player'> | undefined;
+  playerChanged(player: Player | undefined): void;
+  playerChanged(playerID: PlayerID | undefined): void;
+  playerChanged(playerOrID: PlayerID | Player | undefined): void {
+    let id: PlayerID | undefined;
     if (playerOrID === undefined) {
       id = undefined;
       localStorage.removeItem('currentPlayerID');
@@ -36,10 +35,9 @@ export class CurrentPlayerStore extends BaseStore<CurrentPlayerState> {
       id = isID('Player', playerOrID) ? playerOrID : playerOrID.id;
       localStorage.setItem('currentPlayerID', id);
     }
-    this.patchState(draft => {
+    this.patchState((draft) => {
       draft.playerID = id;
     });
-
   }
 
   currentPlayerID = computed(() => this.state().playerID);

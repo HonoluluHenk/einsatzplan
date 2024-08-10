@@ -3,9 +3,9 @@ import {CommonModule} from '@angular/common';
 import {FallbackDirective} from "@einsatzplan/shared-ui/fallback";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SectionDirective} from "@einsatzplan/shared-ui/section";
-import {CurrentPlayerStore} from "@einsatzplan/einsatzplan-lib/current-player.store";
-import {isID} from "@einsatzplan/einsatzplan-lib/types/ID.type";
-import {ClubPlayersStore} from "@einsatzplan/einsatzplan-lib/club-players.store";
+import { CurrentPlayerStore } from '../current-player.store';
+import { isID } from '../types/ID.type';
+import { ClubPlayersStore } from '../club-players.store';
 
 @Component({
   selector: 'epla-current-player',

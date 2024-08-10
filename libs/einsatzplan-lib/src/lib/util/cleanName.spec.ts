@@ -1,4 +1,4 @@
-import {cleanName} from "@einsatzplan/einsatzplan-lib/util/cleanName";
+import { cleanName } from './cleanName';
 
 describe('cleanName', () => {
   it('replaces all / with _', () => {

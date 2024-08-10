@@ -1,8 +1,7 @@
-import {Directive} from '@angular/core';
+import { Directive } from '@angular/core';
 
 @Directive({
-  selector: 'section[sharedUi]',
+  selector: 'section[libSharedUi]',
   standalone: true,
 })
-export class SectionDirective {
-}
+export class SectionDirective {}

@@ -1,5 +1,5 @@
-import { Address } from './address';
-import { ID } from '@einsatzplan/einsatzplan-lib/types/ID.type';
+import type { Address } from './Address';
+import type { ID } from '../types/ID.type';
 
 export type VenueID = ID<'Venue'>;
 

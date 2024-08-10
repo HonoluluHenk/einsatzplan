@@ -1,9 +1,9 @@
-<section sharedUI>
+<section libSharedUi>
   <epla-current-player></epla-current-player>
 </section>
 
-<section sharedUi>
-  <table sharedUi>
+<section libSharedUi>
+  <table libSharedUi>
     <thead>
     <tr>
       <th i18n="@@MatchListComponent.Spieltag">Spieltag</th>
@@ -23,7 +23,7 @@
           <td>{{ match.startTime | time }}</td>
           <td>{{ match.venueId }}</td>
           <td>
-            <epla-match-setup-inline [setup]="match.plannedSetup"></epla-match-setup-inline>
+            <epla-match-setup-inline [matchID]="match.id"></epla-match-setup-inline>
           </td>
         </tr>
       } @empty {

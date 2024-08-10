@@ -1,7 +1,7 @@
-import { Name } from '@einsatzplan/einsatzplan-lib/types/Name';
-import { PhoneNumber } from '@einsatzplan/einsatzplan-lib/types/PhoneNumber';
-import { EmailAddress } from '@einsatzplan/einsatzplan-lib/types/EmailAddress';
-import { ID } from '@einsatzplan/einsatzplan-lib/types/ID.type';
+import type { Name } from '../types/Name';
+import type { PhoneNumber } from '../types/PhoneNumber';
+import type { EmailAddress } from '../types/EmailAddress';
+import type { ID } from '../types/ID.type';
 
 export type PlayerID = ID<'Player'>;
 

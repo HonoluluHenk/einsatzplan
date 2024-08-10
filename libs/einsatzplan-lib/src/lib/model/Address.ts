@@ -1,4 +1,4 @@
-import { ID } from '@einsatzplan/einsatzplan-lib/types/ID.type';
+import type { ID } from '../types/ID.type';
 
 export type AddressID = ID<'Address'>;
 
