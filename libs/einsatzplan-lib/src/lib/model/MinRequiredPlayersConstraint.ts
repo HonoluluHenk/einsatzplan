@@ -1,18 +1,14 @@
-import {
-  MatchSetupConstraint,
-  PlannedMatchSetup,
-  SetupStatus,
-} from './PlannedMatchSetup';
-import type { Locale } from 'date-fns';
+import {MatchSetupConstraint, PlannedMatchSetup, SetupStatus} from './PlannedMatchSetup';
 
 export class MinRequiredPlayersConstraint implements MatchSetupConstraint {
   constructor(
     readonly minRequiredPlayers: number,
-    private readonly locale: Locale
-  ) {}
+  )
+  {
+  }
 
-  public static sttv(locale: Locale) {
-    return new MinRequiredPlayersConstraint(3, locale);
+  public static sttv() {
+    return new MinRequiredPlayersConstraint(3);
   }
 
   analyze(setup: PlannedMatchSetup): SetupStatus {
@@ -36,7 +32,8 @@ export class MinRequiredPlayersConstraint implements MatchSetupConstraint {
   }
 
   private countAvailablePlayers(setup: PlannedMatchSetup) {
-    return Object.values(setup.players).filter((p) => p.status === 'available')
+    return Object.values(setup.players)
+      .filter((p) => p.status === 'available')
       .length;
   }
 }
