@@ -1,13 +1,13 @@
-import { BaseStore } from '../store/base.store';
-import { Match, MatchID } from '../model/Match';
-import { computed, effect, inject, Injectable } from '@angular/core';
-import { Subject, switchMap } from 'rxjs';
-import { firstBy } from 'thenby';
-import { CurrentTeam, CurrentTeamStore } from '../current-team.store';
-import { Database, objectVal, ref } from '@angular/fire/database';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { cleanPathForFirebaseKey } from '../util/firebase-util';
-import { PlayerID } from '../model/Player';
+import {computed, effect, inject, Injectable} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {Database, objectVal, ref} from '@angular/fire/database';
+import {Subject, switchMap} from 'rxjs';
+import {firstBy} from 'thenby';
+import {CurrentTeam, CurrentTeamStore} from '../current-team.store';
+import {Match, MatchID} from '../model/Match';
+import {PlayerID} from '../model/Player';
+import {BaseStore} from '../store/base.store';
+import {cleanPathForFirebaseKey} from '../util/firebase-util';
 
 interface MatchListState {
   matches: Match[];
@@ -30,7 +30,7 @@ export class MatchListStore extends BaseStore<MatchListState> {
       .pipe(
         switchMap((currentTeam) => {
           const championship = cleanPathForFirebaseKey(
-            currentTeam.championship.backendId
+            currentTeam.championship.backendId,
           );
           const league = cleanPathForFirebaseKey(currentTeam.league);
           const team = cleanPathForFirebaseKey(currentTeam.teamName);
@@ -38,7 +38,7 @@ export class MatchListStore extends BaseStore<MatchListState> {
           const path = `/championship/${championship}/leagues/${league}/teams/${team}/matches`;
           return objectVal<Record<MatchID, Match>>(ref(this.#db, path));
         }),
-        takeUntilDestroyed()
+        takeUntilDestroyed(),
       )
       .subscribe({
         next: (next) => {
@@ -56,6 +56,7 @@ export class MatchListStore extends BaseStore<MatchListState> {
   }
 
   matches = computed(() =>
-    [...this.state().matches].sort(firstBy('date').thenBy('startTime'))
+    [...this.state().matches].sort(firstBy('date')
+      .thenBy('startTime')),
   );
 }

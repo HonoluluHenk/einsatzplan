@@ -10,7 +10,7 @@
       <th i18n="@@MatchListComponent.Heimmannschaft">Heim</th>
       <th i18n="@@MatchListComponent.Gastmannschaft">Gast</th>
       <th i18n="@@MatchListComponent.Beginn">Beginn</th>
-      <th i18n="@@MatchListComponent.Spiellokal">Spiellokal</th>
+      <!--      <th i18n="@@MatchListComponent.Spiellokal">Spiellokal</th>-->
       <th i18n="@@MatchListComponent.Einsatzplan">Einsatzplan</th>
     </tr>
     </thead>
@@ -21,9 +21,10 @@
           <td>{{ match.homeTeamId }}</td>
           <td>{{ match.opponentTeamId }}</td>
           <td>{{ match.startTime | time }}</td>
-          <td>{{ match.venueId }}</td>
+          <!--          <td>{{ match.venueId }}</td>-->
           <td>
-            <epla-match-setup-inline [matchID]="match.id"></epla-match-setup-inline>
+            <epla-match-setup-inline [matchID]="match.id"
+                                     [playerID]="currentPlayerStore.currentPlayerID()"></epla-match-setup-inline>
           </td>
         </tr>
       } @empty {

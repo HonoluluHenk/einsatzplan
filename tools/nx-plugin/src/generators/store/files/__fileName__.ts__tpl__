@@ -3,13 +3,11 @@ import { ensureProps } from '@einsatzplan/einsatzplan-lib/util/ensure';
 import { BaseStore } from '@einsatzplan/einsatzplan-lib/store/base.store';
 
 interface <%= stateClassName %> {
-  // Define your state here
   hello: string;
 }
 
 function createInitialState(): <%= stateClassName %> {
   return ensureProps<<%= stateClassName %>>({
-    // Define your initial state here
     hello: 'world',
   });
 }

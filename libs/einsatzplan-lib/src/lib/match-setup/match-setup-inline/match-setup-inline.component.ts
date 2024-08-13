@@ -1,37 +1,121 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  input,
-} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { $localize } from '@angular/localize/init';
+import {CommonModule} from '@angular/common';
+import {ChangeDetectionStrategy, Component, computed, effect, inject, input, type Signal} from '@angular/core';
+import {NonNullableFormBuilder, ReactiveFormsModule} from '@angular/forms';
+import {$localize} from '@angular/localize/init';
+import { ClubPlayersStore } from '../../club-players.store';
+import { MatchSetupInlineForm } from './match-setup-inline.form';
+import { PlayerSetupInlineStore } from './player-setup-inline.store';
 import { MatchSetupStore } from '../match-setup.store';
-import { PlannedMatchSetup } from '@einsatzplan/einsatzplan-lib/model';
+import { MatchID } from '../../model/Match';
+import { PlannedMatchSetup, PlayerPlanningStatus, PlayerSetup } from '../../model/PlannedMatchSetup';
+import { PlayerID } from '../../model/Player';
+import { SetupStatus } from '../../model/MatchSetupConstraint';
+import { AggregateConstraint } from '../../model/player-constraints/AggregateConstraint';
+import { MinRequiredPlayersConstraint } from '../../model/player-constraints/MinRequiredPlayersConstraint';
+import { RequireMatchSetupConstraint } from '../../model/player-constraints/RequireMatchSetupConstraint';
+import { isID } from '../../types/ID.type';
+import {type Icon, IconComponent} from '@einsatzplan/shared-ui/icons';
+
 
 @Component({
   selector: 'epla-match-setup-inline',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, IconComponent, ReactiveFormsModule],
   templateUrl: './match-setup-inline.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styleUrl: './match-setup-inline.component.scss',
+  providers: [
+    PlayerSetupInlineStore,
+  ],
 })
 export class MatchSetupInlineComponent {
-  readonly setup = input.required<PlannedMatchSetup | undefined>();
+  readonly matchID = input.required<MatchID>();
+  readonly playerID = input.required<PlayerID | undefined>();
 
-  matchSetupStore = inject(MatchSetupStore);
+  readonly #matchSetupStore = inject(MatchSetupStore);
+  readonly #playerStore = inject(ClubPlayersStore);
+  readonly store = inject(PlayerSetupInlineStore);
 
-  text = computed(() => {
-    const setup = this.setup();
-    if (!setup) {
-      return $localize`:@@MatchSetupInlineComponent.noSetup:Nicht geplant`;
+  readonly PlayerPlanningStatus = PlayerPlanningStatus;
+  readonly form: MatchSetupInlineForm = new MatchSetupInlineForm(inject(NonNullableFormBuilder));
+
+  matchSetup: Signal<PlannedMatchSetup | undefined>;
+
+  constructor() {
+    this.matchSetup = this.#matchSetupStore.forMatch(this.matchID);
+
+    this.store.init(this.matchID, this.playerID);
+
+    effect(() => {
+      if (this.store.isEditable()) {
+        this.form.reset(this.store.playerSetup());
+      } else {
+        this.form.reset();
+      }
+    });
+  }
+
+  text: Signal<string> = computed<string>(() => {
+    const setup = this.matchSetup();
+    if (!setup || !setup.players) {
+      return $localize`:@@MatchSetupInlineComponent.noSetup:Noch nichts geplant`;
     }
 
-    return setup.homePlayers.map((p) => p.name.displayedNameShort).join(', ');
+    return Object.keys(setup.players)
+      .filter(e => isID('Player', e))
+      .map(playerID => this.#playerStore.lookupPlayer(playerID))
+      .map((player) => player?.name?.displayedNameShort ?? '???')
+      .join(', ');
   });
 
-  editable = computed(() => {
-    // return hasValue(this.setup());
+  setupStatus: Signal<SetupStatus> = computed(() => {
+    const setup = this.matchSetup();
+
+    const status = AggregateConstraint.with(
+        new RequireMatchSetupConstraint(),
+        MinRequiredPlayersConstraint.sttv(),
+      )
+      .analyze(setup);
+    return status;
   });
+
+  icon: Signal<Icon> = computed<Icon>(() => {
+    const status = this.setupStatus().status;
+    switch (status) {
+      case 'ok':
+        return 'player-setup-status-ok';
+      case 'warning':
+        return 'player-setup-status-warning';
+      case 'invalid':
+        return 'player-setup-status-invalid';
+    }
+  });
+
+
+  submit(): void {
+    this.form.whenFormValid(value => {
+      //alert(`submit: ${JSON.stringify(value)}`);
+      this.#matchSetupStore.replacePlayerSetup(this.matchID(), this.playerID()!, value);
+    });
+  }
+
+  groupName(): string {
+    return `match-setup-inline-${this.matchID}-${this.playerID()}`;
+  }
+
+  backgroundColor(setup: PlayerSetup | undefined): string {
+    if (!setup) {
+      return 'inherit';
+    }
+    switch (setup.status) {
+      case 'available':
+        return 'var(--color-success)';
+      case 'maybe':
+        return 'var(--color-warning)';
+      case 'unavailable':
+        return 'var(--color-danger)';
+      default:
+        return 'var(--color-light)';
+    }
+  }
 }
