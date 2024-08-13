@@ -1,9 +1,9 @@
-import { computed, Injectable, Signal } from '@angular/core';
-import { ensureProps } from '../util/ensure';
-import { BaseStore } from '../store/base.store';
-import { MatchID } from '../model/Match';
-import { PlannedMatchSetup, PlayerSetup } from '../model/PlannedMatchSetup';
-import { PlayerID } from '../model/Player';
+import {computed, Injectable, type Signal} from '@angular/core';
+import {MatchID} from '../model/Match';
+import {PlannedMatchSetup, PlayerSetup} from '../model/PlannedMatchSetup';
+import {PlayerID} from '../model/Player';
+import {BaseStore} from '../store/base.store';
+import {ensureProps} from '../util/ensure';
 
 interface MatchSetupState {
   matches: Record<MatchID, PlannedMatchSetup>;
@@ -21,20 +21,21 @@ export class MatchSetupStore extends BaseStore<MatchSetupState> {
     super(createInitialState());
   }
 
-  forMatch(matchID: MatchID): Signal<PlannedMatchSetup | undefined> {
-    return computed(() => this.state().matches[matchID]);
-  }
+  forMatch = (matchID: Signal<MatchID>): Signal<PlannedMatchSetup | undefined> => computed<PlannedMatchSetup | undefined>(() => {
+    return this.state().matches[matchID()];
+  });
 
   replacePlayerSetup(
     matchID: MatchID,
     playerID: PlayerID,
-    setup: PlayerSetup
+    setup: PlayerSetup,
   ): void {
     this.patchState((draft) => {
-      draft.matches[matchID] = {
-        ...(draft.matches[matchID] ?? {}),
-        [playerID]: setup,
-      };
+      if (!draft.matches[matchID]) {
+        draft.matches[matchID] = {players: {}};
+      }
+
+      draft.matches[matchID].players[playerID] = setup;
     });
   }
 }

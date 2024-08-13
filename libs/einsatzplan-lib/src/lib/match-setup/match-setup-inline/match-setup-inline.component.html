@@ -1,1 +1,39 @@
-{{ text() }}
+<div
+  [style.background-color]="{
+    'ok': 'green',
+    'warning': 'yellow',
+    'invalid': 'red',
+  }[setupStatus().status]"
+>
+  <lib-shared-ui-icon [icon]="icon()"></lib-shared-ui-icon>
+  {{ text() }}
+</div>
+@if (store.isEditable()) {
+  <form [formGroup]="form.group">
+    Ich bin
+    <label>
+      <input type="radio" [formControl]="form.group.controls['status']" [value]="PlayerPlanningStatus.available"
+             [name]="groupName()"
+             (change)="submit()">
+      <span i18n="@@Enum.PlayerPlanningStatus.available">einsatzbereit</span>
+    </label>
+    <label>
+      <input type="radio" [formControl]="form.group.controls['status']" [value]="PlayerPlanningStatus.maybe"
+             [name]="groupName()"
+             (change)="submit()">
+      <span i18n="@@Enum.PlayerPlanningStatus.maybe-available">vielleicht verfügbar</span>
+    </label>
+    <label>
+      <input type="radio" [formControl]="form.group.controls['status']" [value]="PlayerPlanningStatus.unavailable"
+             [name]="groupName()"
+             (change)="submit()">
+      <span i18n="@@Enum.PlayerPlanningStatus.not-available">nicht verfügbar</span>
+    </label>
+    <label>
+      <input type="radio" [formControl]="form.group.controls['status']" [value]="PlayerPlanningStatus.unknown"
+             [name]="groupName()"
+             (change)="submit()">
+      <span i18n="@@Enum.PlayerPlanningStatus.unknown">(weiss noch nicht)</span>
+    </label>
+  </form>
+}

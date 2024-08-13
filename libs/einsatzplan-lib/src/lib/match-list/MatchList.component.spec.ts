@@ -1,5 +1,3 @@
-import {MatchListComponent} from './MatchList.component';
-
 describe('MatchListComponent', () => {
   // let component: MatchListComponent;
   // let fixture: ComponentFixture<MatchListComponent>;
@@ -11,7 +9,6 @@ describe('MatchListComponent', () => {
   //     providers: [
   //       EinsatzplanLibStore,
   //       provideFirebaseApp(() => initializeApp({})),
-  //       provideAuth(() => getAuth()),
   //       provideDatabase(() => getDatabase()),
   //     ]
   //   }).compileComponents();
@@ -28,6 +25,7 @@ describe('MatchListComponent', () => {
   //   expect(component).toBeTruthy();
   // });
   it('should create', () => {
-    expect(true).toBeTruthy();
+    expect(true)
+      .toBeTruthy();
   });
 });
