@@ -1,13 +1,13 @@
-import {computed, inject, Injectable, untracked} from '@angular/core';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import { computed, inject, Injectable, untracked } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { of, Subject, switchMap } from 'rxjs';
+import { firstBy } from 'thenby';
+import { ClubPlayersService } from './club-players.service';
+import { CurrentTeamStore } from './current-team.store';
+import { ClubID } from './model/Club';
+import { Player, PlayerID } from './model/Player';
+import { BaseStore } from './store/base.store';
 import { isNullish, Nullish } from './util/nullish';
-import {of, Subject, switchMap} from 'rxjs';
-import {firstBy} from 'thenby';
-import {ClubPlayersService} from './club-players.service';
-import {CurrentTeamStore} from './current-team.store';
-import {ClubID} from './model/Club';
-import {Player, PlayerID} from './model/Player';
-import {BaseStore} from './store/base.store';
 
 interface ClubPlayersState {
   clubID: ClubID | undefined;
@@ -36,11 +36,10 @@ export class ClubPlayersStore extends BaseStore<ClubPlayersState> {
           return this.#clubPlayersService.eligiblePlayers$(
             currentTeam.championship,
             currentTeam.league,
-            currentTeam.teamName
-          ,
+            currentTeam.teamName,
           );
         }),
-        takeUntilDestroyed()
+        takeUntilDestroyed(),
       )
       .subscribe({
         next: (next) => {
@@ -59,8 +58,7 @@ export class ClubPlayersStore extends BaseStore<ClubPlayersState> {
   players = computed(() => this.state().players);
   playerList = computed(() => {
     return [...Object.values(this.state().players)].sort(
-      firstBy((player) => player.name.displayedName)
-    ,
+      firstBy((player) => player.name.displayedName),
     );
   });
 
