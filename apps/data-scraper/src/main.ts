@@ -1,9 +1,7 @@
-// import express from 'express';
 import { cleanPathForFirebaseKey } from '@einsatzplan/einsatzplan-lib/util/firebase-util';
 import { initializeApp } from 'firebase/app';
 import { getDatabase } from 'firebase/database';
 
-// import firebaseConfig from "./assets/firebase-client.json";
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import firebaseConfig from '../../../developer-local-settings/config/firebase-client.json';
 import { scrapeMatches, uploadMatches } from './matches/matches-scraper';
