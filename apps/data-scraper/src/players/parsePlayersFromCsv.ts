@@ -1,10 +1,9 @@
-import * as fs from 'fs/promises';
-import Papa from 'papaparse';
-
 import type { Player } from '@einsatzplan/einsatzplan-lib/model';
 import { parseID } from '@einsatzplan/einsatzplan-lib/types/ID.type';
 import { parseName } from '@einsatzplan/einsatzplan-lib/types/Name';
 import { hasValue } from '@einsatzplan/einsatzplan-lib/util/nullish';
+import * as fs from 'fs/promises';
+import Papa from 'papaparse';
 
 export async function parsePlayersFromCsv(file: string): Promise<Player[]> {
   const csvContent = await fs.readFile(file, 'utf-8');
@@ -19,7 +18,8 @@ export async function parsePlayersFromCsv(file: string): Promise<Player[]> {
     throw new Error('CSV parsing failed: ' + JSON.stringify(csv.errors));
   }
 
-  const result = csv.data.map((row) => parsePlayer(row)).filter(hasValue);
+  const result = csv.data.map((row) => parsePlayer(row))
+    .filter(hasValue);
 
   return result;
 }
@@ -33,8 +33,8 @@ function parsePlayer(cols: string[]): Player | undefined {
     throw new Error('Invalid player row: ' + cols);
   }
 
-  const id = parseID('Player', cols[2]);
-  const name = parseName(cols[1]);
+  const id = parseID('Player', cols[2].trim());
+  const name = parseName(cols[1].trim());
   const phone = undefined;
   const email = undefined;
   const googleCalendarId = undefined;
@@ -43,8 +43,10 @@ function parsePlayer(cols: string[]): Player | undefined {
   const sex = classification.length > 1 ? 'F' : 'M';
   const maleClassification = classification[0].trim();
   const femaleClassification = classification[1]?.trim();
-  // const ageGroup = cols[3];
-  // const nationality = cols[4];
+  // const ageGroup = cols[3].trim();
+  // const nationality = cols[4].trim();
+
+  // FIXME: implement validation
 
   return {
     id,
