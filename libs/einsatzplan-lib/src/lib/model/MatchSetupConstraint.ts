@@ -7,14 +7,6 @@ export type SetupStatus = {
   message: string;
 };
 
-export function okSetupStatus(): SetupStatus {
-  return {
-    status: 'ok',
-    message: $localize`:@@STTVSetupConstraint.OK:OK`,
-    // message: $localize`@@STTVSetupConstraint.NotEnoughPlayers:Nicht genug Spieler replant`,
-  };
-}
-
 export interface MatchSetupConstraint {
   analyze(setup: PlannedMatchSetup | Nullish): SetupStatus;
 }

@@ -10,7 +10,7 @@
 </div>
 @if (store.isEditable()) {
   <form [formGroup]="form.group">
-    Ich bin
+    <span i18n="@@PlayerPlanningStatus.IAm">Ich bin:</span>
     <label>
       <input type="radio" [formControl]="form.group.controls['status']" [value]="PlayerPlanningStatus.available"
              [name]="groupName()"

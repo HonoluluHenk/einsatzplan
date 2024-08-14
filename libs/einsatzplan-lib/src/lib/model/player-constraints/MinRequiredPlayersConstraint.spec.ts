@@ -1,15 +1,15 @@
-import {parseID} from '../../types/ID.type';
+import { parseID } from '../../types/ID.type';
 import {
   debugPlayerSetup,
   type PlannedMatchSetup,
   type PlayerPlanningStatus,
   type PlayerSetup,
 } from '../PlannedMatchSetup';
-import type {PlayerID} from '../Player';
-import {MinRequiredPlayersConstraint} from './MinRequiredPlayersConstraint';
+import type { PlayerID } from '../Player';
+import { MinRequiredPlayersConstraint } from './MinRequiredPlayersConstraint';
 
 describe('MinRequiredPlayersConstraint', () => {
-  const constraint = MinRequiredPlayersConstraint.sttv();
+  const constraint = new MinRequiredPlayersConstraint(3);
 
   describe('for a setup with enough players', () => {
 
@@ -36,7 +36,7 @@ describe('MinRequiredPlayersConstraint', () => {
       expect(result.status)
         .toBe('invalid');
       expect(result.message)
-        .toBe('Nicht genug Spieler geplant');
+        .toBe('Nicht genug Spieler geplant (Insg. benötigt: 3)');
     });
   });
 
@@ -53,23 +53,27 @@ describe('MinRequiredPlayersConstraint', () => {
       expect(result.status)
         .toBe('invalid');
       expect(result.message)
-        .toBe('Nicht genug Spieler geplant');
+        .toBe('Nicht genug Spieler geplant (Insg. benötigt: 3)');
     });
   });
 
   describe('for a setup with not enough planned players but some are maybe', () => {
     it.each([
-      matchSetup('maybe', 'available', 'available'),
-      matchSetup('maybe', 'maybe', 'available'),
-      matchSetup('maybe', 'maybe', 'maybe'),
-    ])('returns a warning status with message for %s', (setup: PlannedMatchSetup) => {
+      [matchSetup('available', 'available', 'maybe'), 2, 1],
+      [matchSetup('available', 'maybe', 'maybe'), 1, 2],
+      [matchSetup('maybe', 'maybe', 'maybe'), 0, 3],
+    ])('returns a warning status with message for %s', (
+      setup: PlannedMatchSetup,
+      zusagen,
+      vielleicht,
+    ) => {
 
       const result = constraint.analyze(setup);
 
       expect(result.status)
         .toBe('warning');
       expect(result.message)
-        .toBe('Nicht genug definitive Zusagen');
+        .toBe(`Nicht genug definitive Zusagen (Zusagen: ${zusagen}, Vielleicht: ${vielleicht}, Insg. benötigt: 3)`);
     });
   });
 
@@ -82,7 +86,7 @@ describe('MinRequiredPlayersConstraint', () => {
       expect(result.status)
         .toBe('invalid');
       expect(result.message)
-        .toBe('Nicht genug Spieler geplant');
+        .toBe('Nicht genug Spieler geplant (Insg. benötigt: 3)');
     });
   });
 

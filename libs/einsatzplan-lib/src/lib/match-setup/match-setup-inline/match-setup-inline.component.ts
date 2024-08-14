@@ -1,20 +1,20 @@
-import {CommonModule} from '@angular/common';
-import {ChangeDetectionStrategy, Component, computed, effect, inject, input, type Signal} from '@angular/core';
-import {NonNullableFormBuilder, ReactiveFormsModule} from '@angular/forms';
-import {$localize} from '@angular/localize/init';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, input, type Signal } from '@angular/core';
+import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { $localize } from '@angular/localize/init';
+import { type Icon, IconComponent } from '@einsatzplan/shared-ui/icons';
 import { ClubPlayersStore } from '../../club-players.store';
-import { MatchSetupInlineForm } from './match-setup-inline.form';
-import { PlayerSetupInlineStore } from './player-setup-inline.store';
-import { MatchSetupStore } from '../match-setup.store';
 import { MatchID } from '../../model/Match';
+import { SetupStatus } from '../../model/MatchSetupConstraint';
 import { PlannedMatchSetup, PlayerPlanningStatus, PlayerSetup } from '../../model/PlannedMatchSetup';
 import { PlayerID } from '../../model/Player';
-import { SetupStatus } from '../../model/MatchSetupConstraint';
 import { AggregateConstraint } from '../../model/player-constraints/AggregateConstraint';
 import { MinRequiredPlayersConstraint } from '../../model/player-constraints/MinRequiredPlayersConstraint';
 import { RequireMatchSetupConstraint } from '../../model/player-constraints/RequireMatchSetupConstraint';
 import { isID } from '../../types/ID.type';
-import {type Icon, IconComponent} from '@einsatzplan/shared-ui/icons';
+import { MatchSetupStore } from '../match-setup.store';
+import { MatchSetupInlineForm } from './match-setup-inline.form';
+import { PlayerSetupInlineStore } from './player-setup-inline.store';
 
 
 @Component({
@@ -71,9 +71,9 @@ export class MatchSetupInlineComponent {
   setupStatus: Signal<SetupStatus> = computed(() => {
     const setup = this.matchSetup();
 
-    const status = AggregateConstraint.with(
+    const status = AggregateConstraint.allOf(
         new RequireMatchSetupConstraint(),
-        MinRequiredPlayersConstraint.sttv(),
+        new MinRequiredPlayersConstraint(3),
       )
       .analyze(setup);
     return status;

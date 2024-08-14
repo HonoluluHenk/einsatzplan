@@ -1,18 +1,18 @@
 import type { Nullish } from '../../util/nullish';
 import type { MatchSetupConstraint, SetupStatus } from '../MatchSetupConstraint';
-import { okSetupStatus } from '../MatchSetupConstraint';
 import type { PlannedMatchSetup } from '../PlannedMatchSetup';
+import { okSetupStatus } from './constraint-messages';
 
 export class AggregateConstraint implements MatchSetupConstraint {
   constructor(private readonly constraints: MatchSetupConstraint[]) {
     // nop
   }
 
-  append(...constraints: MatchSetupConstraint[]): AggregateConstraint {
+  and(...constraints: MatchSetupConstraint[]): AggregateConstraint {
     return new AggregateConstraint([...this.constraints, ...constraints]);
   }
 
-  static with(...constraints: MatchSetupConstraint[]) {
+  static allOf(...constraints: MatchSetupConstraint[]) {
     return new AggregateConstraint(constraints);
   }
 

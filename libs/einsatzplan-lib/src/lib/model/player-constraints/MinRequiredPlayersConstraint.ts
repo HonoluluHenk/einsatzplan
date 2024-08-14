@@ -1,16 +1,13 @@
 import type { Nullish } from '../../util/nullish';
 import { isNullish } from '../../util/nullish';
-import { type MatchSetupConstraint, okSetupStatus, type SetupStatus } from '..//MatchSetupConstraint';
+import { type MatchSetupConstraint, type SetupStatus } from '..//MatchSetupConstraint';
 import type { PlannedMatchSetup } from '../PlannedMatchSetup';
 import { type PlayerPlanningStatus } from '../PlannedMatchSetup';
+import { notEnoughDefinitivePlayers, notEnoughPlayers, okSetupStatus } from './constraint-messages';
 
 export class MinRequiredPlayersConstraint implements MatchSetupConstraint {
   constructor(readonly minRequiredPlayers: number) {
     // nop
-  }
-
-  public static sttv() {
-    return new MinRequiredPlayersConstraint(3);
   }
 
   analyze(setup: PlannedMatchSetup | Nullish): SetupStatus {
@@ -26,16 +23,10 @@ export class MinRequiredPlayersConstraint implements MatchSetupConstraint {
     const maybePlayers = this.countPlayersByStatus(setup, 'maybe');
     const possiblePlayers = availablePlayers + maybePlayers;
     if (possiblePlayers >= this.minRequiredPlayers) {
-      return {
-        status: 'warning',
-        message: $localize`:@@MinRequiredPlayersConstraint.NotEnoughDefinitivePlayers:Nicht genug definitive Zusagen`,
-      };
+      return notEnoughDefinitivePlayers(availablePlayers, maybePlayers, this.minRequiredPlayers);
     }
 
-    return {
-      status: 'invalid',
-      message: $localize`:@@MinRequiredPlayersconstraint.NotEnoughPlayers:Nicht genug Spieler geplant`,
-    };
+    return notEnoughPlayers(this.minRequiredPlayers);
   }
 
   private countPlayersByStatus(
