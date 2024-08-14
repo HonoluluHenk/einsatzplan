@@ -1,1 +1,1 @@
-export * from './lib/shared-ui/shared-ui.component';
+export default void 0;

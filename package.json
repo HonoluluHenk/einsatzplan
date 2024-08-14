@@ -7,7 +7,8 @@
     "test": "nx run-many --target=test --parallel=4",
     "lint": "nx run-many --target=lint --parallel=4",
     "lint:fix": "nx run-many --target=lint --parallel=4 --fix",
-    "prepush": "nx run-many --targets=test,lint --configuration=production --nxBail --parallel=4"
+    "prepush": "nx run-many --targets=test,lint --configuration=production --nxBail --parallel=4",
+    "scraper": "nx run data-scraper:serve"
   },
   "private": true,
   "dependencies": {
