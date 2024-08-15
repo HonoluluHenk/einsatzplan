@@ -85,7 +85,6 @@ describe('parseTeamsFromHTML', () => {
           phone: '078 774 09 37',
           email: 'post@christoph-linder.ch',
         },
-        defaultPlayers: [],
         url: 'https://www.click-tt.ch/cgi-bin/WebObjects/nuLigaTTCH.woa/wa/teamPortrait?teamtable=1708456&championship=MTTV+24%2F25&group=214709',
       }));
   });

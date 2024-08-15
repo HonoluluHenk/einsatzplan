@@ -8,7 +8,10 @@
     "lint": "nx run-many --target=lint --parallel=4",
     "lint:fix": "nx run-many --target=lint --parallel=4 --fix",
     "prepush": "nx run-many --targets=test,lint,build --configuration=production --nxBail --parallel=4",
-    "scraper": "nx run data-scraper:serve"
+    "scrape-all": "nx run data-scraper:serve:all",
+    "scrape-matches": "nx run data-scraper:serve:matches",
+    "scrape-players": "nx run data-scraper:serve:players",
+    "scrape-teams": "nx run data-scraper:serve:teams"
   },
   "private": true,
   "dependencies": {

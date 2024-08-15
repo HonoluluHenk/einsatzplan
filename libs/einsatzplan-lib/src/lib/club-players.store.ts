@@ -36,7 +36,7 @@ export class ClubPlayersStore extends BaseStore<ClubPlayersState> {
           return this.#clubPlayersService.eligiblePlayers$(
             currentTeam.championship,
             currentTeam.league,
-            currentTeam.teamName,
+            currentTeam.teamID,
           );
         }),
         takeUntilDestroyed(),

@@ -2,7 +2,6 @@ import type { EmailAddress } from '../types/EmailAddress';
 import type { ID } from '../types/ID.type';
 import type { PhoneNumber } from '../types/PhoneNumber';
 import type { Name } from './Name';
-import type { PlayerID } from './Player';
 import type { Venue, VenueID } from './Venue';
 
 export interface TeamContact {
@@ -19,6 +18,5 @@ export interface Team {
   shortName: string;
   venues: Record<VenueID, Venue>;
   contact: TeamContact;
-  defaultPlayers: PlayerID[];
   url: string;
 }

@@ -51,7 +51,7 @@
     },
     "serve": {
       "executor": "@nx/js:node",
-      "defaultConfiguration": "development",
+      "defaultConfiguration": "all",
       "dependsOn": [
         "build"
       ],
@@ -60,8 +60,29 @@
         "runBuildTargetDependencies": false
       },
       "configurations": {
-        "development": {
-          "buildTarget": "data-scraper:build:development"
+        "all": {
+          "buildTarget": "data-scraper:build:development",
+          "args": [
+            "--all"
+          ]
+        },
+        "matches": {
+          "buildTarget": "data-scraper:build:development",
+          "args": [
+            "--matches"
+          ]
+        },
+        "players": {
+          "buildTarget": "data-scraper:build:development",
+          "args": [
+            "--players"
+          ]
+        },
+        "teams": {
+          "buildTarget": "data-scraper:build:development",
+          "args": [
+            "--teams"
+          ]
         },
         "production": {
           "buildTarget": "data-scraper:build:production"

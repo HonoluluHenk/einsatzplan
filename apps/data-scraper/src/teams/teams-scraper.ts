@@ -1,6 +1,8 @@
 import type { Database } from '@angular/fire/database';
 import type { Team, TeamID } from '@einsatzplan/einsatzplan-lib/model';
 import { groupingBy } from '@einsatzplan/einsatzplan-lib/util/list-util';
+import * as firebaseDB from 'firebase/database';
+import { ref } from 'firebase/database';
 import type { FileLoader } from '../utils/FileLoader';
 import { parseTeamsFromHTML } from './parseTeamsFromHTML';
 
@@ -10,9 +12,7 @@ export async function scrapeTeams(
   leagueURL: string,
   loader: FileLoader,
 ): Promise<Record<TeamID, Team>> {
-  const html = await loader.load(leagueURL);
-
-  const teams = await parseTeamsFromHTML(html, loader);
+  const teams = await parseTeamsFromHTML(leagueURL, loader);
 
   const result: Record<TeamID, Team> = teams.reduce(groupingBy('id'), {});
 
@@ -20,12 +20,13 @@ export async function scrapeTeams(
 }
 
 export async function uploadTeams(
-  _teams: Record<TeamID, Team>,
-  _championship: string,
-  _league: string,
-  _db: Database,
-): Promise<void> {
-  //const path = `championships/${championship}/leagues/${league}/teams`;
+  teams: Record<TeamID, Team>,
+  championship: string,
+  league: string,
+  db: Database,
+): Promise<Record<TeamID, Team>> {
+  const path = `championships/${championship}/leagues/${league}/teams`;
+  await firebaseDB.set(ref(db, path), JSON.parse(JSON.stringify(teams)));
 
-  console.error('Not implemented yet: uploadTeams');
+  return teams;
 }

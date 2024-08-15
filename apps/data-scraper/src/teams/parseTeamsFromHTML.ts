@@ -3,8 +3,8 @@ import { parseID } from '@einsatzplan/einsatzplan-lib/types/ID.type';
 import { ensureProps } from '@einsatzplan/einsatzplan-lib/util/ensure';
 import { groupingBy } from '@einsatzplan/einsatzplan-lib/util/list-util';
 import type { FileLoader } from '../utils/FileLoader';
-import { parseTeamDetails } from './parseTeamDetails';
-import { parseTeamHeaders } from './team-header';
+import { parseTeamDetails, type TeamDetail } from './parseTeamDetails';
+import { parseTeamHeaders, type TeamHeader } from './team-header';
 
 /**
  *
@@ -24,19 +24,41 @@ export async function parseTeamsFromHTML(
   const result: Team[] = [];
 
   for (const teamHeader of teamHeaders) {
-    const teamDetailHTML = await loader.load(teamHeader.url);
-    const teamDetail = await parseTeamDetails(teamDetailHTML);
+    const teamDetail = await parseTeamDetailsFromHTML(loader, teamHeader, html);
 
-    result.push(ensureProps<Team>({
-      id: parseID('Team', teamHeader.name),
-      name: teamHeader.name,
-      shortName: teamHeader.name,
-      venues: teamDetail.venues.reduce(groupingBy('id'), {}),
-      contact: teamDetail.contact,
-      defaultPlayers: [],
-      url: teamHeader.url,
-    }));
+    const team = toTeam(teamHeader, teamDetail);
+
+    result.push(team);
   }
 
   return result;
+}
+
+function toTeam(
+  teamHeader: TeamHeader,
+  teamDetail: TeamDetail,
+): Team {
+  return ensureProps<Team>({
+    id: parseID('Team', teamHeader.name),
+    name: teamHeader.name,
+    shortName: teamHeader.name,
+    venues: teamDetail.venues.reduce(groupingBy('id'), {}),
+    contact: teamDetail.contact,
+    url: teamHeader.url,
+  });
+}
+
+async function parseTeamDetailsFromHTML(
+  loader: FileLoader,
+  teamHeader: TeamHeader,
+  html: string,
+): Promise<TeamDetail> {
+  const teamDetailHTML = await loader.load(teamHeader.url);
+  try {
+    const result = await parseTeamDetails(teamDetailHTML);
+    return result;
+
+  } catch (error) {
+    throw new Error(`Failed to parse team details: ${error}, url: ${teamHeader.url}, html: ${html}`);
+  }
 }

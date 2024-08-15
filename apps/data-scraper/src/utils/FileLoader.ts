@@ -1,11 +1,17 @@
 import fs from 'fs/promises';
 
 export interface FileLoader {
+  prependBaseURL(path: string): string;
+
   load(url: string): Promise<string>;
 }
 
 export class FixtureFileLoader implements FileLoader {
   constructor(readonly urlsWithReplacements: Map<string, string>) {
+  }
+
+  prependBaseURL(url: string): string {
+    return url;
   }
 
   async load(url: string): Promise<string> {
@@ -26,10 +32,36 @@ export class FixtureFileLoader implements FileLoader {
 }
 
 export class FetchFileLoader implements FileLoader {
-  async load(url: string): Promise<string> {
-    const response = await fetch(url);
-    const result = await response.text();
+  constructor(
+    readonly baseURL: string,
+  )
+  {
+    // nop
+  }
 
-    return result;
+  prependBaseURL(url: string): string {
+    // only prepend baseurl if it is not already present
+    if (url.startsWith(this.baseURL)) {
+      return url;
+    }
+
+    return `${this.baseURL}${url}`;
+  }
+
+  async load(url: string): Promise<string> {
+    try {
+      //console.debug('loading url:', url);
+      const response = await fetch(url, {
+        headers: {
+          'Accept-Language': 'de-CH',
+        },
+      });
+      const result = await response.text();
+
+      return result;
+
+    } catch (error) {
+      throw new Error(`Error loading url: ${url}: ${JSON.stringify(error)}`);
+    }
   }
 }
