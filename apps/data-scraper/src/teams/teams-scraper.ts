@@ -25,8 +25,10 @@ export async function uploadTeams(
   league: string,
   db: Database,
 ): Promise<Record<TeamID, Team>> {
-  const path = `championships/${championship}/leagues/${league}/teams`;
-  await firebaseDB.set(ref(db, path), JSON.parse(JSON.stringify(teams)));
+  for (const [id, team] of Object.entries(teams)) {
+    const path = `championships/${championship}/leagues/${league}/teams/${id}/master-data`;
+    await firebaseDB.set(ref(db, path), JSON.parse(JSON.stringify(team)));
+  }
 
   return teams;
 }
