@@ -1,14 +1,14 @@
-import type { Name } from '../types/Name';
-import type { PhoneNumber } from '../types/PhoneNumber';
 import type { EmailAddress } from '../types/EmailAddress';
-import type { Venue, VenueID } from './Venue';
-import type { PlayerID } from './Player';
 import type { ID } from '../types/ID.type';
+import type { PhoneNumber } from '../types/PhoneNumber';
+import type { Name } from './Name';
+import type { PlayerID } from './Player';
+import type { Venue, VenueID } from './Venue';
 
-interface TeamContact {
+export interface TeamContact {
   name: Name;
-  phone: PhoneNumber;
-  email: EmailAddress;
+  phone: PhoneNumber | '';
+  email: EmailAddress | '';
 }
 
 export type TeamID = ID<'Team'>;
@@ -20,4 +20,5 @@ export interface Team {
   venues: Record<VenueID, Venue>;
   contact: TeamContact;
   defaultPlayers: PlayerID[];
+  url: string;
 }

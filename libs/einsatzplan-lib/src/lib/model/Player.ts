@@ -1,7 +1,7 @@
-import type { Name } from '../types/Name';
-import type { PhoneNumber } from '../types/PhoneNumber';
 import type { EmailAddress } from '../types/EmailAddress';
 import type { ID } from '../types/ID.type';
+import type { PhoneNumber } from '../types/PhoneNumber';
+import type { Name } from './Name';
 
 export type PlayerID = ID<'Player'>;
 

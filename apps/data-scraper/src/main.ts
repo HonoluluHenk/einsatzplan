@@ -6,6 +6,7 @@ import { getDatabase } from 'firebase/database';
 import firebaseConfig from '../../../developer-local-settings/config/firebase-client.json';
 import { scrapeMatches, uploadMatches } from './matches/matches-scraper';
 import { scrapePlayers, uploadPlayers } from './players/players-scraper';
+import { scrapeTeams, uploadTeams } from './teams/teams-scraper';
 
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getDatabase(firebaseApp);
@@ -42,9 +43,33 @@ async function players(): Promise<void> {
   }
 }
 
+async function teams(): Promise<void> {
+  try {
+    const data = await fetch('https://www.click-tt.ch/cgi-bin/WebObjects/nuLigaTTCH.woa/wa/groupPage?championship=MTTV+24%2F25&group=214709');
+    const html = await data.text();
+
+    const teams = await scrapeTeams(
+      html,
+    );
+    await uploadTeams(teams, championship, league, db);
+    console.log('teams saved:', Object.values(teams).length);
+
+
+  } catch (error) {
+    console.error('teams failed: ', error);
+    throw Error('teams failed');
+  }
+}
+
 
 (async () => {
-  const all = await Promise.allSettled([matches(), players()]);
+  const todos = [
+    //matches(),
+    //players(),
+    teams(),
+  ];
+
+  const all = await Promise.allSettled([todos]);
   const errors = all.filter((e) => e.status === 'rejected');
   errors.forEach((e) => console.error(e.reason));
 

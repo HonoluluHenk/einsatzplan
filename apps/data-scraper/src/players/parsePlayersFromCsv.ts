@@ -1,6 +1,6 @@
 import type { Player } from '@einsatzplan/einsatzplan-lib/model';
+import { parseName } from '@einsatzplan/einsatzplan-lib/model/Name';
 import { parseID } from '@einsatzplan/einsatzplan-lib/types/ID.type';
-import { parseName } from '@einsatzplan/einsatzplan-lib/types/Name';
 import { hasValue } from '@einsatzplan/einsatzplan-lib/util/nullish';
 import * as fs from 'fs/promises';
 import Papa from 'papaparse';

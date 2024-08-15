@@ -1,5 +1,5 @@
-import type { Address } from './Address';
 import type { ID } from '../types/ID.type';
+import type { Address } from './Address';
 
 export type VenueID = ID<'Venue'>;
 
@@ -8,5 +8,4 @@ export interface Venue {
   number: number;
   name: string;
   address: Address;
-  directions?: string | undefined;
 }
