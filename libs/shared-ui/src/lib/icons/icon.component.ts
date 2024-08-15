@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, type Signal } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import type { IconName, IconPrefix } from '@fortawesome/angular-fontawesome/types';
+import type { IconProp } from '@fortawesome/angular-fontawesome/types';
+
+import { faCheckCircle, faExclamationCircle, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import type { Icon } from './icon';
 
 @Component({
@@ -19,17 +21,17 @@ import type { Icon } from './icon';
 export class IconComponent {
   readonly icon = input.required<Icon>();
 
-  fontAwesomeIcon = computed(() => mapToFontAwesome(this.icon()));
+  fontAwesomeIcon: Signal<IconProp> = computed(() => mapToFontAwesome(this.icon()));
 }
 
 
-function mapToFontAwesome(icon: Icon): [IconPrefix, IconName] {
+function mapToFontAwesome(icon: Icon): IconProp {
   switch (icon) {
     case 'player-setup-status-ok':
-      return ['fas', 'check-circle'];
+      return faCheckCircle;
     case 'player-setup-status-warning':
-      return ['fas', 'question-circle'];
+      return faQuestionCircle;
     case 'player-setup-status-invalid':
-      return ['fas', 'exclamation-circle'];
+      return faExclamationCircle;
   }
 }
