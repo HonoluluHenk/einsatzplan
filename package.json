@@ -7,11 +7,14 @@
     "test": "nx run-many --target=test --parallel=4",
     "lint": "nx run-many --target=lint --parallel=4",
     "lint:fix": "nx run-many --target=lint --parallel=4 --fix",
+    "build:einsatzplan": "nx run einsatzplan:build:production",
     "prepush": "nx run-many --targets=test,lint,build --configuration=production --nxBail --parallel=4",
     "scrape-all": "nx run data-scraper:serve:all",
     "scrape-matches": "nx run data-scraper:serve:matches",
     "scrape-players": "nx run data-scraper:serve:players",
-    "scrape-teams": "nx run data-scraper:serve:teams"
+    "scrape-teams": "nx run data-scraper:serve:teams",
+    "analyze:einsatzplan": "run-s --continue-on-error build:einsatzplan analyze:einsatzplan:visualize",
+    "analyze:einsatzplan:visualize": "esbuild-visualizer --metadata dist/apps/einsatzplan/stats.json --filename dist/apps/einsatzplan/stats.html"
   },
   "private": true,
   "dependencies": {
@@ -77,6 +80,7 @@
     "autoprefixer": "^10.4.0",
     "cheerio": "^1.0.0",
     "esbuild": "^0.19.2",
+    "esbuild-visualizer": "^0.6.0",
     "eslint": "~8.57.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-playwright": "^0.15.3",
@@ -86,6 +90,7 @@
     "jest-preset-angular": "~14.1.0",
     "jsonc-eslint-parser": "^2.1.0",
     "ng-packagr": "~18.1.0",
+    "npm-run-all": "^4.1.5",
     "nx": "19.5.4",
     "postcss": "^8.4.5",
     "postcss-url": "~10.1.3",
