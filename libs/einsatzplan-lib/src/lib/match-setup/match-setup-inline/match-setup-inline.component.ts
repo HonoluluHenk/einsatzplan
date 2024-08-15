@@ -12,6 +12,7 @@ import { AggregateConstraint } from '../../model/player-constraints/AggregateCon
 import { MinRequiredPlayersConstraint } from '../../model/player-constraints/MinRequiredPlayersConstraint';
 import { RequireMatchSetupConstraint } from '../../model/player-constraints/RequireMatchSetupConstraint';
 import { isID } from '../../types/ID.type';
+import { requireValue } from '../../util/nullish';
 import { MatchSetupStore } from '../match-setup.store';
 import { MatchSetupInlineForm } from './match-setup-inline.form';
 import { PlayerSetupInlineStore } from './player-setup-inline.store';
@@ -95,7 +96,7 @@ export class MatchSetupInlineComponent {
   submit(): void {
     this.form.whenFormValid(value => {
       //alert(`submit: ${JSON.stringify(value)}`);
-      this.#matchSetupStore.replacePlayerSetup(this.matchID(), this.playerID()!, value);
+      this.#matchSetupStore.replacePlayerSetup(this.matchID(), requireValue(this.playerID()), value);
     });
   }
 

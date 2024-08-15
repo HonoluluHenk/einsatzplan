@@ -20,12 +20,12 @@ export async function scrapeTeams(
 }
 
 export async function uploadTeams(
-  teams: Record<TeamID, Team>,
-  championship: string,
-  league: string,
-  db: Database,
+  _teams: Record<TeamID, Team>,
+  _championship: string,
+  _league: string,
+  _db: Database,
 ): Promise<void> {
-  const path = `championships/${championship}/leagues/${league}/teams`;
+  //const path = `championships/${championship}/leagues/${league}/teams`;
 
   console.error('Not implemented yet: uploadTeams');
 }

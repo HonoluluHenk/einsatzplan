@@ -48,7 +48,7 @@ function addFaIconPacks(
     providers: [FaIconLibrary],
   });
   const library = injector.get(FaIconLibrary);
-  library.addIconPacks(fas);
+  library.addIconPacks(...packs);
 
   return library;
 }

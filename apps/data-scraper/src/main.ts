@@ -7,6 +7,7 @@ import firebaseConfig from '../../../developer-local-settings/config/firebase-cl
 import { scrapeMatches, uploadMatches } from './matches/matches-scraper';
 import { scrapePlayers, uploadPlayers } from './players/players-scraper';
 import { scrapeTeams, uploadTeams } from './teams/teams-scraper';
+import { FetchFileLoader } from './utils/FileLoader';
 
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getDatabase(firebaseApp);
@@ -15,6 +16,7 @@ const championship = cleanPathForFirebaseKey('MTTV 24_25');
 const league = cleanPathForFirebaseKey('HE 3. Liga Gr. 3');
 const team = cleanPathForFirebaseKey('Ostermundigen III');
 
+//eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function matches(): Promise<void> {
   try {
     const matches = await scrapeMatches('./data/club/33282/teams/OM3/getTeamMeetingsWebcal.ics');
@@ -27,6 +29,7 @@ async function matches(): Promise<void> {
   }
 }
 
+//eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function players(): Promise<void> {
   try {
     const players = await scrapePlayers(
@@ -50,6 +53,7 @@ async function teams(): Promise<void> {
 
     const teams = await scrapeTeams(
       html,
+      new FetchFileLoader(),
     );
     await uploadTeams(teams, championship, league, db);
     console.log('teams saved:', Object.values(teams).length);
