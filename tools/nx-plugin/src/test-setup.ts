@@ -1,1 +1,1 @@
-console.log('node versions:', process.versions);
+console.log('node env:', process.env);
