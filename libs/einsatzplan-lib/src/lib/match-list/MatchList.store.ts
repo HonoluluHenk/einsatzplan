@@ -7,7 +7,7 @@ import { CurrentTeam, CurrentTeamStore } from '../current-team.store';
 import { Match, MatchID } from '../model/Match';
 import { PlayerID } from '../model/Player';
 import { BaseStore } from '../store/base.store';
-import { cleanPathForFirebaseKey } from '../util/firebase-util';
+import { cleanPathSegmentForFirebaseKey } from '../util/firebase-util';
 
 interface MatchListState {
   matches: Match[];
@@ -29,11 +29,11 @@ export class MatchListStore extends BaseStore<MatchListState> {
     this.#team$
       .pipe(
         switchMap((currentTeam) => {
-          const championship = cleanPathForFirebaseKey(
+          const championship = cleanPathSegmentForFirebaseKey(
             currentTeam.championship.backendId,
           );
-          const league = cleanPathForFirebaseKey(currentTeam.league);
-          const team = cleanPathForFirebaseKey(currentTeam.teamID);
+          const league = cleanPathSegmentForFirebaseKey(currentTeam.league);
+          const team = cleanPathSegmentForFirebaseKey(currentTeam.teamID);
 
           const path = `/championships/${championship}/leagues/${league}/teams/${team}/matches`;
           return objectVal<Record<MatchID, Match>>(ref(this.#db, path));

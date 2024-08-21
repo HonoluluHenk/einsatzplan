@@ -1,14 +1,17 @@
-import {CommonModule} from '@angular/common';
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {FallbackDirective} from '@einsatzplan/shared-ui/fallback/fallback.directive';
-import {SectionDirective} from '@einsatzplan/shared-ui/section';
-import {TableDirective} from '@einsatzplan/shared-ui/table/table.directive';
-import {CurrentPlayerStore} from '../current-player.store';
-import {CurrentPlayerComponent} from '../current-player/current-player.component';
-import {MatchSetupInlineComponent} from '../match-setup/match-setup-inline/match-setup-inline.component';
-import {TimePipe} from '../util-angular/time.pipe';
-import {MatchListStore} from './MatchList.store';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { FallbackDirective } from '@einsatzplan/shared-ui/fallback/fallback.directive';
+import { SectionDirective } from '@einsatzplan/shared-ui/section';
+import { TableDirective } from '@einsatzplan/shared-ui/table/table.directive';
+import { CurrentPlayerStore } from '../current-player.store';
+import { CurrentPlayerComponent } from '../current-player/current-player.component';
+import { MatchSetupInlineComponent } from '../match-setup/match-setup-inline/match-setup-inline.component';
+import { MatchSetupStore } from '../match-setup/match-setup.store';
+import { MatchID } from '../model/Match';
+import { PlayerSetup } from '../model/PlannedMatchSetup';
+import { TimePipe } from '../util-angular/time.pipe';
+import { MatchListStore } from './MatchList.store';
 
 @Component({
   selector: 'epla-match-list',
@@ -33,5 +36,16 @@ import {MatchListStore} from './MatchList.store';
 export class MatchListComponent {
   readonly store = inject(MatchListStore);
   readonly currentPlayerStore = inject(CurrentPlayerStore);
+  readonly matchSetupStore = inject(MatchSetupStore);
 
+  updatePlayerSetup(
+    matchID: MatchID,
+    playerSetup: PlayerSetup,
+  ): void {
+    const playerID = this.currentPlayerStore.currentPlayerID();
+    if (!playerID) {
+      throw Error('Unexpected: No player selected but player setup updated');
+    }
+    this.matchSetupStore.replacePlayerSetup(matchID, playerID, playerSetup);
+  }
 }

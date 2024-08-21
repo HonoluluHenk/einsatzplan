@@ -134,6 +134,9 @@
       "displayBlock": true,
       "inlineStyle": true,
       "skipTests": true
+    },
+    "@schematics/angular:service": {
+      "skipTests": true
     }
   }
 }

@@ -23,7 +23,7 @@ export async function uploadPlayers(
   teamID: TeamID,
   db: Database,
 ): Promise<Record<PlayerID, Player>> {
-  const path = `/championships/${championship}/leagues/${league}/teams/${teamID}/eligible-players`;
+  const path = `/championships/${championship}/leagues/${league}/teams/${teamID}/eligiblePlayers`;
   await set(ref(db, path), JSON.parse(JSON.stringify(players)));
 
   return players;

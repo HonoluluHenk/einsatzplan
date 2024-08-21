@@ -1,5 +1,5 @@
 import { parseID } from '@einsatzplan/einsatzplan-lib/types/ID.type';
-import { cleanPathForFirebaseKey } from '@einsatzplan/einsatzplan-lib/util/firebase-util';
+import { cleanPathSegmentForFirebaseKey } from '@einsatzplan/einsatzplan-lib/util/firebase-util';
 
 import { initializeApp } from 'firebase/app';
 import { getDatabase } from 'firebase/database';
@@ -17,9 +17,9 @@ const db = getDatabase(firebaseApp);
 
 const loader = new FetchFileLoader('https://www.click-tt.ch');
 
-const championship = cleanPathForFirebaseKey('MTTV 24_25');
-const league = cleanPathForFirebaseKey('HE 3. Liga Gr. 3');
-const teamID = parseID('Team', cleanPathForFirebaseKey('Ostermundigen III'));
+const championship = cleanPathSegmentForFirebaseKey('MTTV 24_25');
+const league = cleanPathSegmentForFirebaseKey('HE 3. Liga Gr. 3');
+const teamID = parseID('Team', cleanPathSegmentForFirebaseKey('Ostermundigen III'));
 
 const allEnabled = process.argv.includes('--all');
 const matchesEnabled = allEnabled || process.argv.includes('--matches');

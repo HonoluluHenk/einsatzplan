@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Championship } from './model/Championship';
 import { Player, PlayerID } from './model/Player';
 import { TeamID } from './model/Team';
-import { cleanPathForFirebaseKey } from './util/firebase-util';
+import { cleanPathSegmentForFirebaseKey } from './util/firebase-util';
 
 @Injectable({providedIn: 'root'})
 export class ClubPlayersService {
@@ -15,11 +15,11 @@ export class ClubPlayersService {
     league: string,
     teamID: TeamID,
   ): Observable<Record<PlayerID, Player>> {
-    const c = cleanPathForFirebaseKey(championship.backendId);
-    const l = cleanPathForFirebaseKey(league);
-    const t = cleanPathForFirebaseKey(teamID);
+    const c = cleanPathSegmentForFirebaseKey(championship.backendId);
+    const l = cleanPathSegmentForFirebaseKey(league);
+    const t = cleanPathSegmentForFirebaseKey(teamID);
 
-    const path = `/championships/${c}/leagues/${l}/teams/${t}/eligible-players`;
+    const path = `/championships/${c}/leagues/${l}/teams/${t}/eligiblePlayers`;
     return objectVal<Record<PlayerID, Player>>(ref(this.#db, path));
   }
 }

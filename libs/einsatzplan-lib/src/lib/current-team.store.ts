@@ -30,7 +30,6 @@ export class CurrentTeamStore extends BaseStore<CurrentTeamLibState> {
     teamName: string
   })
   {
-    console.debug('Team: ', params);
     this.patchState((_draft) => ({
       team: {
         championship: parseChampionshipFromName(params.championship),

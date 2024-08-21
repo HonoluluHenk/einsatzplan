@@ -1,7 +1,7 @@
-import { cleanPathForFirebaseKey } from './firebase-util';
+import { cleanPathSegmentForFirebaseKey } from './firebase-util';
 
 describe('firebase-util', () => {
-  describe('cleanPathForFirebaseKey', () => {
+  describe('cleanPathSegmentForFirebaseKey', () => {
     // a firebase path  cannot contain . , $ , # , [ , ] , / , or ASCII control characters 0-31 or 127.
     it.each([
       '.',
@@ -29,7 +29,7 @@ describe('firebase-util', () => {
       '\x1F',
       '\x7F',
     ])('replaces %s with _', (input) => {
-      expect(cleanPathForFirebaseKey(input)).toEqual('_');
+      expect(cleanPathSegmentForFirebaseKey(input)).toEqual('_');
     });
   });
 });

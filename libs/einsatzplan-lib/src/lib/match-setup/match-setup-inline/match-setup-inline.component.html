@@ -1,12 +1,11 @@
-<div
-  [style.background-color]="{
-    'ok': 'green',
-    'warning': 'yellow',
-    'invalid': 'red',
-  }[setupStatus().status]"
->
-  <lib-shared-ui-icon [icon]="icon()"></lib-shared-ui-icon>
-  {{ text() }}
+<div>
+  <lib-shared-ui-icon
+    [icon]="icon()"
+    [class.setupStatus__ok]="store.setupStatus().status === 'ok'"
+    [class.setupStatus__warning]="store.setupStatus().status === 'warning'"
+    [class.setupStatus__invalid]="store.setupStatus().status === 'invalid'"
+  ></lib-shared-ui-icon>
+  {{ store.setupText() }}
 </div>
 @if (store.isEditable()) {
   <form [formGroup]="form.group">

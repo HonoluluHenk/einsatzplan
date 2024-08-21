@@ -1,5 +1,17 @@
 :host {
   display: inline-block;
+
+  .setupStatus__ok {
+    color: green;
+  }
+
+  .setupStatus__warning {
+    color: orange;
+  }
+
+  .setupStatus__invalid {
+    color: red;
+  }
 }
 
 :host > lib-shared-ui-icon {

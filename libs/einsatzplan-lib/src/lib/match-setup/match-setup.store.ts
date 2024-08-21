@@ -1,28 +1,41 @@
-import {computed, Injectable, type Signal} from '@angular/core';
-import {MatchID} from '../model/Match';
-import {PlannedMatchSetup, PlayerSetup} from '../model/PlannedMatchSetup';
-import {PlayerID} from '../model/Player';
-import {BaseStore} from '../store/base.store';
-import {ensureProps} from '../util/ensure';
+import { computed, inject, Injectable, type Signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
+import { CurrentTeamStore } from '../current-team.store';
+import { MatchID } from '../model/Match';
+import { PlannedMatchSetup, PlayerSetup } from '../model/PlannedMatchSetup';
+import { PlayerID } from '../model/Player';
+import { BaseStore } from '../store/base.store';
+import { MatchSetupService } from './match-setup.service';
 
-interface MatchSetupState {
-  matches: Record<MatchID, PlannedMatchSetup>;
-}
+type MatchSetupState = Record<string, never>;
 
-function createInitialState(): MatchSetupState {
-  return ensureProps<MatchSetupState>({
-    matches: {},
-  });
-}
 
 @Injectable()
 export class MatchSetupStore extends BaseStore<MatchSetupState> {
+  readonly #currentTeamStore = inject(CurrentTeamStore);
+  readonly #matchSetupService = inject(MatchSetupService);
+
   constructor() {
-    super(createInitialState());
+    super({});
   }
 
-  forMatch = (matchID: Signal<MatchID>): Signal<PlannedMatchSetup | undefined> => computed<PlannedMatchSetup | undefined>(() => {
-    return this.state().matches[matchID()];
+  private readMatchesFromDB(): Signal<Record<MatchID, PlannedMatchSetup>> {
+    const team = this.#currentTeamStore.team();
+
+    return toSignal(
+      this.#matchSetupService.allTeamMatchesSetup$(team.championship, team.league, team.teamID).pipe(
+        map(matches => matches ?? {}),
+      ),
+      {initialValue: {}},
+    );
+
+  }
+
+  private matches: Signal<Record<MatchID, PlannedMatchSetup>> = this.readMatchesFromDB();
+
+  forMatch = (matchID: MatchID): Signal<PlannedMatchSetup | undefined> => computed<PlannedMatchSetup | undefined>(() => {
+    return this.matches()[matchID];
   });
 
   replacePlayerSetup(
@@ -30,12 +43,14 @@ export class MatchSetupStore extends BaseStore<MatchSetupState> {
     playerID: PlayerID,
     setup: PlayerSetup,
   ): void {
-    this.patchState((draft) => {
-      if (!draft.matches[matchID]) {
-        draft.matches[matchID] = {players: {}};
-      }
-
-      draft.matches[matchID].players[playerID] = setup;
-    });
+    this.#matchSetupService.putPlayerSetup(
+      this.#currentTeamStore.team().championship,
+      this.#currentTeamStore.team().league,
+      this.#currentTeamStore.team().teamID,
+      matchID,
+      playerID,
+      setup,
+    );
+    // let firebase work its magic
   }
 }
