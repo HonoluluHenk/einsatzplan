@@ -10,6 +10,7 @@
     "build:einsatzplan": "nx run einsatzplan:build:production",
     "prepush": "nx run-many --targets=test,lint,build --configuration=production --nxBail --parallel=4",
     "scrape-all": "nx run data-scraper:serve:all",
+    "scrape-championships": "nx run data-scraper:serve:championships",
     "scrape-matches": "nx run data-scraper:serve:matches",
     "scrape-players": "nx run data-scraper:serve:players",
     "scrape-teams": "nx run data-scraper:serve:teams",

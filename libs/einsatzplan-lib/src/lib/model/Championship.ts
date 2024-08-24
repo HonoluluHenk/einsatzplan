@@ -1,20 +1,36 @@
 import type { ID } from '../types/ID.type';
 import { parseID } from '../types/ID.type';
-import { cleanName } from '../util/cleanName';
 
 export type ChampionshipID = ID<'Championship'>;
 
-export interface Championship {
+/**
+ * @deprecated Migrate to ChampionshipName or Championship
+ */
+export interface ChampionshipFoo {
   id: ChampionshipID;
+  // FIXME: migrate to ChampionshipName
   name: string;
   backendId: string;
 }
 
-export function parseChampionshipFromName(name: string): Championship {
-  const clean = cleanName(name);
+/**
+ * e.g.: short: MTTV 24/25, long: MTTV 2024/2025
+ */
+export interface ChampionshipName {
+  shortName: string;
+  longName: string;
+}
+
+export type Championship = ChampionshipName & {
+  id: ChampionshipID;
+};
+
+export function parseChampionshipFromName(name: string): ChampionshipFoo {
+  const id = parseID('Championship', name);
+
   return {
-    id: parseID('Championship', clean),
+    id,
     name,
-    backendId: clean,
+    backendId: id,
   };
 }

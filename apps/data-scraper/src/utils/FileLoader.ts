@@ -7,11 +7,18 @@ export interface FileLoader {
 }
 
 export class FixtureFileLoader implements FileLoader {
+  baseURL = 'https://www.click-tt.ch';
+
   constructor(readonly urlsWithReplacements: Map<string, string>) {
   }
 
   prependBaseURL(url: string): string {
-    return url;
+    // only prepend baseurl if it is not already present
+    if (url.startsWith(this.baseURL)) {
+      return url;
+    }
+
+    return `${this.baseURL}${url}`;
   }
 
   async load(url: string): Promise<string> {

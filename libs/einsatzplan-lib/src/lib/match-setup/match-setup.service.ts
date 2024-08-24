@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Database, type DatabaseReference, objectVal, ref, set } from '@angular/fire/database';
 import type { Observable } from 'rxjs';
 import { MatchID } from '../model';
-import { Championship } from '../model/Championship';
+import { ChampionshipFoo } from '../model/Championship';
 import { PlannedMatchSetup, PlayerSetup } from '../model/PlannedMatchSetup';
 import { PlayerID } from '../model/Player';
 import { TeamID } from '../model/Team';
@@ -18,7 +18,7 @@ export class MatchSetupService {
   readonly #db = inject(Database);
 
   allTeamMatchesSetup$(
-    championship: Championship,
+    championship: ChampionshipFoo,
     league: string,
     teamID: TeamID,
   ): Observable<Record<MatchID, PlannedMatchSetup> | undefined> {
@@ -28,7 +28,7 @@ export class MatchSetupService {
   }
 
   async putPlayerSetup(
-    championship: Championship,
+    championship: ChampionshipFoo,
     league: string,
     teamID: TeamID,
     matchID: MatchID,
@@ -42,7 +42,7 @@ export class MatchSetupService {
 
 
   private mkRef(
-    championship: Championship,
+    championship: ChampionshipFoo,
     league: string,
     teamID: TeamID,
     matchID?: MatchID,

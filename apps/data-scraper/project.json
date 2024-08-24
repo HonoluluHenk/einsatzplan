@@ -66,6 +66,12 @@
             "--all"
           ]
         },
+        "championships": {
+          "buildTarget": "data-scraper:build:development",
+          "args": [
+            "--championships"
+          ]
+        },
         "matches": {
           "buildTarget": "data-scraper:build:development",
           "args": [

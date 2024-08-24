@@ -6,6 +6,8 @@ import { getDatabase } from 'firebase/database';
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import firebaseConfig from '../../../developer-local-settings/config/firebase-client.json';
+import { config } from './assets/config';
+import { championships } from './championships';
 import { matches } from './matches';
 import { players } from './players';
 import { Task } from './Task';
@@ -25,10 +27,16 @@ const allEnabled = process.argv.includes('--all');
 const matchesEnabled = allEnabled || process.argv.includes('--matches');
 const playersEnabled = allEnabled || process.argv.includes('--players');
 const teamsEnabled = allEnabled || process.argv.includes('--teams');
+const championshipsEnabled = allEnabled || process.argv.includes('--championships');
 
 
 (async () => {
   const tasks = [
+    new Task('championships', () => championships({
+      config,
+      loader,
+      db,
+    }), championshipsEnabled),
     new Task('teams', () => teams({
       championship: championship,
       league: league,
