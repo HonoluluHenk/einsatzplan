@@ -1,16 +1,16 @@
 import { computed, inject, Injectable, type Signal } from '@angular/core';
 import { $localize } from '@angular/localize/init';
+import { SetupStatus } from '@einsatzplan/model/MatchSetupConstraint';
+import { PlannedMatchSetup, PlayerPlanningStatus, PlayerSetup } from '@einsatzplan/model/PlannedMatchSetup';
+import { Player, PlayerID } from '@einsatzplan/model/Player';
+import { ensureProps } from '@einsatzplan/shared-util/ensure';
+import { hasValue } from '@einsatzplan/shared-util/nullish';
+import { isID } from '@einsatzplan/shared-util/types/ID.type';
 import { ClubPlayersStore } from '../../club-players.store';
-import { SetupStatus } from '../../model/MatchSetupConstraint';
-import { PlannedMatchSetup, PlayerPlanningStatus, PlayerSetup } from '../../model/PlannedMatchSetup';
-import { Player, PlayerID } from '../../model/Player';
-import { AggregateConstraint } from '../../model/player-constraints/AggregateConstraint';
-import { MinRequiredPlayersConstraint } from '../../model/player-constraints/MinRequiredPlayersConstraint';
-import { RequireMatchSetupConstraint } from '../../model/player-constraints/RequireMatchSetupConstraint';
+import { AggregateConstraint } from '../../player-constraints/AggregateConstraint';
+import { MinRequiredPlayersConstraint } from '../../player-constraints/MinRequiredPlayersConstraint';
+import { RequireMatchSetupConstraint } from '../../player-constraints/RequireMatchSetupConstraint';
 import { BaseStore } from '../../store/base.store';
-import { isID } from '../../types/ID.type';
-import { ensureProps } from '../../util/ensure';
-import { hasValue } from '../../util/nullish';
 
 interface PlayerSetupInlineState {
   currentPlayerID: PlayerID | undefined;

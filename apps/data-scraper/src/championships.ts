@@ -1,6 +1,8 @@
 import type { Database } from '@angular/fire/database';
-import { parseFromName } from '@einsatzplan/einsatzplan-lib/model/Season';
+import { parseFromName } from '@einsatzplan/model/Season';
+import type PQueue from 'p-queue';
 import type { Config } from './assets/config';
+import { scrapeChampionshipDetails } from './championships/scrapeChampionshipDetails';
 import { uploadChampionship } from './championships/uploadChampionship';
 import { scrapeIndexForChampionships } from './index/index-scraper';
 import type { FileLoader } from './utils/FileLoader';
@@ -8,6 +10,7 @@ import type { FileLoader } from './utils/FileLoader';
 export async function championships(
   opts: {
     config: Config
+    queue: PQueue,
     loader: FileLoader,
     db: Database
   },
@@ -20,7 +23,10 @@ export async function championships(
       opts.loader,
     );
 
-    for (const championship of championshipLinks) {
+    const masterDataTasks = championshipLinks.map(link => async () => await scrapeChampionshipDetails(link, opts.loader));
+    const masterData = await opts.queue.addAll(masterDataTasks);
+
+    for (const championship of masterData) {
       await uploadChampionship(
         championship,
         opts.db,

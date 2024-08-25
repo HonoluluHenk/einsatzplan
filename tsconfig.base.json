@@ -19,6 +19,9 @@
       "@einsatzplan/einsatzplan-lib/*": [
         "libs/einsatzplan-lib/src/lib/*"
       ],
+      "@einsatzplan/model/*": [
+        "libs/model/src/lib/*"
+      ],
       "@einsatzplan/nx-plugin": [
         "tools/nx-plugin/src/index.ts"
       ],
@@ -27,6 +30,9 @@
       ],
       "@einsatzplan/shared-ui/*": [
         "libs/shared-ui/src/lib/*"
+      ],
+      "@einsatzplan/shared-util/*": [
+        "libs/shared-util/src/lib/*"
       ]
     },
     "resolveJsonModule": true,

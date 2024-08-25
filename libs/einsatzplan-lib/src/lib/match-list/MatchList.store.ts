@@ -1,13 +1,13 @@
 import { computed, effect, inject, Injectable } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Database, objectVal, ref } from '@angular/fire/database';
+import { Match, MatchID } from '@einsatzplan/model/Match';
+import { PlayerID } from '@einsatzplan/model/Player';
+import { cleanPathSegmentForFirebaseKey } from '@einsatzplan/shared-util/firebase-util';
 import { Subject, switchMap } from 'rxjs';
 import { firstBy } from 'thenby';
 import { CurrentTeam, CurrentTeamStore } from '../current-team.store';
-import { Match, MatchID } from '../model/Match';
-import { PlayerID } from '../model/Player';
 import { BaseStore } from '../store/base.store';
-import { cleanPathSegmentForFirebaseKey } from '../util/firebase-util';
 
 interface MatchListState {
   matches: Match[];

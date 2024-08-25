@@ -1,14 +1,14 @@
 import { inject, Injectable } from '@angular/core';
 import { Database, type DatabaseReference, objectVal, ref, set } from '@angular/fire/database';
+import { ChampionshipFoo } from '@einsatzplan/model/Championship';
+import type { MatchID } from '@einsatzplan/model/Match';
+import { PlannedMatchSetup, PlayerSetup } from '@einsatzplan/model/PlannedMatchSetup';
+import { PlayerID } from '@einsatzplan/model/Player';
+import { TeamID } from '@einsatzplan/model/Team';
+import { cleanPathForFirebaseKey, cleanPathSegmentForFirebaseKey } from '@einsatzplan/shared-util/firebase-util';
+import { requireValue } from '@einsatzplan/shared-util/nullish';
+import { Paths } from '@einsatzplan/shared-util/paths';
 import type { Observable } from 'rxjs';
-import { MatchID } from '../model';
-import { ChampionshipFoo } from '../model/Championship';
-import { PlannedMatchSetup, PlayerSetup } from '../model/PlannedMatchSetup';
-import { PlayerID } from '../model/Player';
-import { TeamID } from '../model/Team';
-import { cleanPathForFirebaseKey, cleanPathSegmentForFirebaseKey } from '../util/firebase-util';
-import { requireValue } from '../util/nullish';
-import { Paths } from '../util/paths';
 
 
 @Injectable({

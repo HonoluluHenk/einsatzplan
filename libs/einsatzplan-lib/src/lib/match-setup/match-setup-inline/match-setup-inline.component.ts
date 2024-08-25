@@ -10,9 +10,9 @@ import {
   type Signal,
 } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { PlannedMatchSetup, PlayerPlanningStatus, PlayerSetup } from '@einsatzplan/model/PlannedMatchSetup';
+import { PlayerID } from '@einsatzplan/model/Player';
 import { type Icon, IconComponent } from '@einsatzplan/shared-ui/icons';
-import { PlannedMatchSetup, PlayerPlanningStatus, PlayerSetup } from '../../model/PlannedMatchSetup';
-import { PlayerID } from '../../model/Player';
 import { MatchSetupInlineForm } from './match-setup-inline.form';
 import { PlayerSetupInlineStore } from './player-setup-inline.store';
 

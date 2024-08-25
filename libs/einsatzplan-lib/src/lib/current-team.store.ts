@@ -1,9 +1,9 @@
 import { computed, Injectable, Signal } from '@angular/core';
-import { ChampionshipFoo, parseChampionshipFromName } from './model/Championship';
-import { TeamID } from './model/Team';
+import { ChampionshipFoo, parseChampionshipFromName } from '@einsatzplan/model/Championship';
+import { TeamID } from '@einsatzplan/model/Team';
+import { requireValue } from '@einsatzplan/shared-util/nullish';
+import { parseID } from '@einsatzplan/shared-util/types/ID.type';
 import { BaseStore } from './store/base.store';
-import { parseID } from './types/ID.type';
-import { requireValue } from './util/nullish';
 
 export type CurrentTeam = {
   championship: ChampionshipFoo;

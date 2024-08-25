@@ -1,7 +1,7 @@
-import { BaseStore } from './store/base.store';
 import { computed, Injectable } from '@angular/core';
-import { Player, PlayerID } from './model/Player';
-import { isID } from './types/ID.type';
+import { Player, PlayerID } from '@einsatzplan/model/Player';
+import { isID } from '@einsatzplan/shared-util/types/ID.type';
+import { BaseStore } from './store/base.store';
 
 interface CurrentPlayerState {
   playerID: PlayerID | undefined;

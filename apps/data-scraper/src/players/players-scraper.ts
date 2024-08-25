@@ -1,6 +1,7 @@
 import type { Database } from '@angular/fire/database';
-import type { Player, PlayerID, TeamID } from '@einsatzplan/einsatzplan-lib/model';
-import { groupingBy } from '@einsatzplan/einsatzplan-lib/util/list-util';
+import type { Player, PlayerID } from '@einsatzplan/model/Player';
+import type { TeamID } from '@einsatzplan/model/Team';
+import { groupingBy } from '@einsatzplan/shared-util/list-util';
 import { ref, set } from 'firebase/database';
 import { parsePlayersFromCsv } from './parsePlayersFromCsv';
 

@@ -1,6 +1,6 @@
 import type { Database } from '@angular/fire/database';
-import type { Team, TeamID } from '@einsatzplan/einsatzplan-lib/model';
-import { groupingBy } from '@einsatzplan/einsatzplan-lib/util/list-util';
+import type { Team, TeamID } from '@einsatzplan/model/Team';
+import { groupingBy } from '@einsatzplan/shared-util/list-util';
 import * as firebaseDB from 'firebase/database';
 import { ref } from 'firebase/database';
 import type { FileLoader } from '../utils/FileLoader';

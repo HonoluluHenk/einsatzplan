@@ -1,11 +1,11 @@
-import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FallbackDirective} from "@einsatzplan/shared-ui/fallback";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {SectionDirective} from "@einsatzplan/shared-ui/section";
-import { CurrentPlayerStore } from '../current-player.store';
-import { isID } from '../types/ID.type';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FallbackDirective } from '@einsatzplan/shared-ui/fallback';
+import { SectionDirective } from '@einsatzplan/shared-ui/section';
+import { isID } from '@einsatzplan/shared-util/types/ID.type';
 import { ClubPlayersStore } from '../club-players.store';
+import { CurrentPlayerStore } from '../current-player.store';
 
 @Component({
   selector: 'epla-current-player',

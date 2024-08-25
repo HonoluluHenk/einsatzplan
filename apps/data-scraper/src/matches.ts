@@ -1,5 +1,5 @@
 import type { Database } from '@angular/fire/database';
-import type { TeamID } from '@einsatzplan/einsatzplan-lib/model';
+import type { TeamID } from '@einsatzplan/model/Team';
 import { scrapeMatches, uploadMatches } from './matches/matches-scraper';
 
 export async function matches(

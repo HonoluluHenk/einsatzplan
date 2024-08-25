@@ -1,10 +1,10 @@
-import type { ChampionshipName } from '@einsatzplan/einsatzplan-lib/model';
-import type { Association, AssociationName } from '@einsatzplan/einsatzplan-lib/model/Association';
-import type { Season } from '@einsatzplan/einsatzplan-lib/model/Season';
-import { parseID } from '@einsatzplan/einsatzplan-lib/types/ID.type';
-import { ensureProps } from '@einsatzplan/einsatzplan-lib/util/ensure';
-import { cleanPathForFirebaseKey } from '@einsatzplan/einsatzplan-lib/util/firebase-util';
-import { requireValue } from '@einsatzplan/einsatzplan-lib/util/nullish';
+import type { Association, AssociationName } from '@einsatzplan/model/Association';
+import type { ChampionshipName } from '@einsatzplan/model/Championship';
+import type { Season } from '@einsatzplan/model/Season';
+import { ensureProps } from '@einsatzplan/shared-util/ensure';
+import { cleanPathForFirebaseKey } from '@einsatzplan/shared-util/firebase-util';
+import { requireValue } from '@einsatzplan/shared-util/nullish';
+import { parseID } from '@einsatzplan/shared-util/types/ID.type';
 import * as cheerio from 'cheerio';
 import type { FileLoader } from '../utils/FileLoader';
 import type { ChampionshipLink } from './ChampionshipLink';

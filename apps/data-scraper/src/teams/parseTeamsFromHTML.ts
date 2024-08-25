@@ -1,7 +1,7 @@
-import type { Team } from '@einsatzplan/einsatzplan-lib/model';
-import { parseID } from '@einsatzplan/einsatzplan-lib/types/ID.type';
-import { ensureProps } from '@einsatzplan/einsatzplan-lib/util/ensure';
-import { groupingBy } from '@einsatzplan/einsatzplan-lib/util/list-util';
+import type { Team } from '@einsatzplan/model/Team';
+import { ensureProps } from '@einsatzplan/shared-util/ensure';
+import { groupingBy } from '@einsatzplan/shared-util/list-util';
+import { parseID } from '@einsatzplan/shared-util/types/ID.type';
 import type { FileLoader } from '../utils/FileLoader';
 import { parseTeamDetails, type TeamDetail } from './parseTeamDetails';
 import { parseTeamHeaders, type TeamHeader } from './team-header';

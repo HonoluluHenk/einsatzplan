@@ -1,6 +1,7 @@
 import type { Database } from '@angular/fire/database';
-import type { Match, MatchID, TeamID } from '@einsatzplan/einsatzplan-lib/model';
-import { groupingBy } from '@einsatzplan/einsatzplan-lib/util/list-util';
+import type { Match, MatchID } from '@einsatzplan/model/Match';
+import type { TeamID } from '@einsatzplan/model/Team';
+import { groupingBy } from '@einsatzplan/shared-util/list-util';
 import { ref, set } from 'firebase/database';
 import { parseMatchesFromIcs } from './parseMatchesFromIcs';
 

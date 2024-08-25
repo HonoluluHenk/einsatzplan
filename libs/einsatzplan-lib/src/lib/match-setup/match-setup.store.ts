@@ -1,10 +1,10 @@
 import { computed, inject, Injectable, type Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { MatchID } from '@einsatzplan/model/Match';
+import { PlannedMatchSetup, PlayerSetup } from '@einsatzplan/model/PlannedMatchSetup';
+import { PlayerID } from '@einsatzplan/model/Player';
 import { map } from 'rxjs';
 import { CurrentTeamStore } from '../current-team.store';
-import { MatchID } from '../model/Match';
-import { PlannedMatchSetup, PlayerSetup } from '../model/PlannedMatchSetup';
-import { PlayerID } from '../model/Player';
 import { BaseStore } from '../store/base.store';
 import { MatchSetupService } from './match-setup.service';
 

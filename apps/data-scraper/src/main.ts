@@ -1,9 +1,8 @@
-import { parseID } from '@einsatzplan/einsatzplan-lib/types/ID.type';
-import { cleanPathSegmentForFirebaseKey } from '@einsatzplan/einsatzplan-lib/util/firebase-util';
+import { cleanPathSegmentForFirebaseKey } from '@einsatzplan/shared-util/firebase-util';
+import { parseID } from '@einsatzplan/shared-util/types/ID.type';
 
 import { initializeApp } from 'firebase/app';
 import { getDatabase } from 'firebase/database';
-
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import firebaseConfig from '../../../developer-local-settings/config/firebase-client.json';
 import { config } from './assets/config';
@@ -13,6 +12,7 @@ import { players } from './players';
 import { Task } from './Task';
 import { teams } from './teams';
 import { FetchFileLoader } from './utils/FileLoader';
+
 
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getDatabase(firebaseApp);
@@ -31,9 +31,14 @@ const championshipsEnabled = allEnabled || process.argv.includes('--championship
 
 
 (async () => {
+  const PQueue = await import('p-queue');
+  const queue = new PQueue.default({concurrency: 2});
+
+
   const tasks = [
     new Task('championships', () => championships({
       config,
+      queue,
       loader,
       db,
     }), championshipsEnabled),

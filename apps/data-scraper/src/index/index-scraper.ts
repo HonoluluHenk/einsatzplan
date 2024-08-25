@@ -1,5 +1,5 @@
-import type { AssociationName } from '@einsatzplan/einsatzplan-lib/model/Association';
-import type { Season } from '@einsatzplan/einsatzplan-lib/model/Season';
+import type { AssociationName } from '@einsatzplan/model/Association';
+import type { Season } from '@einsatzplan/model/Season';
 import type { FileLoader } from '../utils/FileLoader';
 import type { ChampionshipLink } from './ChampionshipLink';
 import { parseChampionshipsFromHTML } from './parseChampionshipsFromHTML';

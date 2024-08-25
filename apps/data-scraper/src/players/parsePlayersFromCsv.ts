@@ -1,7 +1,7 @@
-import type { Player } from '@einsatzplan/einsatzplan-lib/model';
-import { parseName } from '@einsatzplan/einsatzplan-lib/model/Name';
-import { parseID } from '@einsatzplan/einsatzplan-lib/types/ID.type';
-import { hasValue } from '@einsatzplan/einsatzplan-lib/util/nullish';
+import { parseName } from '@einsatzplan/model/Name';
+import type { Player } from '@einsatzplan/model/Player';
+import { hasValue } from '@einsatzplan/shared-util/nullish';
+import { parseID } from '@einsatzplan/shared-util/types/ID.type';
 import * as fs from 'fs/promises';
 import Papa from 'papaparse';
 

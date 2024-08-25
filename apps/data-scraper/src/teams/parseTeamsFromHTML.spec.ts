@@ -1,6 +1,6 @@
-import type { Team, Venue } from '@einsatzplan/einsatzplan-lib/model';
-import { parseID } from '@einsatzplan/einsatzplan-lib/types/ID.type';
-import { ensureProps } from '@einsatzplan/einsatzplan-lib/util/ensure';
+import type { Team, Venue } from '@einsatzplan/model/index';
+import { ensureProps } from '@einsatzplan/shared-util/ensure';
+import { parseID } from '@einsatzplan/shared-util/types/ID.type';
 import { FixtureFileLoader } from '../utils/FileLoader';
 import { parseTeamsFromHTML } from './parseTeamsFromHTML';
 

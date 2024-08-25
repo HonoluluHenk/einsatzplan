@@ -1,8 +1,8 @@
-import {type NonNullableFormBuilder} from '@angular/forms';
-import type { PlayerPlanningStatus, PlayerSetup } from '../../model/PlannedMatchSetup';
+import { type NonNullableFormBuilder } from '@angular/forms';
+import type { PlayerPlanningStatus, PlayerSetup } from '@einsatzplan/model/PlannedMatchSetup';
+import { ensureProps } from '@einsatzplan/shared-util/ensure';
+import { requireValue } from '@einsatzplan/shared-util/nullish';
 import { BaseForm } from '../../util-angular/BaseForm';
-import { ensureProps } from '../../util/ensure';
-import { requireValue } from '../../util/nullish';
 
 function makeForm(fb: NonNullableFormBuilder) {
   return fb.group({

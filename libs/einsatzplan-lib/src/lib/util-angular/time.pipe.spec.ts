@@ -1,7 +1,7 @@
-import {TimePipe} from './time.pipe';
-import {ComponentFixture, TestBed} from "@angular/core/testing";
-import {Component} from "@angular/core";
-import { ISOLocalTimeString } from '../types/ISOLocalTimeString';
+import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ISOLocalTimeString } from '@einsatzplan/shared-util/types/ISOLocalTimeString';
+import { TimePipe } from './time.pipe';
 
 describe('TimePipe', () => {
 
@@ -9,8 +9,8 @@ describe('TimePipe', () => {
     template: '{{ key | time }}',
     standalone: true,
     imports: [
-      TimePipe
-    ]
+      TimePipe,
+    ],
   })
   class HostComponent {
     public key: ISOLocalTimeString = '12:34:56';
@@ -23,11 +23,11 @@ describe('TimePipe', () => {
       imports: [HostComponent],
       providers: [
         {provide: Location, useValue: 'en-US'},
-      ]
-    }).compileComponents()
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HostComponent);
-  })
+  });
 
   it('prints the time in our format', () => {
     fixture.detectChanges();

@@ -1,5 +1,5 @@
-import type { AssociationName } from '@einsatzplan/einsatzplan-lib/model/Association';
-import type { SeasonName } from '@einsatzplan/einsatzplan-lib/model/Season';
+import type { AssociationName } from '@einsatzplan/model/Association';
+import type { SeasonName } from '@einsatzplan/model/Season';
 
 
 export type Config = {

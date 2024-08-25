@@ -1,12 +1,12 @@
 import { inject } from '@angular/core';
 import type { ActivatedRouteSnapshot, Route } from '@angular/router';
+import { parseID } from '@einsatzplan/shared-util/types/ID.type';
 import { ClubPlayersStore } from './club-players.store';
 import { CurrentPlayerStore } from './current-player.store';
 import { CurrentTeamStore } from './current-team.store';
 import { EinsatzplanLibComponent } from './einsatzplan-lib.component';
 import { MatchListComponent } from './match-list/MatchList.component';
 import { MatchSetupStore } from './match-setup/match-setup.store';
-import { parseID } from './types/ID.type';
 
 export const einsatzplanLibRoutes: Route[] = [
   {

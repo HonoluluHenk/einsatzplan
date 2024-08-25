@@ -1,13 +1,13 @@
 import { computed, inject, Injectable, untracked } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ClubID } from '@einsatzplan/model/Club';
+import { Player, PlayerID } from '@einsatzplan/model/Player';
+import { isNullish, Nullish } from '@einsatzplan/shared-util/nullish';
 import { of, Subject, switchMap } from 'rxjs';
 import { firstBy } from 'thenby';
 import { ClubPlayersService } from './club-players.service';
 import { CurrentTeamStore } from './current-team.store';
-import { ClubID } from './model/Club';
-import { Player, PlayerID } from './model/Player';
 import { BaseStore } from './store/base.store';
-import { isNullish, Nullish } from './util/nullish';
 
 interface ClubPlayersState {
   clubID: ClubID | undefined;

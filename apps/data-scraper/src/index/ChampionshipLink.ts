@@ -1,5 +1,5 @@
-import type { ChampionshipID } from '@einsatzplan/einsatzplan-lib/model';
-import type { Season } from '@einsatzplan/einsatzplan-lib/model/Season';
+import type { ChampionshipID } from '@einsatzplan/model/Championship';
+import type { Season } from '@einsatzplan/model/Season';
 
 export interface ChampionshipLink {
   id: ChampionshipID;

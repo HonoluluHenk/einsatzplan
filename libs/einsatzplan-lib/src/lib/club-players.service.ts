@@ -1,10 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { Database, objectVal, ref } from '@angular/fire/database';
+import { ChampionshipFoo } from '@einsatzplan/model/Championship';
+import { Player, PlayerID } from '@einsatzplan/model/Player';
+import { TeamID } from '@einsatzplan/model/Team';
+import { cleanPathSegmentForFirebaseKey } from '@einsatzplan/shared-util/firebase-util';
 import { Observable } from 'rxjs';
-import { ChampionshipFoo } from './model/Championship';
-import { Player, PlayerID } from './model/Player';
-import { TeamID } from './model/Team';
-import { cleanPathSegmentForFirebaseKey } from './util/firebase-util';
 
 @Injectable({providedIn: 'root'})
 export class ClubPlayersService {

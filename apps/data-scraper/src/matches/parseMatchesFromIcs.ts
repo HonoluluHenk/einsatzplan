@@ -1,15 +1,12 @@
+import type { Match } from '@einsatzplan/model/Match';
+import { asISOLocalDateString, asISOLocalTimeString } from '@einsatzplan/shared-util/date-util';
+import { ensureProps } from '@einsatzplan/shared-util/ensure';
+import { requireValue } from '@einsatzplan/shared-util/nullish';
+import { parseID } from '@einsatzplan/shared-util/types/ID.type';
 import * as fs from 'fs/promises';
 
 // @ts-expect-error ical-js has no types
 import { Component, Event, parse } from 'ical.js';
-import { ensureProps } from '@einsatzplan/einsatzplan-lib/util/ensure';
-import { parseID } from '@einsatzplan/einsatzplan-lib/types/ID.type';
-import {
-  asISOLocalDateString,
-  asISOLocalTimeString,
-} from '@einsatzplan/einsatzplan-lib/util/date-util';
-import { requireValue } from '@einsatzplan/einsatzplan-lib/util/nullish';
-import type { Match } from '@einsatzplan/einsatzplan-lib/model';
 
 export async function parseMatchesFromIcs(filePath: string): Promise<Match[]> {
   const content = await fs.readFile(filePath, 'utf-8');
@@ -24,7 +21,8 @@ export async function parseMatchesFromIcs(filePath: string): Promise<Match[]> {
     if (
       m.homeTeamId === parseID('Team', 'Bern IV') &&
       m.opponentTeamId === parseID('Team', 'Ostermundigen III')
-    ) {
+    )
+    {
       // FIXME: temporary hack until we have venue parsing implemented
       return {
         ...m,
@@ -69,7 +67,7 @@ function parseEvent(vevent: Event): Match {
 function parseHomeTeam(description: string) {
   const result = requireValue(
     /Heim: (.*?)\n/.exec(description)?.[1],
-    `Heim team not found in : ${description}`
+    `Heim team not found in : ${description}`,
   );
   return result;
 }
@@ -77,6 +75,6 @@ function parseHomeTeam(description: string) {
 function parseOpponentTeam(description: string) {
   return requireValue(
     /Gast: (.*?)\n/.exec(description)?.[1],
-    `Opponent team not found in : ${description}`
+    `Opponent team not found in : ${description}`,
   );
 }
