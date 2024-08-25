@@ -5,7 +5,7 @@ import { Player, PlayerID } from '@einsatzplan/model/Player';
 import { isNullish, Nullish } from '@einsatzplan/shared-util/nullish';
 import { of, Subject, switchMap } from 'rxjs';
 import { firstBy } from 'thenby';
-import { ClubPlayersService } from './club-players.service';
+import { ClubPlayersService } from './backend-dao/club-players.service';
 import { CurrentTeamStore } from './current-team.store';
 import { BaseStore } from './store/base.store';
 
@@ -34,8 +34,9 @@ export class ClubPlayersStore extends BaseStore<ClubPlayersState> {
           }
           const currentTeam = this.#teamStore.team();
           return this.#clubPlayersService.eligiblePlayers$(
-            currentTeam.championship,
-            currentTeam.league,
+            currentTeam.seasonID,
+            currentTeam.championshipID,
+            currentTeam.leagueID,
             currentTeam.teamID,
           );
         }),

@@ -1,13 +1,16 @@
 import { computed, Injectable, Signal } from '@angular/core';
-import { ChampionshipFoo, parseChampionshipFromName } from '@einsatzplan/model/Championship';
+import { type ChampionshipID } from '@einsatzplan/model/Championship';
+import type { LeagueID } from '@einsatzplan/model/League';
+import type { SeasonID } from '@einsatzplan/model/Season';
 import { TeamID } from '@einsatzplan/model/Team';
 import { requireValue } from '@einsatzplan/shared-util/nullish';
 import { parseID } from '@einsatzplan/shared-util/types/ID.type';
 import { BaseStore } from './store/base.store';
 
 export type CurrentTeam = {
-  championship: ChampionshipFoo;
-  league: string;
+  seasonID: SeasonID,
+  championshipID: ChampionshipID;
+  leagueID: LeagueID;
   teamName: string;
   teamID: TeamID
 };
@@ -25,15 +28,17 @@ export class CurrentTeamStore extends BaseStore<CurrentTeamLibState> {
   }
 
   init(params: {
-    championship: string;
-    league: string;
+    seasonID: SeasonID,
+    championshipID: ChampionshipID;
+    leagueID: LeagueID;
     teamName: string
   })
   {
     this.patchState((_draft) => ({
       team: {
-        championship: parseChampionshipFromName(params.championship),
-        league: params.league,
+        seasonID: params.seasonID,
+        championshipID: params.championshipID,
+        leagueID: params.leagueID,
         teamName: params.teamName,
         teamID: parseID('Team', params.teamName),
       },

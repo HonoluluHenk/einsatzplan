@@ -24,7 +24,6 @@ export class CurrentPlayerComponent {
   readonly currentPlayerStore = inject(CurrentPlayerStore);
 
   playerChanged(value: unknown) {
-    console.debug(value);
     const id = isID('Player', value) ? value : undefined;
     this.currentPlayerStore.playerChanged(id);
   }

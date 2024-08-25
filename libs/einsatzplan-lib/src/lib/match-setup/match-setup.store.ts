@@ -4,9 +4,9 @@ import { MatchID } from '@einsatzplan/model/Match';
 import { PlannedMatchSetup, PlayerSetup } from '@einsatzplan/model/PlannedMatchSetup';
 import { PlayerID } from '@einsatzplan/model/Player';
 import { map } from 'rxjs';
+import { MatchSetupService } from '../backend-dao/match-setup.service';
 import { CurrentTeamStore } from '../current-team.store';
 import { BaseStore } from '../store/base.store';
-import { MatchSetupService } from './match-setup.service';
 
 type MatchSetupState = Record<string, never>;
 
@@ -24,7 +24,12 @@ export class MatchSetupStore extends BaseStore<MatchSetupState> {
     const team = this.#currentTeamStore.team();
 
     return toSignal(
-      this.#matchSetupService.allTeamMatchesSetup$(team.championship, team.league, team.teamID).pipe(
+      this.#matchSetupService.allTeamMatchesSetup$(
+        team.seasonID,
+        team.championshipID,
+        team.leagueID,
+        team.teamID,
+      ).pipe(
         map(matches => matches ?? {}),
       ),
       {initialValue: {}},
@@ -44,8 +49,9 @@ export class MatchSetupStore extends BaseStore<MatchSetupState> {
     setup: PlayerSetup,
   ): void {
     this.#matchSetupService.putPlayerSetup(
-      this.#currentTeamStore.team().championship,
-      this.#currentTeamStore.team().league,
+      this.#currentTeamStore.team().seasonID,
+      this.#currentTeamStore.team().championshipID,
+      this.#currentTeamStore.team().leagueID,
       this.#currentTeamStore.team().teamID,
       matchID,
       playerID,

@@ -1,11 +1,10 @@
 import { computed, effect, inject, Injectable } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Database, objectVal, ref } from '@angular/fire/database';
-import { Match, MatchID } from '@einsatzplan/model/Match';
+import { Match } from '@einsatzplan/model/Match';
 import { PlayerID } from '@einsatzplan/model/Player';
-import { cleanPathSegmentForFirebaseKey } from '@einsatzplan/shared-util/firebase-util';
 import { Subject, switchMap } from 'rxjs';
 import { firstBy } from 'thenby';
+import { TeamsService } from '../backend-dao/teams.service';
 import { CurrentTeam, CurrentTeamStore } from '../current-team.store';
 import { BaseStore } from '../store/base.store';
 
@@ -18,7 +17,7 @@ interface MatchListState {
 export class MatchListStore extends BaseStore<MatchListState> {
   readonly #teamStore = inject(CurrentTeamStore);
   readonly #team$ = new Subject<CurrentTeam>();
-  readonly #db = inject(Database);
+  readonly #teamsService = inject(TeamsService);
 
   constructor() {
     super({
@@ -29,14 +28,12 @@ export class MatchListStore extends BaseStore<MatchListState> {
     this.#team$
       .pipe(
         switchMap((currentTeam) => {
-          const championship = cleanPathSegmentForFirebaseKey(
-            currentTeam.championship.backendId,
+          return this.#teamsService.matchesForTeam$(
+            currentTeam.seasonID,
+            currentTeam.championshipID,
+            currentTeam.leagueID,
+            currentTeam.teamID,
           );
-          const league = cleanPathSegmentForFirebaseKey(currentTeam.league);
-          const team = cleanPathSegmentForFirebaseKey(currentTeam.teamID);
-
-          const path = `/championships/${championship}/leagues/${league}/teams/${team}/matches`;
-          return objectVal<Record<MatchID, Match>>(ref(this.#db, path));
         }),
         takeUntilDestroyed(),
       )
