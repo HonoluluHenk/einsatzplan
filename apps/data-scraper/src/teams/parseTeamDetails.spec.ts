@@ -1,4 +1,5 @@
-import type { TeamContact, Venue } from '@einsatzplan/model/index';
+import type { TeamContact } from '@einsatzplan/model/Team';
+import type { Venue } from '@einsatzplan/model/Venue';
 import { ensureProps } from '@einsatzplan/shared-util/ensure';
 import fs from 'fs';
 import { parseTeamDetails } from './parseTeamDetails';

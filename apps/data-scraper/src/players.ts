@@ -1,11 +1,16 @@
 import type { Database } from '@angular/fire/database';
+import type { ChampionshipID } from '@einsatzplan/model/Championship';
+import type { LeagueID } from '@einsatzplan/model/League';
+import type { SeasonID } from '@einsatzplan/model/Season';
 import type { TeamID } from '@einsatzplan/model/Team';
-import { scrapePlayers, uploadPlayers } from './players/players-scraper';
+import { scrapePlayers } from './players/scrapePlayers';
+import { uploadPlayers } from './players/uploadPlayers';
 
 export async function players(
-  {championship, league, teamID, db}: {
-    championship: string,
-    league: string,
+  opts: {
+    seasonID: SeasonID,
+    championshipID: ChampionshipID,
+    leagueID: LeagueID,
     teamID: TeamID
     db: Database
   },
@@ -15,7 +20,7 @@ export async function players(
       './data/club/33282/players/players-female.csv',
       './data/club/33282/players/players-male.csv',
     );
-    await uploadPlayers(players, championship, league, teamID, db);
+    await uploadPlayers(opts.seasonID, players, opts.championshipID, opts.leagueID, opts.teamID, opts.db);
     console.log('players saved:', Object.values(players).length);
 
 

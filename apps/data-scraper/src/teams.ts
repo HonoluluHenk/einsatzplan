@@ -1,11 +1,16 @@
 import type { Database } from '@angular/fire/database';
-import { scrapeTeams, uploadTeams } from './teams/teams-scraper';
+import type { ChampionshipID } from '@einsatzplan/model/Championship';
+import type { LeagueID } from '@einsatzplan/model/League';
+import type { SeasonID } from '@einsatzplan/model/Season';
+import { scrapeTeams } from './teams/scrapeTeams';
+import { uploadTeams } from './teams/uploadTeams';
 import type { FileLoader } from './utils/FileLoader';
 
 export async function teams(
-  {championship, league, loader, db}: {
-    championship: string,
-    league: string,
+  opts: {
+    seasonID: SeasonID,
+    championshipID: ChampionshipID,
+    leagueID: LeagueID,
     loader: FileLoader,
     db: Database
   },
@@ -13,9 +18,9 @@ export async function teams(
   try {
     const teams = await scrapeTeams(
       'https://www.click-tt.ch/cgi-bin/WebObjects/nuLigaTTCH.woa/wa/groupPage?championship=MTTV+24%2F25&group=214709',
-      loader,
+      opts.loader,
     );
-    await uploadTeams(teams, championship, league, db);
+    await uploadTeams(opts.seasonID, teams, opts.championshipID, opts.leagueID, opts.db);
     console.log('teams saved:', Object.values(teams).length);
 
 

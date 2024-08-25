@@ -15,6 +15,7 @@ export class ClubPlayersService {
     league: string,
     teamID: TeamID,
   ): Observable<Record<PlayerID, Player>> {
+    console.log('championship', championship);
     const c = cleanPathSegmentForFirebaseKey(championship.backendId);
     const l = cleanPathSegmentForFirebaseKey(league);
     const t = cleanPathSegmentForFirebaseKey(teamID);

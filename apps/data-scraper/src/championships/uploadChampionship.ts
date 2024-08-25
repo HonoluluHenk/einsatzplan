@@ -6,7 +6,7 @@ export async function uploadChampionship(
   championship: ChampionshipMasterData,
   db: Database,
 ): Promise<void> {
-  const path = ref(db, `seasons/${championship.season.id}/championships/${championship.id}/master-data`);
+  const path = ref(db, `/seasons/${championship.season.id}/championships/${championship.id}/master-data`);
 
   await set(path, championship);
 }

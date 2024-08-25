@@ -1,12 +1,12 @@
-import { cleanPathSegmentForFirebaseKey } from '@einsatzplan/shared-util/firebase-util';
+import { parseFromName } from '@einsatzplan/model/Season';
 import { parseID } from '@einsatzplan/shared-util/types/ID.type';
 
 import { initializeApp } from 'firebase/app';
 import { getDatabase } from 'firebase/database';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import firebaseConfig from '../../../developer-local-settings/config/firebase-client.json';
-import { config } from './assets/config';
 import { championships } from './championships';
+import { config } from './config';
 import { matches } from './matches';
 import { players } from './players';
 import { Task } from './Task';
@@ -19,9 +19,9 @@ const db = getDatabase(firebaseApp);
 
 const loader = new FetchFileLoader('https://www.click-tt.ch');
 
-const championship = cleanPathSegmentForFirebaseKey('MTTV 24_25');
-const league = cleanPathSegmentForFirebaseKey('HE 3. Liga Gr. 3');
-const teamID = parseID('Team', cleanPathSegmentForFirebaseKey('Ostermundigen III'));
+const championshipID = parseID('Championship', 'MTTV 24/25');
+const leagueID = parseID('League', 'HE 3. Liga Gr. 3');
+const teamID = parseID('Team', 'Ostermundigen III');
 
 const allEnabled = process.argv.includes('--all');
 const matchesEnabled = allEnabled || process.argv.includes('--matches');
@@ -33,6 +33,7 @@ const championshipsEnabled = allEnabled || process.argv.includes('--championship
 (async () => {
   const PQueue = await import('p-queue');
   const queue = new PQueue.default({concurrency: 2});
+  const season = parseFromName(config.season);
 
 
   const tasks = [
@@ -43,20 +44,23 @@ const championshipsEnabled = allEnabled || process.argv.includes('--championship
       db,
     }), championshipsEnabled),
     new Task('teams', () => teams({
-      championship: championship,
-      league: league,
+      seasonID: season.id,
+      championshipID,
+      leagueID,
       loader,
       db,
     }), teamsEnabled),
     new Task('matches', () => matches({
-      championship: championship,
-      league: league,
+      seasonID: season.id,
+      championshipID,
+      leagueID,
       teamID: teamID,
       db,
     }), matchesEnabled),
     new Task('players', () => players({
-      championship: championship,
-      league: league,
+      seasonID: season.id,
+      championshipID,
+      leagueID,
       teamID: teamID,
       db,
     }), playersEnabled),

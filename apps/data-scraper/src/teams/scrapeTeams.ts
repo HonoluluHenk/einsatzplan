@@ -1,8 +1,5 @@
-import type { Database } from '@angular/fire/database';
 import type { Team, TeamID } from '@einsatzplan/model/Team';
 import { groupingBy } from '@einsatzplan/shared-util/list-util';
-import * as firebaseDB from 'firebase/database';
-import { ref } from 'firebase/database';
 import type { FileLoader } from '../utils/FileLoader';
 import { parseTeamsFromHTML } from './parseTeamsFromHTML';
 
@@ -19,16 +16,3 @@ export async function scrapeTeams(
   return result;
 }
 
-export async function uploadTeams(
-  teams: Record<TeamID, Team>,
-  championship: string,
-  league: string,
-  db: Database,
-): Promise<Record<TeamID, Team>> {
-  for (const [id, team] of Object.entries(teams)) {
-    const path = `championships/${championship}/leagues/${league}/teams/${id}/teamMasterData`;
-    await firebaseDB.set(ref(db, path), JSON.parse(JSON.stringify(team)));
-  }
-
-  return teams;
-}

@@ -1,9 +1,9 @@
 import type { Database } from '@angular/fire/database';
 import { parseFromName } from '@einsatzplan/model/Season';
 import type PQueue from 'p-queue';
-import type { Config } from './assets/config';
 import { scrapeChampionshipDetails } from './championships/scrapeChampionshipDetails';
 import { uploadChampionship } from './championships/uploadChampionship';
+import type { Config } from './config';
 import { scrapeIndexForChampionships } from './index/index-scraper';
 import type { FileLoader } from './utils/FileLoader';
 
