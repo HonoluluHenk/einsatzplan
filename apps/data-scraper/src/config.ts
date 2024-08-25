@@ -1,13 +1,6 @@
-import type { AssociationName } from '@einsatzplan/model/Association';
-import type { SeasonName } from '@einsatzplan/model/Season';
+import type { SeasonConfig } from './config/SeasonConfig';
 
-
-export type Config = {
-  season: SeasonName;
-  associations: AssociationName[];
-}
-
-export const config: Config = {
+export const config: SeasonConfig = {
   // as seen on Click-TT (https://www.click-tt.ch/index.htm.de)
   season: {shortName: '24/25', longName: '2024/25'},
 
