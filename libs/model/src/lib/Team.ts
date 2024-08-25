@@ -1,11 +1,11 @@
 import type { EmailAddress } from '@einsatzplan/shared-util/types/EmailAddress';
 import type { ID } from '@einsatzplan/shared-util/types/ID.type';
 import type { PhoneNumber } from '@einsatzplan/shared-util/types/PhoneNumber';
-import type { Name } from './Name';
+import type { PlayerName } from './PlayerName';
 import type { Venue, VenueID } from './Venue';
 
 export interface TeamContact {
-  name: Name;
+  name: PlayerName;
   phone: PhoneNumber | '';
   email: EmailAddress | '';
 }

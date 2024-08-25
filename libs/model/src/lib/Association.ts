@@ -1,11 +1,9 @@
 import type { ID } from '@einsatzplan/shared-util/types/ID.type';
+import type { Name } from './Name';
 
 export type AssociationID = ID<'Association'>;
 
-export type AssociationName = {
-  shortName: string;
-  longName: string;
-}
+export type AssociationName = Name;
 
 export type Association = AssociationName & {
   id: AssociationID;

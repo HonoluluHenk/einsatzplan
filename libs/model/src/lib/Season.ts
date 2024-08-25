@@ -1,5 +1,6 @@
 import type { ID } from '@einsatzplan/shared-util/types/ID.type';
 import { parseID } from '@einsatzplan/shared-util/types/ID.type';
+import type { Name } from './Name';
 
 export type SeasonID = ID<'Season'>;
 
@@ -10,10 +11,7 @@ export type SeasonID = ID<'Season'>;
  *  longName: '2024/25'
  * }
  */
-export type SeasonName = {
-  shortName: string;
-  longName: string;
-}
+export type SeasonName = Name;
 
 export type Season = SeasonName & {
   id: SeasonID;

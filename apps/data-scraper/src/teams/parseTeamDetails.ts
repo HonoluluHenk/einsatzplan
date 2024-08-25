@@ -1,5 +1,5 @@
 import type { Address } from '@einsatzplan/model/Address';
-import { parseName } from '@einsatzplan/model/Name';
+import { parseName } from '@einsatzplan/model/PlayerName';
 import type { TeamContact } from '@einsatzplan/model/Team';
 import type { Venue } from '@einsatzplan/model/Venue';
 import { ensureProps } from '@einsatzplan/shared-util/ensure';

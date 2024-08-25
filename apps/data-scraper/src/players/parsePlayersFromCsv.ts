@@ -1,5 +1,5 @@
-import { parseName } from '@einsatzplan/model/Name';
 import type { Player } from '@einsatzplan/model/Player';
+import { parseName } from '@einsatzplan/model/PlayerName';
 import { hasValue } from '@einsatzplan/shared-util/nullish';
 import { parseID } from '@einsatzplan/shared-util/types/ID.type';
 import * as fs from 'fs/promises';
