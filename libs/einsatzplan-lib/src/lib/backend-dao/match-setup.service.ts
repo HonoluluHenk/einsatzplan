@@ -55,7 +55,7 @@ export class MatchSetupService {
   ): DatabaseReference {
 
     let path =
-      `/seasons${seasonID}/championships/${championshipID}/leagues/${leagueID}/teams/${teamID}/plannedMatchSetup`;
+      `/seasons/${seasonID}/championships/${championshipID}/leagues/${leagueID}/teams/${teamID}/plannedMatchSetup`;
     if (matchID) {
       const m = cleanPathSegmentForFirebaseKey(matchID);
       path = `${path}/${m}`;
