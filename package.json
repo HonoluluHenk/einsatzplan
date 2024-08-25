@@ -5,7 +5,7 @@
   "scripts": {
     "clean": "run-s clean:*",
     "clean:nx": "nx reset; sleep 1",
-    "clean:dirs": "rm -rf dist tmp .angular .nx",
+    "clean:dirs": "rm -rf dist tmp .angular .nx coverage",
     "start": "nx run einsatzplan:serve",
     "test": "nx run-many --target=test --parallel=4",
     "lint": "nx run-many --target=lint --parallel=4",
