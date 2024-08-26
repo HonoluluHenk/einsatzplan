@@ -9,7 +9,12 @@ export interface FileLoader {
 export class FixtureFileLoader implements FileLoader {
   baseURL = 'https://www.click-tt.ch';
 
-  constructor(readonly urlsWithReplacements: Map<string, string>) {
+  readonly urlsWithReplacements: Map<string, string>;
+
+  constructor(urlsWithReplacements: Record<string, string> | Map<string, string>) {
+    this.urlsWithReplacements = urlsWithReplacements instanceof Map
+                                ? new Map(urlsWithReplacements)
+                                : new Map(Object.entries(urlsWithReplacements));
   }
 
   prependBaseURL(url: string): string {
