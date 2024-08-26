@@ -1,16 +1,17 @@
+import { ensureProps } from '@einsatzplan/shared-util/ensure';
 import { requireValue } from '@einsatzplan/shared-util/nullish';
 import * as cheerio from 'cheerio';
 import type { FileLoader } from '../utils/FileLoader';
 
-export type FooResult = {
-  name: string;
-  url: string;
+export type GroupIntermediate = {
+  shortName: string;
+  clickTTUrl: string;
 };
 
 export async function scrapeGroupsFromLigenplan(
   url: string,
   loader: FileLoader,
-): Promise<FooResult[]> {
+): Promise<GroupIntermediate[]> {
   const html = await loader.load(url);
 
   const $ = cheerio.load(html);
@@ -20,18 +21,18 @@ export async function scrapeGroupsFromLigenplan(
 
   const groups = groupAnchors
     .map(groupAnchor => {
-      const name = $(groupAnchor)
+      const shortName = $(groupAnchor)
         .text()
         .trim();
 
       const href = requireValue($(groupAnchor)
-        .attr('href'), `href not found for anchor: ${name}`);
-      const url = loader.prependBaseURL(href);
+        .attr('href'), `href not found for anchor: ${shortName}`);
+      const clickTTUrl = loader.prependBaseURL(href);
 
-      return {
-        name,
-        url,
-      };
+      return ensureProps<GroupIntermediate>({
+        shortName,
+        clickTTUrl,
+      });
     });
 
   return groups;
