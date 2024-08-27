@@ -44,6 +44,11 @@ export class FixtureFileLoader implements FileLoader {
 }
 
 export class FetchFileLoader implements FileLoader {
+  /**
+   * Map<url, content>
+   */
+  readonly #cache = new Map<string, string>();
+
   constructor(
     readonly baseURL: string,
   )
@@ -61,6 +66,12 @@ export class FetchFileLoader implements FileLoader {
   }
 
   async load(url: string): Promise<string> {
+    const cached = this.#cache.get(url);
+    if (cached) {
+      //console.debug('loading cached url:', url);
+      return Promise.resolve(cached);
+    }
+
     try {
       //console.debug('loading url:', url);
       const response = await fetch(url, {
