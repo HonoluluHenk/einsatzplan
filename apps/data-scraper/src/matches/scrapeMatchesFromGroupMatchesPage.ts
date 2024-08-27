@@ -7,7 +7,7 @@ import { trimToUndefined } from '@einsatzplan/shared-util/string-util';
 import { parseID } from '@einsatzplan/shared-util/types/ID.type';
 import type { ISOLocalDateString } from '@einsatzplan/shared-util/types/ISOLocalDateString';
 import type { ISOLocalTimeString } from '@einsatzplan/shared-util/types/ISOLocalTimeString';
-import type { Cheerio } from 'cheerio';
+import type { Cheerio, CheerioAPI } from 'cheerio';
 import * as cheerio from 'cheerio';
 import { format, parse } from 'date-fns';
 import type { Element } from 'domhandler';
@@ -22,6 +22,8 @@ export async function scrapeMatchesFromGroupMatchesPage(
 
   const $ = cheerio.load(html);
 
+  const clickTTGroupId = parseClickTTGroupId($);
+
   const dataRows = $('#content table.result-set tr')
     .toArray()
     // strip heading row
@@ -31,14 +33,13 @@ export async function scrapeMatchesFromGroupMatchesPage(
     .map(row => extractRawValuesFromRow($('td', row)));
   rawData.forEach(fillMissingDateFromPreviousRow);
 
-  const result = rawData.map((row) => parseRawDataIntoMatch(row));
+  const result = rawData.map((row) => parseRawDataIntoMatch(row, clickTTGroupId));
 
   return result;
 }
 
-function parseRawDataIntoMatch(row: RawRowValues): Match {
-  // FIXME: add group id
-  const id: `Match:${string}` = parseID('Match', cleanPathForFirebaseKey(`${(row.homeTeam)}-vs-${(row.opponentTeam)}`));
+function parseRawDataIntoMatch(row: RawRowValues, clickTTGroupId: string): Match {
+  const id: `Match:${string}` = parseID('Match', cleanPathForFirebaseKey(`${(row.homeTeam)}-vs-${(row.opponentTeam)}-group-${clickTTGroupId}`));
   const homeTeamId = parseID('Team', row.homeTeam);
   const opponentTeamId = parseID('Team', row.opponentTeam);
   const venueId = parseVenueId(row.venue);
@@ -162,4 +163,17 @@ function fillMissingDateFromPreviousRow(entry: RawRowValues, i: number, array: R
   if (entry.rawDate === '') {
     entry.rawDate = array[i - 1].rawDate;
   }
+}
+
+
+function parseClickTTGroupId($: CheerioAPI): string {
+  const clickTTGroupId = $('a[href*="groupInfo"][href*="group="]')
+    .attr('href')
+    ?.match(/group=(\d+)/)
+    ?.[1];
+
+  if (!clickTTGroupId) {
+    throw Error('Cannot find clickTTGroupId');
+  }
+  return clickTTGroupId;
 }
