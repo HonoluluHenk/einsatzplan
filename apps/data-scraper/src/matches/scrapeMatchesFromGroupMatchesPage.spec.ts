@@ -14,7 +14,7 @@ describe('scrapeMatchesFromGroupPage', () => {
     actual = await scrapeMatchesFromGroupMatchesPage('groupMatchesPage.html', loader);
   });
 
-  it('parses first', async () => {
+  it('parses all fields correctly', async () => {
     expect(actual[0])
       .toEqual(ensureProps<Match>({
         id: 'Match:Ittigen-vs-Tiefenau',
@@ -26,4 +26,49 @@ describe('scrapeMatchesFromGroupPage', () => {
         flags: undefined,
       }));
   });
+
+  it('parses an entry with "v" flag', async () => {
+    expect(actual[2])
+      .toEqual(ensureProps<Match>({
+        id: 'Match:Ittigen-vs-Burgdorf VI',
+        date: '2024-09-02',
+        homeTeamId: 'Team:Ittigen',
+        opponentTeamId: 'Team:Burgdorf VI',
+        venueId: 'Venue:1',
+        startTime: '19:45:00',
+        flags: 'v',
+      }));
+  });
+
+  it('parses all entries', async () => {
+    expect(actual.length)
+      .toBe(56);
+  });
+
+  it('parses up until the last entry', async () => {
+    expect(actual[55])
+      .toEqual(ensureProps<Match>({
+        id: 'Match:Münchenbuchsee II-vs-Tiefenau',
+        date: '2025-04-02',
+        homeTeamId: 'Team:Münchenbuchsee II',
+        opponentTeamId: 'Team:Tiefenau',
+        venueId: 'Venue:1',
+        startTime: '20:00:00',
+        flags: undefined,
+      }));
+  });
+
+  it('parses an entry with differing venue', async () => {
+    expect(actual[5])
+      .toEqual(ensureProps<Match>({
+        id: 'Match:Bern IV-vs-Ittigen',
+        date: '2024-09-12',
+        homeTeamId: 'Team:Bern IV',
+        opponentTeamId: 'Team:Ittigen',
+        venueId: 'Venue:2',
+        startTime: '20:00:00',
+        flags: undefined,
+      }));
+  });
+
 });
