@@ -17,7 +17,6 @@ import { FetchFileLoader } from './utils/FileLoader';
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getDatabase(firebaseApp);
 
-const loader = new FetchFileLoader('https://www.click-tt.ch');
 
 const championshipID = parseID('Championship', 'MTTV 24/25');
 const leagueID = parseID('League', 'HE 3. Liga Gr. 3');
@@ -26,6 +25,7 @@ const teamID = parseID('Team', 'Ostermundigen III');
 (async () => {
   const PQueue = await import('p-queue');
   const queue = new PQueue.default({concurrency: 2});
+  const loader = new FetchFileLoader('https://www.click-tt.ch', queue);
 
   const context = new ScraperContext(
     config,

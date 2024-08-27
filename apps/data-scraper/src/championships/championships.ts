@@ -14,8 +14,8 @@ export async function championships(
       context.loader,
     );
 
-    const masterDataTasks = championshipLinks.map(link => async () => await scrapeChampionshipDetails(link, context.loader));
-    const masterData = await context.queue.addAll(masterDataTasks);
+    const masterDataTasks = championshipLinks.map(link => scrapeChampionshipDetails(link, context.loader));
+    const masterData = await Promise.all(masterDataTasks);
 
     for (const championship of masterData) {
       await uploadChampionship(

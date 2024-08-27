@@ -1,4 +1,5 @@
 import fs from 'fs/promises';
+import type PQueue from 'p-queue';
 
 export interface FileLoader {
   prependBaseURL(path: string): string;
@@ -51,6 +52,7 @@ export class FetchFileLoader implements FileLoader {
 
   constructor(
     readonly baseURL: string,
+    private readonly queue: PQueue,
   )
   {
     // nop
@@ -74,17 +76,24 @@ export class FetchFileLoader implements FileLoader {
 
     try {
       //console.debug('loading url:', url);
-      const response = await fetch(url, {
-        headers: {
-          'Accept-Language': 'de-CH',
-        },
-      });
-      const result = await response.text();
-
-      return result;
+      return await this.queue.add(
+        async () => await this.fetchUrl(url),
+        {throwOnTimeout: true},
+      );
 
     } catch (error) {
       throw new Error(`Error loading url: ${url}: ${JSON.stringify(error)}`);
     }
+  }
+
+  private async fetchUrl(url: string): Promise<string> {
+    const response = await fetch(url, {
+      headers: {
+        'Accept-Language': 'de-CH',
+      },
+    });
+    const result = await response.text();
+
+    return result;
   }
 }
