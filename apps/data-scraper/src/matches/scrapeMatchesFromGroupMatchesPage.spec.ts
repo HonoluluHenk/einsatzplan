@@ -18,7 +18,7 @@ describe('scrapeMatchesFromGroupPage', () => {
     expect(actual[0])
       .toEqual(ensureProps<Match>({
         id: 'Match:Ittigen-vs-Tiefenau',
-        date: '2024-06-26',
+        date: '2024-08-26',
         homeTeamId: 'Team:Ittigen',
         opponentTeamId: 'Team:Tiefenau',
         venueId: 'Venue:1',
