@@ -11,7 +11,8 @@ export async function scrapeChampionshipDetails(
 
   const $ = cheerio.load(html);
 
-  const longName = $('#content #content-col1 h1').text()
+  const longName = $('#content #content-col1 h1')
+    .text()
     .trim()
     .replace(/\n.*/g, '')
     .trim();
@@ -20,7 +21,7 @@ export async function scrapeChampionshipDetails(
     id: link.id,
     shortName: link.shortName,
     season: link.season,
-    externalUrl: link.url,
+    clickTTLigenplanUrl: link.url,
     longName,
   };
 }

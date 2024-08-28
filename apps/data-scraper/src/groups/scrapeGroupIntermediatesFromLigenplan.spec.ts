@@ -1,8 +1,8 @@
 import { ensureProps } from '@einsatzplan/shared-util/ensure';
 import { FixtureFileLoader } from '../utils/FileLoader';
-import { type GroupIntermediate, scrapeGroupsFromLigenplan } from './scrapeGroupsFromLigenplan';
+import { type GroupIntermediate, scrapeGroupIntermediatesFromLigenplan } from './scrapeGroupIntermediatesFromLigenplan';
 
-describe('scrapeGroupsFromLigenplan', () => {
+describe('scrapeGroupIntermediatesFromLigenplan', () => {
   const loader = new FixtureFileLoader({
     'ligenplan-MTTV.html': fixtureFile('league/MTTV - click-TT – Ligen.html'),
   });
@@ -10,7 +10,7 @@ describe('scrapeGroupsFromLigenplan', () => {
   let actual: GroupIntermediate[];
 
   beforeEach(async () => {
-    actual = await scrapeGroupsFromLigenplan('ligenplan-MTTV.html', loader);
+    actual = await scrapeGroupIntermediatesFromLigenplan('ligenplan-MTTV.html', loader);
   });
 
   it('parses first', async () => {

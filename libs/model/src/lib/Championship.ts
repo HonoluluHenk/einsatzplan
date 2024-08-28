@@ -14,6 +14,6 @@ export interface Championship extends ChampionshipName {
 }
 
 export interface ChampionshipMasterData extends Championship {
-  externalUrl: string;
+  clickTTLigenplanUrl: string;
   season: Season;
 }

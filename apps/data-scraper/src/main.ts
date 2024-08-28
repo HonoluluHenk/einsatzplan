@@ -6,6 +6,7 @@ import { getDatabase } from 'firebase/database';
 import firebaseConfig from '../../../developer-local-settings/config/firebase-client.json';
 import { championships } from './championships/championships';
 import { config } from './config';
+import { groups } from './groups/groups';
 import { matches } from './matches/matches';
 import { players } from './players/players';
 import { ScraperContext } from './ScraperContext';
@@ -19,7 +20,7 @@ const db = getDatabase(firebaseApp);
 
 
 const championshipID = parseID('Championship', 'MTTV 24/25');
-const leagueID = parseID('League', 'HE 3. Liga Gr. 3');
+const groupID = parseID('Group', 'HE 3. Liga Gr. 3');
 const teamID = parseID('Team', 'Ostermundigen III');
 
 (async () => {
@@ -36,10 +37,21 @@ const teamID = parseID('Team', 'Ostermundigen III');
   );
 
   const tasks = [
-    new Task('championships', () => championships(context), context.features.championships),
-    new Task('teams', () => teams(context, {championshipID, leagueID}), context.features.teams),
-    new Task('matches', () => matches(context, {championshipID, leagueID, teamID: teamID}), context.features.matches),
-    new Task('players', () => players(context, {championshipID, leagueID, teamID: teamID}), context.features.players),
+    new Task('championships', context.features.championships, async () => {
+      context.parsed.championships = await championships(context);
+    }),
+    new Task('groups', context.features.groups, async () => {
+      context.parsed.groups = await groups(context);
+    }),
+    new Task('teams', context.features.teams, async () => {
+      context.parsed.teams = await teams(context, {championshipID, groupID: groupID});
+    }),
+    new Task('matches', context.features.matches, async () => {
+      context.parsed.matches = await matches(context, {championshipID, groupID: groupID, teamID: teamID});
+    }),
+    new Task('players', context.features.players, async () => {
+      context.parsed.players = await players(context, {championshipID, groupID: groupID, teamID: teamID});
+    }),
   ];
 
   for (const task of tasks) {

@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Database, type DatabaseReference, objectVal, ref, set } from '@angular/fire/database';
 import { type ChampionshipID } from '@einsatzplan/model/Championship';
-import type { LeagueID } from '@einsatzplan/model/League';
+import type { GroupID } from '@einsatzplan/model/GroupMasterData';
 import type { MatchID } from '@einsatzplan/model/Match';
 import { PlannedMatchSetup, PlayerSetup } from '@einsatzplan/model/PlannedMatchSetup';
 import { PlayerID } from '@einsatzplan/model/Player';
@@ -22,10 +22,10 @@ export class MatchSetupService {
   allTeamMatchesSetup$(
     seasonID: SeasonID,
     championshipID: ChampionshipID,
-    leagueID: LeagueID,
+    groupID: GroupID,
     teamID: TeamID,
   ): Observable<Record<MatchID, PlannedMatchSetup> | undefined> {
-    const ref = this.mkRef(seasonID, championshipID, leagueID, teamID);
+    const ref = this.mkRef(seasonID, championshipID, groupID, teamID);
 
     return objectVal<Record<MatchID, PlannedMatchSetup>>(ref);
   }
@@ -33,13 +33,13 @@ export class MatchSetupService {
   async putPlayerSetup(
     seasonID: SeasonID,
     championshipID: ChampionshipID,
-    leagueID: LeagueID,
+    groupID: GroupID,
     teamID: TeamID,
     matchID: MatchID,
     playerID: PlayerID,
     setup: PlayerSetup,
   ): Promise<void> {
-    const ref = this.mkRef(seasonID, championshipID, leagueID, teamID, matchID, `players.${playerID}`);
+    const ref = this.mkRef(seasonID, championshipID, groupID, teamID, matchID, `players.${playerID}`);
 
     await set(ref, JSON.parse(JSON.stringify(setup)));
   }
@@ -48,14 +48,14 @@ export class MatchSetupService {
   private mkRef(
     seasonID: SeasonID,
     championshipID: ChampionshipID,
-    leagueID: LeagueID,
+    groupID: GroupID,
     teamID: TeamID,
     matchID?: MatchID,
     propertyPath?: Paths<PlannedMatchSetup>,
   ): DatabaseReference {
 
     let path =
-      `/seasons/${seasonID}/championships/${championshipID}/leagues/${leagueID}/teams/${teamID}/plannedMatchSetup`;
+      `/seasons/${seasonID}/championships/${championshipID}/groups/${groupID}/teams/${teamID}/plannedMatchSetup`;
     if (matchID) {
       const m = cleanPathSegmentForFirebaseKey(matchID);
       path = `${path}/${m}`;

@@ -31,7 +31,7 @@ export class MatchListStore extends BaseStore<MatchListState> {
           return this.#teamsService.matchesForTeam$(
             currentTeam.seasonID,
             currentTeam.championshipID,
-            currentTeam.leagueID,
+            currentTeam.groupID,
             currentTeam.teamID,
           );
         }),

@@ -25,13 +25,14 @@ export class MatchSetupStore extends BaseStore<MatchSetupState> {
 
     return toSignal(
       this.#matchSetupService.allTeamMatchesSetup$(
-        team.seasonID,
-        team.championshipID,
-        team.leagueID,
-        team.teamID,
-      ).pipe(
-        map(matches => matches ?? {}),
-      ),
+          team.seasonID,
+          team.championshipID,
+          team.groupID,
+          team.teamID,
+        )
+        .pipe(
+          map(matches => matches ?? {}),
+        ),
       {initialValue: {}},
     );
 
@@ -51,7 +52,7 @@ export class MatchSetupStore extends BaseStore<MatchSetupState> {
     this.#matchSetupService.putPlayerSetup(
       this.#currentTeamStore.team().seasonID,
       this.#currentTeamStore.team().championshipID,
-      this.#currentTeamStore.team().leagueID,
+      this.#currentTeamStore.team().groupID,
       this.#currentTeamStore.team().teamID,
       matchID,
       playerID,

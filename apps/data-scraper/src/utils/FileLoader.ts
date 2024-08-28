@@ -70,12 +70,12 @@ export class FetchFileLoader implements FileLoader {
   async load(url: string): Promise<string> {
     const cached = this.#cache.get(url);
     if (cached) {
-      //console.debug('loading cached url:', url);
+      console.debug('loading cached url:', url);
       return Promise.resolve(cached);
     }
 
     try {
-      //console.debug('loading url:', url);
+      console.debug('loading remote url:', url);
       return await this.queue.add(
         async () => await this.fetchUrl(url),
         {throwOnTimeout: true},

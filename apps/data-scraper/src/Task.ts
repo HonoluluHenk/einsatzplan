@@ -1,10 +1,11 @@
 export class Task {
   constructor(
     readonly name: string,
-    readonly task: () => Promise<void>,
     readonly enabled: boolean,
+    readonly task: () => Promise<void>,
   )
   {
+    // nop
   }
 
   async execute() {

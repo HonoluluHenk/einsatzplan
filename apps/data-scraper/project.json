@@ -72,6 +72,12 @@
             "--championships"
           ]
         },
+        "groups": {
+          "buildTarget": "data-scraper:build:development",
+          "args": [
+            "--groups"
+          ]
+        },
         "matches": {
           "buildTarget": "data-scraper:build:development",
           "args": [

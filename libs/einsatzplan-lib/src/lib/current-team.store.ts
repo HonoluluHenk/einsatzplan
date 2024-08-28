@@ -1,6 +1,6 @@
 import { computed, Injectable, Signal } from '@angular/core';
 import { type ChampionshipID } from '@einsatzplan/model/Championship';
-import type { LeagueID } from '@einsatzplan/model/League';
+import type { GroupID } from '@einsatzplan/model/GroupMasterData';
 import type { SeasonID } from '@einsatzplan/model/Season';
 import { TeamID } from '@einsatzplan/model/Team';
 import { requireValue } from '@einsatzplan/shared-util/nullish';
@@ -10,7 +10,7 @@ import { BaseStore } from './store/base.store';
 export type CurrentTeam = {
   seasonID: SeasonID,
   championshipID: ChampionshipID;
-  leagueID: LeagueID;
+  groupID: GroupID;
   teamName: string;
   teamID: TeamID
 };
@@ -30,7 +30,7 @@ export class CurrentTeamStore extends BaseStore<CurrentTeamLibState> {
   init(params: {
     seasonID: SeasonID,
     championshipID: ChampionshipID;
-    leagueID: LeagueID;
+    groupID: GroupID;
     teamName: string
   })
   {
@@ -38,7 +38,7 @@ export class CurrentTeamStore extends BaseStore<CurrentTeamLibState> {
       team: {
         seasonID: params.seasonID,
         championshipID: params.championshipID,
-        leagueID: params.leagueID,
+        groupID: params.groupID,
         teamName: params.teamName,
         teamID: parseID('Team', params.teamName),
       },

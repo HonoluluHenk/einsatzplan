@@ -29,7 +29,7 @@ describe('parseChampionshipsFromHTML', () => {
       .toEqual(ensureProps<ChampionshipMasterData>({
         id: 'Championship:MTTV 24_25',
         shortName: 'MTTV 2024/25',
-        externalUrl: 'foo.html',
+        clickTTLigenplanUrl: 'foo.html',
         longName: 'MTTV Mannschaftsmeisterschaft 2024/25',
         season: {id: 'Season:24_25', shortName: '24/25', longName: '2024/25'},
       }));
