@@ -13,13 +13,13 @@ export type SeasonID = ID<'Season'>;
  */
 export type SeasonName = Name;
 
-export type Season = SeasonName & {
+export interface Season extends SeasonName {
   id: SeasonID;
 }
 
-export type SeasonMasterData = Season & {
+export interface SeasonMasterData extends Season {
   // temporary placeholder to prevent confusion with Season
-  foo: symbol
+  foo: symbol;
 }
 
 export function parseFromName(name: SeasonName): Season {

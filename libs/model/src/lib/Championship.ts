@@ -9,11 +9,11 @@ export type ChampionshipID = ID<'Championship'>;
  */
 export type ChampionshipName = Name;
 
-export type Championship = ChampionshipName & {
+export interface Championship extends ChampionshipName {
   id: ChampionshipID;
-};
+}
 
-export type ChampionshipMasterData = Championship & {
+export interface ChampionshipMasterData extends Championship {
   externalUrl: string;
   season: Season;
 }

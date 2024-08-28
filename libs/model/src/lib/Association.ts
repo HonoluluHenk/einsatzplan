@@ -5,11 +5,11 @@ export type AssociationID = ID<'Association'>;
 
 export type AssociationName = Name;
 
-export type Association = AssociationName & {
+export interface Association extends AssociationName {
   id: AssociationID;
-};
+}
 
-export type AssociationMasterData = Association & {
+export interface AssociationMasterData extends Association {
   // temporary placeholder to prevent confusion with Association
   foo: symbol;
 }

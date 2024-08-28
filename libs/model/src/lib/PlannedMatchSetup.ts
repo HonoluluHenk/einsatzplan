@@ -11,11 +11,11 @@ export const PlayerPlanningStatus = {
   unknown: 'unknown',
 } as const;
 
-import type {PlayerID} from './Player';
+import type { PlayerID } from './Player';
 
-export type PlayerSetup = {
-  status: PlayerPlanningStatus
-};
+export interface PlayerSetup {
+  status: PlayerPlanningStatus;
+}
 
 export function initialPlayerSetup(): PlayerSetup {
   return {
@@ -23,9 +23,9 @@ export function initialPlayerSetup(): PlayerSetup {
   };
 }
 
-export type PlannedMatchSetup = {
+export interface PlannedMatchSetup {
   players: Record<PlayerID, PlayerSetup>;
-};
+}
 
 export function debugPlayerSetup(players: Record<PlayerID, PlayerSetup>): string {
   const available = Object.values(players)

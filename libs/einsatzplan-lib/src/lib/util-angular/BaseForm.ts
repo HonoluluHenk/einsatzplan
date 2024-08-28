@@ -1,7 +1,7 @@
 import type { FormGroup } from '@angular/forms';
 import { FormVisitor } from './FormVisitor';
 
-export abstract class BaseForm<T extends Record<string, unknown>, FormGroupType extends FormGroup> {
+export abstract class BaseForm<T, FormGroupType extends FormGroup> {
 
   protected constructor(
     readonly group: FormGroupType,

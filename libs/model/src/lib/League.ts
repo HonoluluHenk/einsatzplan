@@ -5,6 +5,6 @@ export type LeagueID = ID<'League'>;
 
 export type LeagueName = Name;
 
-export type League = LeagueName & {
+export interface League extends LeagueName {
   id: LeagueID;
 }
