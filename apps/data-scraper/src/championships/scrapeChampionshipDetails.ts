@@ -1,7 +1,7 @@
 import type { ChampionshipMasterData } from '@einsatzplan/model/Championship';
-import * as cheerio from 'cheerio';
 import type { ChampionshipLink } from '../index/ChampionshipLink';
 import type { FileLoader } from '../utils/FileLoader';
+import { loadCheerio } from '../utils/loadCheerio';
 
 export async function scrapeChampionshipDetails(
   link: ChampionshipLink,
@@ -9,7 +9,7 @@ export async function scrapeChampionshipDetails(
 ): Promise<ChampionshipMasterData> {
   const html = await loader.load(link.url);
 
-  const $ = cheerio.load(html);
+  const $ = loadCheerio(html);
 
   const longName = $('#content #content-col1 h1')
     .text()

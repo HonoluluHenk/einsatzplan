@@ -1,41 +1,52 @@
+import type { Championship } from '@einsatzplan/model/Championship';
 import type { GroupMasterData } from '@einsatzplan/model/GroupMasterData';
+import type { Season } from '@einsatzplan/model/Season';
 import { ensureProps } from '@einsatzplan/shared-util/ensure';
 import { requireValue } from '@einsatzplan/shared-util/nullish';
 import { parseID } from '@einsatzplan/shared-util/types/ID.type';
-import * as cheerio from 'cheerio';
+import { ErrorWithCause } from '../utils/ErrorWithCause';
 import type { FileLoader } from '../utils/FileLoader';
+import { loadCheerio } from '../utils/loadCheerio';
 import type { GroupIntermediate } from './scrapeGroupIntermediatesFromLigenplan';
 
 export async function scrapeGroupFromGroupPage(
   intermediate: GroupIntermediate,
+  season: Season,
+  championship: Championship,
   loader: FileLoader,
 ): Promise<GroupMasterData> {
-  const html = await loader.load(intermediate.clickTTUrl);
+  try {
+    const html = await loader.load(intermediate.clickTTUrl);
 
-  const $ = cheerio.load(html);
+    const $ = loadCheerio(html);
 
-  const div = $('#content div#content-col1');
-  const header = requireValue(div.find('h1')
-    .html());
+    const div = $('#content div#content-col1');
+    const header = requireValue(div.find('h1')
+      .html());
 
-  const longName = parseLongNameFromHeader(header);
+    const longName = parseLongNameFromHeader(header);
 
-  const system = div.find('h2')
-    .filter((_, el) => $(el)
+    const system = div.find('h2')
+      .filter((_, el) => $(el)
+        .text()
+        .includes('Spielsystem'))
+      .next('p')
       .text()
-      .includes('Spielsystem'))
-    .next('p')
-    .text()
-    .trim();
+      .trim();
 
 
-  return ensureProps<GroupMasterData>({
-    id: parseID('Group', intermediate.shortName),
-    shortName: intermediate.shortName,
-    longName,
-    clickTTUrl: intermediate.clickTTUrl,
-    system,
-  });
+    return ensureProps<GroupMasterData>({
+      id: parseID('Group', intermediate.shortName),
+      shortName: intermediate.shortName,
+      longName,
+      clickTTUrl: intermediate.clickTTUrl,
+      system,
+      season,
+      championship,
+    });
+  } catch (error) {
+    throw new ErrorWithCause('Error processing ' + intermediate.clickTTUrl, error);
+  }
 }
 
 

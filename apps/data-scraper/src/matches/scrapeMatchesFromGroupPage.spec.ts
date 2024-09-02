@@ -1,9 +1,29 @@
+import type { Championship } from '@einsatzplan/model/Championship';
+import type { Group } from '@einsatzplan/model/GroupMasterData';
 import type { Match } from '@einsatzplan/model/Match';
+import type { Season } from '@einsatzplan/model/Season';
 import { ensureProps } from '@einsatzplan/shared-util/ensure';
+import { parseID } from '@einsatzplan/shared-util/types/ID.type';
 import { FixtureFileLoader } from '../utils/FileLoader';
 import { scrapeMatchesFromGroupPage } from './scrapeMatchesFromGroupPage';
 
 describe('scrapeMatchesFromGroupPage', () => {
+  const season: Season = {
+    id: parseID('Season', 'foo'),
+    shortName: 'Season',
+    longName: 'Season Long',
+  };
+  const championship: Championship = {
+    id: parseID('Championship', 'foo'),
+    shortName: 'Championship',
+    longName: 'Championship Long',
+  };
+  const group: Group = {
+    id: parseID('Group', 'foo'),
+    shortName: 'Group',
+    longName: 'Group Long',
+  };
+
   let actual: Match[];
   const loader = new FixtureFileLoader({
     'groupPage.html': fixtureFile('group/MTTV 3. Liga Herren Gruppe 2 - click-TT – Gruppe.html'),
@@ -13,7 +33,7 @@ describe('scrapeMatchesFromGroupPage', () => {
 
 
   beforeEach(async () => {
-    actual = await scrapeMatchesFromGroupPage('groupPage.html', loader);
+    actual = await scrapeMatchesFromGroupPage(season, championship, group, 'groupPage.html', loader);
   });
 
   it('finds the correct sub-page and pares values from there', async () => {
@@ -26,6 +46,9 @@ describe('scrapeMatchesFromGroupPage', () => {
         venueId: 'Venue:1',
         startTime: '19:45:00',
         flags: undefined,
+        season,
+        championship,
+        group,
       }));
   });
 });

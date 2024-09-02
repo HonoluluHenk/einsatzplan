@@ -5,8 +5,8 @@ import { ensureProps } from '@einsatzplan/shared-util/ensure';
 import { cleanPathForFirebaseKey } from '@einsatzplan/shared-util/firebase-util';
 import { requireValue } from '@einsatzplan/shared-util/nullish';
 import { parseID } from '@einsatzplan/shared-util/types/ID.type';
-import * as cheerio from 'cheerio';
 import type { FileLoader } from '../utils/FileLoader';
+import { loadCheerio } from '../utils/loadCheerio';
 import type { ChampionshipLink } from './ChampionshipLink';
 
 export async function parseChampionshipsFromHTML(
@@ -27,12 +27,14 @@ export async function parseChampionshipsFromHTML(
 
   const html = await opts.loader.load(opts.url);
 
-  const $ = cheerio.load(html);
+  const $ = loadCheerio(html);
   const assocHrefs = $('#navigation ul li ul li a');
 
   for (const a of assocHrefs) {
-    const header = $(a).text();
-    const href = requireValue($(a).attr('href'), `Link not found for association: ${header}`);
+    const header = $(a)
+      .text();
+    const href = requireValue($(a)
+      .attr('href'), `Link not found for association: ${header}`);
 
     const wantedChampionship = wantedChampionShipsByTitle[header];
     if (!wantedChampionship) {

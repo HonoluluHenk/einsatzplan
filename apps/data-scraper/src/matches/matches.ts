@@ -1,30 +1,39 @@
-import type { ChampionshipID } from '@einsatzplan/model/Championship';
-import type { GroupID } from '@einsatzplan/model/GroupMasterData';
 import type { Match, MatchID } from '@einsatzplan/model/Match';
-import type { TeamID } from '@einsatzplan/model/Team';
+import { groupingBy } from '@einsatzplan/shared-util/list-util';
 import type { ScraperContext } from '../ScraperContext';
-import { scrapeMatches } from './scrapeMatches';
+import { withTracing } from '../utils/withTracing';
+import { scrapeMatchesFromGroupPage } from './scrapeMatchesFromGroupPage';
 import { uploadMatches } from './uploadMatches';
 
 export async function matches(
   context: ScraperContext,
-  opts: {
-    championshipID: ChampionshipID,
-    groupID: GroupID,
-    teamID: TeamID,
-  },
 ): Promise<Record<MatchID, Match>> {
-  try {
-    const matches = await scrapeMatches('./data/club/33282/teams/OM3/getTeamMeetingsWebcal.ics');
+  return withTracing('matches', async () => {
+    try {
+      const matchesTasks = Object.values(context.parsed.groups)
+        .map(async group => {
+          return await scrapeMatchesFromGroupPage(
+            group.season,
+            group.championship,
+            group,
+            group.clickTTUrl,
+            context.loader,
+          );
+        });
+      const matches = (await Promise.all(matchesTasks))
+        .flat();
 
-    await uploadMatches(context.season.id, matches, opts.championshipID, opts.groupID, opts.teamID, context.db);
+      // FIXME: suboptimal: should upload Matches by group
+      await uploadMatches(matches, context.db);
 
-    console.log('matches saved:', Object.values(matches).length);
+      console.log('matches saved:', Object.values(matches).length);
 
-    return matches;
+      return matches.reduce(groupingBy('id'), {});
 
-  } catch (error) {
-    console.error('matches failed: ', error);
-    throw Error('matches failed');
-  }
+    } catch (error) {
+      console.error('matches failed: ', error);
+      throw Error('matches failed');
+    }
+
+  });
 }

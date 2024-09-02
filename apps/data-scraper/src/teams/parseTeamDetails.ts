@@ -1,18 +1,18 @@
 import type { Address } from '@einsatzplan/model/Address';
 import { parseName } from '@einsatzplan/model/PlayerName';
 import type { TeamContact } from '@einsatzplan/model/Team';
-import type { Venue } from '@einsatzplan/model/Venue';
+import type { VenueMasterData } from '@einsatzplan/model/Venue';
 import { ensureProps } from '@einsatzplan/shared-util/ensure';
 import { isNullish, type Nullish, requireValue } from '@einsatzplan/shared-util/nullish';
 import type { EmailAddress } from '@einsatzplan/shared-util/types/EmailAddress';
 import { parseID } from '@einsatzplan/shared-util/types/ID.type';
 import type { PhoneNumber } from '@einsatzplan/shared-util/types/PhoneNumber';
 import type { Cheerio } from 'cheerio';
-import * as cheerio from 'cheerio';
 import { Element } from 'domhandler';
+import { loadCheerio, loadCheerioFragment } from '../utils/loadCheerio';
 
 export type TeamDetail = {
-  venues: Venue[];
+  venues: VenueMasterData[];
   contact: TeamContact;
 }
 
@@ -20,10 +20,11 @@ export type TeamDetail = {
 export async function parseTeamDetails(
   html: string,
 ): Promise<TeamDetail> {
-  const $ = cheerio.load(html);
+  const $ = loadCheerio(html);
 
-  const teamDetailTable = $('h1').next('table.result-set');
-  const rows = $('tbody tr', teamDetailTable);
+  const teamDetailTable = $('h1')
+    .next('table.result-set');
+  const rows = $('tr', teamDetailTable);
 
   const contact = parseContact(rows);
   const venues = parseVenues(rows);
@@ -36,13 +37,16 @@ export async function parseTeamDetails(
 
 function parseContact(rows: Cheerio<Element>): TeamContact {
   const row = findRowWithTitle('Kapitän', rows);
-  const contentRows = row.children('td:nth-child(2)').contents()
+  const contentRows = row.children('td:nth-child(2)')
+    .contents()
     .filter((
       _,
       el,
     ) => !(el instanceof Element && el.tagName === 'br'))
     .toArray()
-    .map((el) => cheerio.load(el).text().trim())
+    .map((el) => loadCheerioFragment(el)
+      .text()
+      .trim())
   ;
   const name = parseName(contentRows[0]);
   const phone = parsePhone(contentRows[1]);
@@ -65,7 +69,9 @@ function findRowWithTitle(
     _,
     row,
   ) => {
-    const rowTitle = cheerio.load(row)('td:nth-child(1)').text().trim();
+    const rowTitle = loadCheerioFragment(row)('td:nth-child(1)')
+      .text()
+      .trim();
     return rowTitle === title;
   });
 }
@@ -91,7 +97,8 @@ function parseEmail(text: string | Nullish): EmailAddress | '' {
   }
 
   // input format: "encodeEmail('tld', 'name1', 'hostname', 'name2 or empty')"
-  const stripped = text.replace('encodeEmail(', '').replace(')', '');
+  const stripped = text.replace('encodeEmail(', '')
+    .replace(')', '');
 
   const parts = stripped.split(', ')
     .map((part) => part.replace(/'/g, ''));
@@ -128,12 +135,15 @@ function parseVenueNumber(
   return result;
 }
 
-function parseVenues(rows: Cheerio<Element>): Venue[] {
+function parseVenues(rows: Cheerio<Element>): VenueMasterData[] {
   const row = findRowWithTitle('Verein', rows);
-  const contents = row.children('td:nth-child(2)').contents();
+  const contents = row.children('td:nth-child(2)')
+    .contents();
   const contentRows = contents
     .toArray()
-    .map((el) => cheerio.load(el).text().trim())
+    .map((el) => loadCheerioFragment(el)
+      .text()
+      .trim())
     .filter(content => content.length !== 0)
   ;
 
@@ -143,7 +153,7 @@ function parseVenues(rows: Cheerio<Element>): Venue[] {
   // row 3: Venue address
   // row 4+: repetition of 1-3
 
-  const result: Venue[] = [];
+  const result: VenueMasterData[] = [];
 
   const repetitions = contentRows.slice(1);
   const venueRows = 3;
@@ -161,7 +171,7 @@ function parseVenues(rows: Cheerio<Element>): Venue[] {
 
     const address: Address = parseAddress(addressLine);
 
-    const venue = ensureProps<Venue>({
+    const venue = ensureProps<VenueMasterData>({
       id,
       number,
       name,

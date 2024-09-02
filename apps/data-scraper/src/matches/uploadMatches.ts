@@ -1,21 +1,25 @@
-import type { Database } from '@angular/fire/database';
-import type { ChampionshipID } from '@einsatzplan/model/Championship';
-import type { GroupID } from '@einsatzplan/model/GroupMasterData';
-import type { Match, MatchID } from '@einsatzplan/model/Match';
-import type { SeasonID } from '@einsatzplan/model/Season';
+import { type Database } from '@angular/fire/database';
+import type { Match } from '@einsatzplan/model/Match';
 import type { TeamID } from '@einsatzplan/model/Team';
 import { ref, set } from 'firebase/database';
+import { withTracing } from '../utils/withTracing';
 
 export async function uploadMatches(
-  seasonID: SeasonID,
-  matches: Record<MatchID, Match>,
-  championshipID: ChampionshipID,
-  groupID: GroupID,
-  teamID: TeamID,
+  matches: Match[],
   db: Database,
-): Promise<Record<`Match:${string}`, Match>> {
-  const path = `/seasons/${seasonID}/championships/${championshipID}/groups/${groupID}/teams/${teamID}/matches`;
-  await set(ref(db, path), JSON.parse(JSON.stringify(matches)));
+): Promise<void> {
+  const PQueue = await import('p-queue');
+  const queue = new PQueue.default({throwOnTimeout: true, concurrency: 20});
 
-  return matches;
+  await queue.addAll(matches.map(match => async () => {
+    await withTracing(`uploadMatches (${match.id})`, async () => {
+      async function uploadForTeam(teamID: TeamID): Promise<void> {
+        const path = `/seasons/${match.season.id}/championships/${match.championship.id}/groups/${match.group.id}/teams/${teamID}/matches/${match.id}`;
+        await set(ref(db, path), JSON.parse(JSON.stringify(match)));
+      }
+
+      await uploadForTeam(match.homeTeamId);
+      await uploadForTeam(match.opponentTeamId);
+    });
+  }));
 }

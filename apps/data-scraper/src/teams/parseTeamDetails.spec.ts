@@ -1,5 +1,5 @@
 import type { TeamContact } from '@einsatzplan/model/Team';
-import type { Venue } from '@einsatzplan/model/Venue';
+import type { VenueMasterData } from '@einsatzplan/model/Venue';
 import { ensureProps } from '@einsatzplan/shared-util/ensure';
 import fs from 'fs';
 import { parseTeamDetails } from './parseTeamDetails';
@@ -15,7 +15,7 @@ describe('parseTeamDetails', () => {
     expect(actual)
       .toEqual({
         venues: [
-          ensureProps<Venue>({
+          ensureProps<VenueMasterData>({
             id: 'Venue:1',
             number: 1,
             name: 'Turnhalle orange, UG, Schule Dennigkofen',
@@ -49,7 +49,7 @@ describe('parseTeamDetails', () => {
     expect(actual)
       .toEqual({
         venues: [
-          ensureProps<Venue>({
+          ensureProps<VenueMasterData>({
             id: 'Venue:1',
             number: 1,
             name: 'Schulhaus Äussere Enge (bis 13.10.22)',
@@ -59,7 +59,7 @@ describe('parseTeamDetails', () => {
               city: 'Bern',
             },
           }),
-          ensureProps<Venue>({
+          ensureProps<VenueMasterData>({
             id: 'Venue:2',
             number: 2,
             name: 'Sporthalle Kleefeld (ab 21.10.2022)',

@@ -1,4 +1,7 @@
+import type { Championship } from '@einsatzplan/model/Championship';
+import type { Group } from '@einsatzplan/model/GroupMasterData';
 import type { Match } from '@einsatzplan/model/Match';
+import type { Season } from '@einsatzplan/model/Season';
 import type { VenueID } from '@einsatzplan/model/Venue';
 import { ensureProps } from '@einsatzplan/shared-util/ensure';
 import { cleanPathForFirebaseKey } from '@einsatzplan/shared-util/firebase-util';
@@ -8,37 +11,60 @@ import { parseID } from '@einsatzplan/shared-util/types/ID.type';
 import type { ISOLocalDateString } from '@einsatzplan/shared-util/types/ISOLocalDateString';
 import type { ISOLocalTimeString } from '@einsatzplan/shared-util/types/ISOLocalTimeString';
 import type { Cheerio, CheerioAPI } from 'cheerio';
-import * as cheerio from 'cheerio';
 import { format, parse } from 'date-fns';
 import type { Element } from 'domhandler';
+import { ErrorWithCause } from '../utils/ErrorWithCause';
 import type { FileLoader } from '../utils/FileLoader';
+import { loadCheerio } from '../utils/loadCheerio';
+import { withTracing } from '../utils/withTracing';
 
 
 export async function scrapeMatchesFromGroupMatchesPage(
+  season: Season,
+  championship: Championship,
+  group: Group,
   matchesPageUrl: string,
   loader: FileLoader,
 ): Promise<Match[]> {
-  const html = await loader.load(matchesPageUrl);
+  return withTracing('scrapeMatchesFromGroupMatchesPage', async () => {
+    try {
+      const html = await loader.load(matchesPageUrl);
 
-  const $ = cheerio.load(html);
+      const $ = loadCheerio(html);
 
-  const clickTTGroupId = parseClickTTGroupId($);
+      const clickTTGroupId = parseClickTTGroupId($);
 
-  const dataRows = $('#content table.result-set tr')
-    .toArray()
-    // strip heading row
-    .slice(1);
+      const dataRows = $('#content table.result-set tr')
+        .toArray()
+        // strip heading row
+        .slice(1);
 
-  const rawData: RawRowValues[] = dataRows
-    .map(row => extractRawValuesFromRow($('td', row)));
-  rawData.forEach(fillMissingDateFromPreviousRow);
+      const rawData: RawRowValues[] = dataRows
+        .map(row => extractRawValuesFromRow($('td', row)));
+      rawData.forEach(fillMissingDateFromPreviousRow);
 
-  const result = rawData.map((row) => parseRawDataIntoMatch(row, clickTTGroupId));
+      const result = rawData.map((row) => parseRawDataIntoMatch(
+        season,
+        championship,
+        group,
+        row,
+        clickTTGroupId,
+      ));
 
-  return result;
+      return result;
+    } catch (error) {
+      throw new ErrorWithCause(`Error processing ${matchesPageUrl}`, error);
+    }
+  });
 }
 
-function parseRawDataIntoMatch(row: RawRowValues, clickTTGroupId: string): Match {
+function parseRawDataIntoMatch(
+  season: Season,
+  championship: Championship,
+  group: Group,
+  row: RawRowValues,
+  clickTTGroupId: string,
+): Match {
   const id: `Match:${string}` = parseID('Match', cleanPathForFirebaseKey(`${(row.homeTeam)}-vs-${(row.opponentTeam)}-group-${clickTTGroupId}`));
   const homeTeamId = parseID('Team', row.homeTeam);
   const opponentTeamId = parseID('Team', row.opponentTeam);
@@ -54,6 +80,9 @@ function parseRawDataIntoMatch(row: RawRowValues, clickTTGroupId: string): Match
     date,
     startTime,
     flags,
+    season,
+    championship,
+    group,
   });
 }
 
@@ -72,9 +101,12 @@ function parseTimeAndFlags(timeAndFlags: string): {
 
 }
 
-function parseVenueId(venue: string): VenueID {
+function parseVenueId(venue: string): VenueID | undefined {
+  if (venue === '') {
+    return undefined;
+  }
   // venue is of the format "(n)" where n is the venue number
-  const number = requireValue(venue.match(/\((\d+)\)/)?.[1], `Cannot parse Venue from "${venue}"`);
+  const number = requireValue(venue.match(/\((.)\)/)?.[1], `Cannot parse Venue from "${venue}"`);
 
   return parseID('Venue', number);
 }
@@ -167,8 +199,8 @@ function fillMissingDateFromPreviousRow(entry: RawRowValues, i: number, array: R
 
 
 function parseClickTTGroupId($: CheerioAPI): string {
-  const clickTTGroupId = $('a[href*="groupInfo"][href*="group="]')
-    .attr('href')
+  const clickTTGroupId = $('html>head>meta[name*="nuLigaStatsUrl"][content*="group="]')
+    .attr('content')
     ?.match(/group=(\d+)/)
     ?.[1];
 

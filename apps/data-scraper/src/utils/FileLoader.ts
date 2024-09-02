@@ -75,9 +75,12 @@ export class FetchFileLoader implements FileLoader {
     }
 
     try {
-      console.debug('loading remote url:', url);
+
       return await this.queue.add(
-        async () => await this.fetchUrl(url),
+        async () => {
+          console.debug('loading remote url:', url);
+          return await this.fetchUrl(url);
+        },
         {throwOnTimeout: true},
       );
 

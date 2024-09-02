@@ -1,7 +1,7 @@
 import { ensureProps } from '@einsatzplan/shared-util/ensure';
 import { requireValue } from '@einsatzplan/shared-util/nullish';
-import * as cheerio from 'cheerio';
 import type { FileLoader } from '../utils/FileLoader';
+import { loadCheerio } from '../utils/loadCheerio';
 
 export type GroupIntermediate = {
   shortName: string;
@@ -14,7 +14,7 @@ export async function scrapeGroupIntermediatesFromLigenplan(
 ): Promise<GroupIntermediate[]> {
   const html = await loader.load(url);
 
-  const $ = cheerio.load(html);
+  const $ = loadCheerio(html);
 
   const groupAnchors = $('#content table.matrix tr td ul li a')
     .toArray();

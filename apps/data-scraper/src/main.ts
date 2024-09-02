@@ -20,7 +20,7 @@ const db = getDatabase(firebaseApp);
 
 
 const championshipID = parseID('Championship', 'MTTV 24/25');
-const groupID = parseID('Group', 'HE 3. Liga Gr. 3');
+const groupID = parseID('Group', 'HE 3. Liga Gr. 2');
 const teamID = parseID('Team', 'Ostermundigen III');
 
 (async () => {
@@ -47,7 +47,7 @@ const teamID = parseID('Team', 'Ostermundigen III');
       context.parsed.teams = await teams(context, {championshipID, groupID: groupID});
     }),
     new Task('matches', context.features.matches, async () => {
-      context.parsed.matches = await matches(context, {championshipID, groupID: groupID, teamID: teamID});
+      context.parsed.matches = await matches(context);
     }),
     new Task('players', context.features.players, async () => {
       context.parsed.players = await players(context, {championshipID, groupID: groupID, teamID: teamID});

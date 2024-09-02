@@ -9,13 +9,13 @@ export const config: SeasonConfig = {
   // https://www.click-tt.ch/cgi-bin/WebObjects/nuLigaTTCH.woa/wa/clubSearch?federation=STT&preferredLanguage=German
   // These are pretty constant so we can hardcode them here
   associations: [
-    {shortName: 'STT', longName: 'Nationalliga'},
+    //{shortName: 'STT', longName: 'Nationalliga'},
     //{shortName: 'AGTT', longName: 'Association Genevoise de Tennis de Table'},
     //{shortName: 'ANJTT', longName: 'Association Neuchâteloise et Jurassienne de Tennis de Table'},
     //{shortName: 'ATTT', longName: 'Associazione Ticinese Tennis Tavolo'},
     //{shortName: 'AVVF', longName: 'Association Vaud, Valais, Fribourg'},
     {shortName: 'MTTV', longName: 'Mittelländischer Tischtennisverband'},
-    {shortName: 'NWTTV', longName: 'Nordwestschweizerischer Tischtennisverband'},
+    //{shortName: 'NWTTV', longName: 'Nordwestschweizerischer Tischtennisverband'},
     //{shortName: 'OTTV', longName: 'Ostschweizer Tischtennisverband'},
     //{shortName: 'TTVI', longName: 'Tischtennisverband Innerschweiz'},
     //{shortName: 'Schweizer Cup', longName: 'Schweizer Cup'},

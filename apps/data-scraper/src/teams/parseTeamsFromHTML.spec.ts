@@ -1,5 +1,5 @@
 import type { Team } from '@einsatzplan/model/Team';
-import type { Venue } from '@einsatzplan/model/Venue';
+import type { VenueMasterData } from '@einsatzplan/model/Venue';
 import { ensureProps } from '@einsatzplan/shared-util/ensure';
 import { parseID } from '@einsatzplan/shared-util/types/ID.type';
 import { FixtureFileLoader } from '../utils/FileLoader';
@@ -64,7 +64,7 @@ describe('parseTeamsFromHTML', () => {
         name: 'Ostermundigen III',
         shortName: 'Ostermundigen III',
         venues: {
-          'Venue:1': ensureProps<Venue>({
+          'Venue:1': ensureProps<VenueMasterData>({
             id: 'Venue:1',
             number: 1,
             name: 'Turnhalle orange, UG, Schule Dennigkofen',

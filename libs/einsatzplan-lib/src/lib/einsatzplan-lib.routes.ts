@@ -16,7 +16,7 @@ export const einsatzplanLibRoutes: Route[] = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: '24%2F25/MTTV 24%2F25/HE 3. Liga Gr. 3/Ostermundigen III',
+        redirectTo: '24%2F25/MTTV 24%2F25/HE 3. Liga Gr. 2/Ostermundigen III',
       },
       {
         path: ':season/:championship/:group/:teamName',

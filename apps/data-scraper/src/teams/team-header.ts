@@ -1,7 +1,7 @@
-import * as cheerio from 'cheerio';
 import { type Cheerio } from 'cheerio';
 import type { Element } from 'domhandler';
 import type { FileLoader } from '../utils/FileLoader';
+import { loadCheerio, loadCheerioFragment } from '../utils/loadCheerio';
 
 export type TeamHeader = {
   name: string;
@@ -13,18 +13,20 @@ export async function parseTeamHeaders(
   loader: FileLoader,
 ): Promise<TeamHeader[]> {
   try {
-    const $ = cheerio.load(html);
+    const $ = loadCheerio(html);
 
-    const teamsTable = $('h2:contains("Tabelle")').next('table.result-set');
+    const teamsTable = $('h2:contains("Tabelle")')
+      .next('table.result-set');
 
-    const teamsTableRowsWithoutHeading = $('tbody tr', teamsTable).slice(1);
+    const teamsTableRowsWithoutHeading = $('tbody tr', teamsTable)
+      .slice(1);
 
     const parsed = teamsTableRowsWithoutHeading
       .map((
         _,
         row,
       ) => {
-        const teamHeaderCol = cheerio.load(row)('td:nth-child(3)');
+        const teamHeaderCol = loadCheerioFragment(row)('td:nth-child(3)');
         const teamHeader = parseTeamHeaderFromTD(teamHeaderCol, loader);
 
         return teamHeader;
@@ -49,7 +51,8 @@ function parseTeamHeaderFromTD(
   const anchor = teamColTD.children('a');
 
   return {
-    name: anchor.text().trim(),
+    name: anchor.text()
+      .trim(),
     url: loader.prependBaseURL(anchor.attr('href') ?? ''),
   };
 }

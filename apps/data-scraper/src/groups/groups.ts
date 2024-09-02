@@ -11,7 +11,11 @@ export async function groups(
     const championships = Object.values(context.parsed.championships);
 
     const groupTasks = championships
-      .map(championship => scrapeGroupsFromLigenplan(championship.clickTTLigenplanUrl, context.loader)
+      .map(championship => scrapeGroupsFromLigenplan(
+        championship.clickTTLigenplanUrl,
+        championship.season,
+        championship,
+        context.loader)
         .then(groups => ({championship, groups})));
     const groupsInChampionship = (await Promise.all(groupTasks));
 

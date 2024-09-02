@@ -20,6 +20,7 @@ export class TeamsService {
   )
   {
     const path = `/seasons/${seasonID}/championships/${championshipID}/groups/${groupID}/teams/${teamID}/matches`;
+    console.log('matchesForTeam$', path);
     return objectVal<Record<MatchID, Match>>(ref(this.#db, path));
   }
 }
