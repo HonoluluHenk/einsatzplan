@@ -12,6 +12,7 @@ export interface TeamContact {
 
 export type TeamID = ID<'Team'>;
 
+// FIXME: convert to NamedEntity
 export interface Team {
   id: TeamID;
   name: string;

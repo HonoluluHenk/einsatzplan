@@ -1,7 +1,6 @@
-import type { AssociationName } from '@einsatzplan/model/Association';
-import type { SeasonName } from '@einsatzplan/model/Season';
+import type { Name } from '@einsatzplan/model/Name';
 
 export type SeasonConfig = {
-  season: SeasonName;
-  associations: AssociationName[];
+  season: Name;
+  associations: Name[];
 }

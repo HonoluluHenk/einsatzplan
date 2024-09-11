@@ -11,6 +11,7 @@ export async function uploadMatches(
   const PQueue = await import('p-queue');
   const queue = new PQueue.default({throwOnTimeout: true, concurrency: 20});
 
+
   await queue.addAll(matches.map(match => async () => {
     await withTracing(`uploadMatches (${match.id})`, async () => {
       async function uploadForTeam(teamID: TeamID): Promise<void> {
@@ -18,8 +19,13 @@ export async function uploadMatches(
         await set(ref(db, path), JSON.parse(JSON.stringify(match)));
       }
 
-      await uploadForTeam(match.homeTeamId);
-      await uploadForTeam(match.opponentTeamId);
+      try {
+        await uploadForTeam(match.homeTeamId);
+        await uploadForTeam(match.opponentTeamId);
+      } catch (e) {
+        console.log('match', match);
+        throw e;
+      }
     });
   }));
 }

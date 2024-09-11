@@ -1,5 +1,5 @@
-import type { Association, AssociationName } from '@einsatzplan/model/Association';
-import type { ChampionshipName } from '@einsatzplan/model/Championship';
+import type { Association } from '@einsatzplan/model/Association';
+import type { Name } from '@einsatzplan/model/Name';
 import type { Season } from '@einsatzplan/model/Season';
 import { ensureProps } from '@einsatzplan/shared-util/ensure';
 import { cleanPathForFirebaseKey } from '@einsatzplan/shared-util/firebase-util';
@@ -13,13 +13,13 @@ export async function parseChampionshipsFromHTML(
   opts: {
     url: string,
     season: Season,
-    associations: AssociationName[],
+    associations: Name[],
     loader: FileLoader
   },
 ): Promise<ChampionshipLink[]> {
   const result: ChampionshipLink[] = [];
 
-  const wantedChampionShipsByTitle: Record<string, ChampionshipName> = opts.associations.reduce((
+  const wantedChampionShipsByTitle: Record<string, Name> = opts.associations.reduce((
       acc,
       next,
     ) => addChampionship(acc, next, opts.season),
@@ -55,17 +55,17 @@ export async function parseChampionshipsFromHTML(
 
 function addChampionship(
   acc: Record<string, Association>,
-  next: AssociationName,
-  championship: ChampionshipName,
+  nextAssociation: Name,
+  championshipName: Name,
 ): Record<string, Association> {
   const assoc = ensureProps<Association>({
-    id: parseID('Association', cleanPathForFirebaseKey(next.shortName)),
-    shortName: next.shortName,
-    longName: next.longName,
+    id: parseID('Association', cleanPathForFirebaseKey(nextAssociation.shortName)),
+    shortName: nextAssociation.shortName,
+    longName: nextAssociation.longName,
   });
 
-  const shortHeader = `${next.shortName} ${championship.longName}`;
-  const longHeader = `${next.longName} ${championship.longName}`;
+  const shortHeader = `${nextAssociation.shortName} ${championshipName.longName}`;
+  const longHeader = `${nextAssociation.longName} ${championshipName.longName}`;
 
   return {
     ...acc,

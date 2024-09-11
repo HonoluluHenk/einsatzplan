@@ -1,10 +1,10 @@
 import type { Database } from '@angular/fire/database';
-import type { AssociationName } from '@einsatzplan/model/Association';
 import type { Championship, ChampionshipID, ChampionshipMasterData } from '@einsatzplan/model/Championship';
 import type { Group, GroupID, GroupMasterData } from '@einsatzplan/model/GroupMasterData';
 import type { Match, MatchID } from '@einsatzplan/model/Match';
+import type { Name } from '@einsatzplan/model/Name';
 import type { Player, PlayerID } from '@einsatzplan/model/Player';
-import { parseFromName, type Season, type SeasonName } from '@einsatzplan/model/Season';
+import { parseFromName, type Season } from '@einsatzplan/model/Season';
 import type { Team, TeamID } from '@einsatzplan/model/Team';
 import type PQueue from 'p-queue';
 import type { SeasonConfig } from './config/SeasonConfig';
@@ -70,7 +70,7 @@ export class ScraperContext {
     return features;
   }
 
-  get seasonName(): SeasonName {
+  get seasonName(): Name {
     return this.config.season;
   }
 
@@ -78,7 +78,7 @@ export class ScraperContext {
     return parseFromName(this.seasonName);
   }
 
-  get associations(): AssociationName[] {
+  get associations(): Name[] {
     return this.config.associations;
   }
 

@@ -1,4 +1,4 @@
-import type { AssociationName } from '@einsatzplan/model/Association';
+import type { Name } from '@einsatzplan/model/Name';
 import type { Season } from '@einsatzplan/model/Season';
 import { ensureProps } from '@einsatzplan/shared-util/ensure';
 import { FixtureFileLoader } from '../utils/FileLoader';
@@ -14,7 +14,7 @@ describe('parseChampionshipsFromHTML', () => {
 
   const url = 'https://www.click-tt.ch/index.htm.de';
   const season: Season = {id: 'Season:24_25', shortName: '24/25', longName: '2024/25'};
-  const associations: AssociationName[] = [
+  const associations: Name[] = [
     {shortName: 'STT', longName: 'Nationalliga'},
     {shortName: 'MTTV', longName: 'Mittelländischer Tischtennisverband'},
     {shortName: 'NWTTV', longName: 'Nordwestschweizerischer Tischtennisverband'},
