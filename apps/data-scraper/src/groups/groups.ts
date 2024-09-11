@@ -8,13 +8,13 @@ export async function groups(
   context: ScraperContext,
 ): Promise<Record<GroupID, GroupMasterData>> {
   try {
-    const championships = Object.values(context.parsed.championships);
+    const championships = Object.values(context.parsed.championshipMD);
 
     const groupTasks = championships
       .map(championship => scrapeGroupsFromLigenplan(
         championship.clickTTLigenplanUrl,
         championship.season,
-        championship,
+        context.parsed.championships[championship.id],
         context.loader)
         .then(groups => ({championship, groups})));
     const groupsInChampionship = (await Promise.all(groupTasks));

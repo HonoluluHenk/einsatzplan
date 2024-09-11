@@ -1,3 +1,7 @@
+import type { Championship } from '@einsatzplan/model/Championship';
+import type { Group } from '@einsatzplan/model/GroupMasterData';
+import { ensureProps } from '@einsatzplan/shared-util/ensure';
+import { groupingBy } from '@einsatzplan/shared-util/list-util';
 import { parseID } from '@einsatzplan/shared-util/types/ID.type';
 
 import { initializeApp } from 'firebase/app';
@@ -38,10 +42,24 @@ const teamID = parseID('Team', 'Ostermundigen III');
 
   const tasks = [
     new Task('championships', context.features.championships, async () => {
-      context.parsed.championships = await championships(context);
+      context.parsed.championshipMD = await championships(context);
+      context.parsed.championships = Object.values(context.parsed.championshipMD)
+        .map(md => ensureProps<Championship>({
+          id: md.id,
+          shortName: md.shortName,
+          longName: md.longName,
+        }) as Championship)
+        .reduce(groupingBy('id'), {});
     }),
     new Task('groups', context.features.groups, async () => {
-      context.parsed.groups = await groups(context);
+      context.parsed.groupMD = await groups(context);
+      context.parsed.groups = Object.values(context.parsed.groupMD)
+        .map(g => ensureProps<Group>({
+          id: g.id,
+          shortName: g.shortName,
+          longName: g.longName,
+        }))
+        .reduce(groupingBy('id'), {});
     }),
     new Task('teams', context.features.teams, async () => {
       context.parsed.teams = await teams(context, {championshipID, groupID: groupID});

@@ -10,12 +10,12 @@ export async function matches(
 ): Promise<Record<MatchID, Match>> {
   return withTracing('matches', async () => {
     try {
-      const matchesTasks = Object.values(context.parsed.groups)
+      const matchesTasks = Object.values(context.parsed.groupMD)
         .map(async group => {
           return await scrapeMatchesFromGroupPage(
             group.season,
             group.championship,
-            group,
+            context.parsed.groups[group.id],
             group.clickTTUrl,
             context.loader,
           );

@@ -1,7 +1,7 @@
 import type { Database } from '@angular/fire/database';
 import type { AssociationName } from '@einsatzplan/model/Association';
-import type { ChampionshipID, ChampionshipMasterData } from '@einsatzplan/model/Championship';
-import type { GroupID, GroupMasterData } from '@einsatzplan/model/GroupMasterData';
+import type { Championship, ChampionshipID, ChampionshipMasterData } from '@einsatzplan/model/Championship';
+import type { Group, GroupID, GroupMasterData } from '@einsatzplan/model/GroupMasterData';
 import type { Match, MatchID } from '@einsatzplan/model/Match';
 import type { Player, PlayerID } from '@einsatzplan/model/Player';
 import { parseFromName, type Season, type SeasonName } from '@einsatzplan/model/Season';
@@ -20,14 +20,18 @@ type ScraperFeatures = {
 
 export class ScraperContext {
   readonly parsed: {
-    championships: Record<ChampionshipID, ChampionshipMasterData>;
-    groups: Record<GroupID, GroupMasterData>;
+    championships: Record<ChampionshipID, Championship>;
+    championshipMD: Record<ChampionshipID, ChampionshipMasterData>;
+    groups: Record<GroupID, Group>;
+    groupMD: Record<GroupID, GroupMasterData>;
     matches: Record<MatchID, Match>;
     players: Record<PlayerID, Player>;
     teams: Record<TeamID, Team>;
   } = {
     championships: {},
+    championshipMD: {},
     groups: {},
+    groupMD: {},
     matches: {},
     players: {},
     teams: {},
